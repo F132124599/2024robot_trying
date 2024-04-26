@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import pabeles.concurrency.IntOperatorTask.Min;
 
 /**
@@ -65,7 +67,74 @@ public final class Constants {
     public static final double indexerVoltage = 0;
   }
 
-  public final class SwerveContants{
+  public final class SwerveContants {
+    public static final int leftFrontDriveID = 0;
+    public static final int rightFrontDriveID = 0;
+    public static final int leftBackDriveID = 0;
+    public static final int rightBackDriveID = 0;
+
+    public static final int leftFrontTurnID = 0;
+    public static final int rightFrontTurnID = 0;
+    public static final int leftBackTurnID = 0;
+    public static final int rightBackTurnID = 0;
+
+    public static final int leftFrontAbsoluteEncoderID = 0;
+    public static final int rightFrontAbsoluteEncoderID = 0;
+    public static final int leftBackAbsoluteEncoderID = 0;
+    public static final int rightBackAbsoluteEncoderID = 0;
+
+    public static final double leftFrontOffset = 0;
+    public static final double rightFrontOffset = 0;
+    public static final double leftBackOffset = 0;
+    public static final double rightBackOffset = 0;
+
+    public static final int pigean2ID = 0;
+
+    public static final double turningPidController_Kp = 0.01;
+    public static final double turningPidController_Ki = 0;
+    public static final double turningPidController_Kd = 0;
+
+    public static final int pidRangeMin = -180;
+    public static final int pidRangeMax = 180;
+
+    public static final double wheelDiameterMeters = 0;
+
+    public static final double driveGearRatio = 0;
+
+    public static final double maxVelocityMetersPersecond = 3;
+    public static final double maxAccelerationMeterPersecond = 3;
+
+    public static final boolean turningMotorInversion = false;
+    public static final boolean driveMotorInversion = false; 
+
+
+
+    public static final double driveVelocityConversionFactor = 
+    (1/driveGearRatio/60)*wheelDiameterMeters*Math.PI;
+
+    public static final double drivePositionConversionFactor = 
+    (1/driveGearRatio)*wheelDiameterMeters*Math.PI;
+
+    public static SwerveDriveKinematics swervKinematics = new SwerveDriveKinematics(
+      new Translation2d(),
+      new Translation2d(),
+      new Translation2d(),
+      new Translation2d()
+      );
+
+    public static double pathingx_Kp = 0;
+    public static double pathingx_Ki = 0;
+    public static double pathingx_Kd = 0;
+
+    public static double pathingy_Kp = 0;
+    public static double pathingy_Ki = 0;
+    public static double pathingy_Kd = 0;
+
+    public static double pathingtheta_Kp = 0;
+    public static double pathingtheta_Ki = 0;
+    public static double pathingtheta_Kd = 0;
+
+    public static double maxOutput = 0;
 
   }
 
