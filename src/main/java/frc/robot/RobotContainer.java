@@ -37,7 +37,8 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
-  private final CommandXboxController driveController = new CommandXboxController(RobotContainerConstants.CommandXboxController_ID);
+  private final CommandXboxController driveController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
+  private final CommandXboxController baseController = new CommandXboxController(RobotContainerConstants.BaseXboxController_ID);
 
 
 
@@ -64,6 +65,11 @@ public class RobotContainer {
     DoubleSupplier leftClimbSpeed = ()-> driveController.getRightY();
 
     BooleanSupplier ifFeed = ()-> driveController.y().getAsBoolean();
+
+    DoubleSupplier xSpeed = ()-> baseController.getLeftX();
+    DoubleSupplier ySpeed = ()-> baseController.getLedtY();
+    DoubleSupplier zSpeed = ()-> baseController.getRightX();
+
 
     driveController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     driveController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));

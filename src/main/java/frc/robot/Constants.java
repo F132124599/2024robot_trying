@@ -67,7 +67,7 @@ public final class Constants {
     public static final double indexerVoltage = 0;
   }
 
-  public final class SwerveContants {
+  public final class SwerveConstants {
     public static final int leftFrontDriveID = 0;
     public static final int rightFrontDriveID = 0;
     public static final int leftBackDriveID = 0;
@@ -139,7 +139,8 @@ public final class Constants {
   }
 
   public final class RobotContainerConstants {
-    public static final int CommandXboxController_ID = 0;
+    public static final int driverXboxController_ID = 0;
+    public static final int BaseXboxController_ID = 0;
   }
 
   public static double setMaxOutPut(double outPut, double maxOutPut){

@@ -14,7 +14,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import frc.robot.Constants;
-import frc.robot.Constants.SwerveContants;
+import frc.robot.Constants.SwerveConstants;
 
 public class SwerveModule {
     private final CANSparkMax driveMotor;
@@ -27,23 +27,23 @@ public class SwerveModule {
 
     private final PIDController turningPidController;
 
-    public SwerveModule(int driverMotorID,int turningMotorID,int turningAbsoluteEncoderID,double absoluteEncoderOffset){
-        driveMotor = new CANSparkMax(driverMotorID,MotorType.kBrushless);
-        turningMotor = new CANSparkMax(turningMotorID,MotorType.kBrushless);
+    public SwerveModule(int driverMotorID, int turningMotorID, int turningAbsoluteEncoderID, double absoluteEncoderOffset){
+        driveMotor = new CANSparkMax(driverMotorID, MotorType.kBrushless);
+        turningMotor = new CANSparkMax(turningMotorID, MotorType.kBrushless);
 
         driveMotorEncoder = driveMotor.getEncoder();
         turningMotEncoder = turningMotor.getEncoder();
 
         turningAbsoluteEncoder = new CANcoder(turningAbsoluteEncoderID);
 
-        turningPidController = new PIDController(SwerveContants.turningPidController_Kp,SwerveContants.turningPidController_Ki,SwerveContants.turningPidController_Kd);
-        turningPidController.enableContinuousInput(SwerveContants.pidRangeMin,SwerveContants.pidRangeMin);
+        turningPidController = new PIDController(SwerveConstants.turningPidController_Kp, SwerveConstants.turningPidController_Ki, SwerveConstants.turningPidController_Kd);
+        turningPidController.enableContinuousInput(SwerveConstants.pidRangeMin, SwerveConstants.pidRangeMin);
 
         driveMotor.restoreFactoryDefaults();
         turningMotor.restoreFactoryDefaults();
 
-        turningMotor.setInverted(SwerveContants.turningMotorInversion);
-        driveMotor.setInverted(SwerveContants.driveMotorInversion);
+        turningMotor.setInverted(SwerveConstants.turningMotorInversion);
+        driveMotor.setInverted(SwerveConstants.driveMotorInversion);
 
         driveMotor.setIdleMode(IdleMode.kCoast);
         turningMotor.setIdleMode(IdleMode.kCoast);
@@ -54,19 +54,19 @@ public class SwerveModule {
         cancoderCfg.MagnetSensor.MagnetOffset = absoluteEncoderOffset;
         turningAbsoluteEncoder.getConfigurator().apply(cancoderCfg);
 
-        driveMotorEncoder.setVelocityConversionFactor(SwerveContants.driveVelocityConversionFactor);
-        driveMotorEncoder.setPositionConversionFactor(SwerveContants.drivePositionConversionFactor);
+        driveMotorEncoder.setVelocityConversionFactor(SwerveConstants.driveVelocityConversionFactor);
+        driveMotorEncoder.setPositionConversionFactor(SwerveConstants.drivePositionConversionFactor);
     }
     public SwerveModuleState getstate(){
-        return new SwerveModuleState(driveMotorEncoder.getVelocity(),Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
+        return new SwerveModuleState(driveMotorEncoder.getVelocity(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
     }
 
     public SwerveModulePosition getPosition(){
-        return new SwerveModulePosition(driveMotorEncoder.getPosition(),Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
+        return new SwerveModulePosition(driveMotorEncoder.getPosition(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
     }
     public void setState(SwerveModuleState state){
         SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
-        double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(),optimizedState.angle.getDegrees());
+        double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
         turningMotor.set(turningMotorOutput);
         driveMotor.set(optimizedState.speedMetersPerSecond);
     }
