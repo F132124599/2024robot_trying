@@ -88,6 +88,10 @@ public final class Constants {
     public static final double leftBackOffset = 0;
     public static final double rightBackOffset = 0;
 
+    public static final double xSpeedMaxOutPut = 0;
+    public static final double ySpeedMaxOutPut = 0;
+    public static final double zSpeedMaxOutPut = 0;
+
     public static final int pigean2ID = 0;
 
     public static final double turningPidController_Kp = 0.01;
@@ -144,6 +148,6 @@ public final class Constants {
   }
 
   public static double setMaxOutPut(double outPut, double maxOutPut){
-    return Math.min(maxOutPut, Math.max(-maxOutPut, outPut));
+    return Math.min(maxOutPut, Math.max(-maxOutPut, outPut));//值不用*12
   }
 }

@@ -67,7 +67,7 @@ public class RobotContainer {
     BooleanSupplier ifFeed = ()-> driveController.y().getAsBoolean();
 
     DoubleSupplier xSpeed = ()-> baseController.getLeftX();
-    DoubleSupplier ySpeed = ()-> baseController.getLedtY();
+    DoubleSupplier ySpeed = ()-> baseController.getLeftY();
     DoubleSupplier zSpeed = ()-> baseController.getRightX();
 
 
