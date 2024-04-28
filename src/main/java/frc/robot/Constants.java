@@ -145,8 +145,8 @@ public final class Constants {
   }
 
   public final class RobotContainerConstants {
+    public static final int summitXboxController_ID = 0;
     public static final int driverXboxController_ID = 0;
-    public static final int BaseXboxController_ID = 0;
   }
 
   public static double setMaxOutPut(double outPut, double maxOutPut){
