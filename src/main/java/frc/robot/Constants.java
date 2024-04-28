@@ -54,6 +54,8 @@ public final class Constants {
     public static final int leftClimberMotor_ID = 0;
     public static final int rightClimberMotor_ID = 0;
 
+    public static final int ropeFinal_ID = 0;
+
     public static final double climbUpVoltage = 0;
     public static final double climbDownVoltage = 0;
 

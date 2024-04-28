@@ -7,7 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
-import frc.robot.commands.JoystickCommand;
+import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
 import frc.robot.commands.ShootAMP;
 import frc.robot.commands.ShootSpeaker;
@@ -83,7 +83,7 @@ public class RobotContainer {
 
     // climberSubaystem.setDefaultCommand(climb);
     m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed));
-    m_swerveSubsystem.setDefaultCommand(new JoystickCommand(m_swerveSubsystem, xSpeed, ySpeed, zSpeed));
+    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed));
     
   
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

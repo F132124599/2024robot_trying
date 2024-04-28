@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
@@ -21,9 +22,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   private final RelativeEncoder leftClimbEncoder;
   private final RelativeEncoder rightClimbEncoder;
+
+  private final DigitalInput ropeFinal;
   public ClimberSubsystem() {
     leftClimberMotor = new CANSparkMax(ClimberConstants.leftClimberMotor_ID, MotorType.kBrushless);
     rightClimberMotor = new CANSparkMax(ClimberConstants.rightClimberMotor_ID, MotorType.kBrushless);
+
+    ropeFinal = new DigitalInput(0);
 
     leftClimbEncoder = leftClimberMotor.getEncoder();
     rightClimbEncoder = rightClimberMotor.getEncoder();
@@ -43,18 +48,34 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void rightClimb(double Value) {
-    if(getPosition(rightClimbEncoder) <= ClimberConstants.maxClimbPosition) {
-    rightClimberMotor.setVoltage(Value*12);
+    if(Value >= 0) {
+      if(getPosition(rightClimbEncoder) <= ClimberConstants.maxClimbPosition && !inTheEnd()) {
+      rightClimberMotor.setVoltage(Value*12);
+      }else {
+        rightClimberMotor.setVoltage(0);
+      }
     }else {
-      rightClimberMotor.setVoltage(0);
+      if(getPosition(rightClimbEncoder) <= ClimberConstants.maxClimbPosition) {
+        rightClimberMotor.setVoltage(Value*12);
+      }else {
+        rightClimberMotor.setVoltage(0);
+      }
     }
   }
 
   public void leftClimb(double Value) {
-    if(getPosition(leftClimbEncoder) <= ClimberConstants.maxClimbPosition) {
-      leftClimberMotor.setVoltage(Value*12);
+    if(Value >= 0) {
+      if(getPosition(leftClimbEncoder) <= ClimberConstants.maxClimbPosition) {
+        leftClimberMotor.setVoltage(Value*12);
+      }else {
+        leftClimberMotor.setVoltage(0);
+      }
     }else {
-      leftClimberMotor.setVoltage(0);
+      if(getPosition(leftClimbEncoder) <= ClimberConstants.maxClimbPosition) {
+        leftClimberMotor.setVoltage(Value*12);
+      }else {
+        leftClimberMotor.setVoltage(0);
+      }
     }
   }
 
@@ -68,8 +89,8 @@ public class ClimberSubsystem extends SubsystemBase {
     rightClimberMotor.setVoltage(0);
   }
 
-  public void maxTurns() {
-
+  public boolean inTheEnd() {
+    return !ropeFinal.get();
   }
 
   @Override
