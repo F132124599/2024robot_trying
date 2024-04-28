@@ -10,24 +10,24 @@ import frc.robot.RobotContainer;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class JoystickCommand extends Command {
-    private final SwerveSubsystem swerveSubsystem;
+    private final SwerveSubsystem m_swerveSubsystem;
 
     private final DoubleSupplier xSpeed;
     private final DoubleSupplier ySpeed;
     private final DoubleSupplier zSpeed;
     
-    public JoystickCommand(SwerveSubsystem _SwerveSubsystem, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zSpeed){
-        this.swerveSubsystem = _SwerveSubsystem;
+    public JoystickCommand(SwerveSubsystem m_swerveSubsystem, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zSpeed){
+        this.m_swerveSubsystem = m_swerveSubsystem;
         this.xSpeed = xSpeed;
         this.ySpeed = ySpeed;
         this.zSpeed = zSpeed;
 
-        addRequirements(swerveSubsystem);
+        addRequirements(m_swerveSubsystem);
     }
 
     @Override
     public void execute(){
-        swerveSubsystem.drive(xSpeed.getAsDouble(), ySpeed.getAsDouble(), zSpeed.getAsDouble(),true);
+        m_swerveSubsystem.drive(xSpeed.getAsDouble(), ySpeed.getAsDouble(), zSpeed.getAsDouble(),true);
     }
     
 }

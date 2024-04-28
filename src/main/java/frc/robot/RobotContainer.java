@@ -7,6 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
+import frc.robot.commands.JoystickCommand;
 import frc.robot.commands.NoteIntake;
 import frc.robot.commands.ShootAMP;
 import frc.robot.commands.ShootSpeaker;
@@ -15,6 +16,7 @@ import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SwerveSubsystem;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -36,6 +38,7 @@ public class RobotContainer {
   private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
 
   private final CommandXboxController driveController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
   private final CommandXboxController baseController = new CommandXboxController(RobotContainerConstants.BaseXboxController_ID);
@@ -80,6 +83,7 @@ public class RobotContainer {
 
     // climberSubaystem.setDefaultCommand(climb);
     m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed));
+    m_swerveSubsystem.setDefaultCommand(new JoystickCommand(m_swerveSubsystem, xSpeed, ySpeed, zSpeed));
     
   
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
