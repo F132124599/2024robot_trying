@@ -40,7 +40,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
 
-  private final CommandXboxController summitController = new CommandXboxController(RobotContainerConstants.summitXboxController_ID);
+  private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
 
 
@@ -64,20 +64,20 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    DoubleSupplier rightClimbSpeed = ()-> summitController.getLeftY();
-    DoubleSupplier leftClimbSpeed = ()-> summitController.getRightY();
+    DoubleSupplier rightClimbSpeed = ()-> operatorController.getLeftY();
+    DoubleSupplier leftClimbSpeed = ()-> operatorController.getRightY();
 
-    BooleanSupplier ifFeed = ()-> summitController.y().getAsBoolean();
+    BooleanSupplier ifFeed = ()-> operatorController.y().getAsBoolean();
 
     DoubleSupplier xSpeed = ()-> driverController.getLeftX();
     DoubleSupplier ySpeed = ()-> driverController.getLeftY();
     DoubleSupplier zSpeed = ()-> driverController.getRightX();
 
 
-    summitController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
-    summitController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
-    summitController.rightBumper().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    summitController.leftBumper().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
+    operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
+    operatorController.rightBumper().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    operatorController.leftBumper().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
 

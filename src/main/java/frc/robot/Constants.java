@@ -145,7 +145,7 @@ public final class Constants {
   }
 
   public final class RobotContainerConstants {
-    public static final int summitXboxController_ID = 0;
+    public static final int operatorXboxController_ID = 0;
     public static final int driverXboxController_ID = 0;
   }
 
