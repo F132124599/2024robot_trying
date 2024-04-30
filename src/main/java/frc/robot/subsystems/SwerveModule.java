@@ -64,6 +64,19 @@ public class SwerveModule {
     public SwerveModulePosition getPosition(){
         return new SwerveModulePosition(driveMotorEncoder.getPosition(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
     }
+
+    public double getDrivePosition() {
+        return driveMotorEncoder.getPosition();
+    }
+
+    public double getTurningPosition() {
+        return turningAbsoluteEncoder.getAbsolutePosition().getValue();//要*360
+    }
+
+    public double getDriveVelocity() {
+        return driveMotorEncoder.getVelocity();
+    }
+
     public void setState(SwerveModuleState state){
         SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());

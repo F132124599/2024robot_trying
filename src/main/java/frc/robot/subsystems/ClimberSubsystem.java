@@ -23,12 +23,14 @@ public class ClimberSubsystem extends SubsystemBase {
   private final RelativeEncoder leftClimbEncoder;
   private final RelativeEncoder rightClimbEncoder;
 
-  private final DigitalInput ropeFinal;
+  private final DigitalInput rightRopeFinal;
+  private final DigitalInput leftRopeFinal;
   public ClimberSubsystem() {
     leftClimberMotor = new CANSparkMax(ClimberConstants.leftClimberMotor_ID, MotorType.kBrushless);
     rightClimberMotor = new CANSparkMax(ClimberConstants.rightClimberMotor_ID, MotorType.kBrushless);
 
-    ropeFinal = new DigitalInput(0);
+    rightRopeFinal = new DigitalInput(ClimberConstants.rightRopeFinal_ID);
+    leftRopeFinal = new DigitalInput(ClimberConstants.leftRopeFinal_ID);
 
     leftClimbEncoder = leftClimberMotor.getEncoder();
     rightClimbEncoder = rightClimberMotor.getEncoder();
@@ -49,13 +51,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void rightClimb(double Value) {
     if(Value >= 0) {
-      if(getPosition(rightClimbEncoder) <= ClimberConstants.maxClimbPosition && !inTheEnd()) {
+      if(getRightPosition() <= ClimberConstants.maxClimbPosition) {
       rightClimberMotor.setVoltage(Value*12);
       }else {
         rightClimberMotor.setVoltage(0);
       }
     }else {
-      if(getPosition(rightClimbEncoder) <= ClimberConstants.maxClimbPosition) {
+      if(!rightInTheEnd()) {
         rightClimberMotor.setVoltage(Value*12);
       }else {
         rightClimberMotor.setVoltage(0);
@@ -65,13 +67,13 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void leftClimb(double Value) {
     if(Value >= 0) {
-      if(getPosition(leftClimbEncoder) <= ClimberConstants.maxClimbPosition) {
+      if(getLeftPosition() <= ClimberConstants.maxClimbPosition) {
         leftClimberMotor.setVoltage(Value*12);
       }else {
         leftClimberMotor.setVoltage(0);
       }
     }else {
-      if(getPosition(leftClimbEncoder) <= ClimberConstants.maxClimbPosition) {
+      if(!rightInTheEnd()) {
         leftClimberMotor.setVoltage(Value*12);
       }else {
         leftClimberMotor.setVoltage(0);
@@ -79,8 +81,12 @@ public class ClimberSubsystem extends SubsystemBase {
     }
   }
 
-  public double getPosition(RelativeEncoder climberEncoder) {
-    return climberEncoder.getPosition();
+  public double getRightPosition() {
+    return rightClimbEncoder.getPosition();
+  }
+
+  public double getLeftPosition() {
+    return leftClimbEncoder.getPosition();
   }
   
 
@@ -89,8 +95,12 @@ public class ClimberSubsystem extends SubsystemBase {
     rightClimberMotor.setVoltage(0);
   }
 
-  public boolean inTheEnd() {
-    return !ropeFinal.get();
+  public boolean rightInTheEnd() {
+    return !rightRopeFinal.get();
+  }
+
+  public boolean leftInTheEnd() {
+    return !leftRopeFinal.get();
   }
 
   @Override
