@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
@@ -106,5 +107,10 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("leftPostion", getLeftPosition());
+    SmartDashboard.putNumber("rightPosition", getLeftPosition());
+    SmartDashboard.putBoolean("leftInTheEnd?", leftInTheEnd());
+    SmartDashboard.putBoolean("rightInTheEnd", rightInTheEnd());
+    
   }
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 
@@ -27,7 +28,7 @@ public class SwerveModule {
 
     private final PIDController turningPidController;
 
-    public SwerveModule(int driverMotorID, int turningMotorID, int turningAbsoluteEncoderID, double absoluteEncoderOffset){
+    public SwerveModule(int driverMotorID, int turningMotorID, int turningAbsoluteEncoderID, double absoluteEncoderOffset) {
         driveMotor = new CANSparkMax(driverMotorID, MotorType.kBrushless);
         turningMotor = new CANSparkMax(turningMotorID, MotorType.kBrushless);
 
@@ -57,11 +58,11 @@ public class SwerveModule {
         driveMotorEncoder.setVelocityConversionFactor(SwerveConstants.driveVelocityConversionFactor);
         driveMotorEncoder.setPositionConversionFactor(SwerveConstants.drivePositionConversionFactor);
     }
-    public SwerveModuleState getstate(){
+    public SwerveModuleState getstate() {
         return new SwerveModuleState(driveMotorEncoder.getVelocity(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
     }
 
-    public SwerveModulePosition getPosition(){
+    public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(driveMotorEncoder.getPosition(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
     }
 
@@ -77,11 +78,14 @@ public class SwerveModule {
         return driveMotorEncoder.getVelocity();
     }
 
-    public void setState(SwerveModuleState state){
+    public void setState(SwerveModuleState state) {
         SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
         turningMotor.set(turningMotorOutput);
         driveMotor.set(optimizedState.speedMetersPerSecond);
+        SmartDashboard.getNumber("drivePosition", getDrivePosition());
+        SmartDashboard.getNumber("turningPostion", getTurningPosition());
+        SmartDashboard.getNumber("driveVelocity", getDriveVelocity());
     }
 
     

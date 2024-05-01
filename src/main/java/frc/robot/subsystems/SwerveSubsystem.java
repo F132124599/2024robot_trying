@@ -23,7 +23,7 @@ public class SwerveSubsystem extends SubsystemBase {
     private final Pigeon2 gyro;
 
     private final SwerveDriveOdometry odometry;
-    public SwerveSubsystem(){
+    public SwerveSubsystem() {
         leftFront = new SwerveModule(SwerveConstants.leftFrontDriveID, SwerveConstants.leftFrontTurnID, SwerveConstants.leftFrontAbsoluteEncoderID, SwerveConstants.leftFrontOffset);
         rightFront = new SwerveModule(SwerveConstants.rightFrontDriveID, SwerveConstants.rightFrontTurnID, SwerveConstants.rightFrontAbsoluteEncoderID, SwerveConstants.rightFrontOffset);
         leftBack = new SwerveModule(SwerveConstants.leftBackDriveID, SwerveConstants.leftBackTurnID, SwerveConstants.leftBackAbsoluteEncoderID, SwerveConstants.leftBackOffset);
@@ -33,21 +33,21 @@ public class SwerveSubsystem extends SubsystemBase {
 
     }
     @Override
-    public void periodic(){
+    public void periodic() {
         odometry.update(gyro.getRotation2d(), getModulePosition());
     }
 
-    public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOrient){
+    public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOrient) {
         SwerveModuleState[] states;
-        if(fieldOrient){
+        if(fieldOrient) {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(Constants.setMaxOutPut(xSpeed, SwerveConstants.xSpeedMaxOutPut), Constants.setMaxOutPut(ySpeed, SwerveConstants.ySpeedMaxOutPut), Constants.setMaxOutPut(zSpeed, SwerveConstants.zSpeedMaxOutPut),gyro.getRotation2d()));
-        }else{
+        }else {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, zSpeed));
         }
         
     }
-    public SwerveModuleState[] getModuleSates(){
-        return new SwerveModuleState[]{
+    public SwerveModuleState[] getModuleSates() {
+        return new SwerveModuleState[] {
             leftFront.getstate(),
             rightFront.getstate(),
             leftBack.getstate(),
@@ -55,15 +55,15 @@ public class SwerveSubsystem extends SubsystemBase {
         };
     }    
 
-    public SwerveModulePosition[] getModulePosition(){
-        return new SwerveModulePosition[]{
+    public SwerveModulePosition[] getModulePosition() {
+        return new SwerveModulePosition[] {
             leftFront.getPosition(),
             rightFront.getPosition(),
             leftBack.getPosition(),
             rightBack.getPosition()
         };
 }
-    public void setModuleState(SwerveModuleState[] desiredState){
+    public void setModuleState(SwerveModuleState[] desiredState) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredState,1);
         leftFront.setState(desiredState[0]);
         rightFront.setState(desiredState[1]);
@@ -71,11 +71,11 @@ public class SwerveSubsystem extends SubsystemBase {
         rightBack.setState(desiredState[3]);
     }
 
-    public Pose2d getPose(){
+    public Pose2d getPose() {
         return odometry.getPoseMeters();
     }
 
-    public void setPose(Pose2d pose){
+    public void setPose(Pose2d pose) {
         odometry.resetPosition(gyro.getRotation2d(), getModulePosition(), pose);
     }
 
