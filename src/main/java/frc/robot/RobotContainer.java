@@ -67,7 +67,7 @@ public class RobotContainer {
     DoubleSupplier rightClimbSpeed = ()-> operatorController.getLeftY();
     DoubleSupplier leftClimbSpeed = ()-> operatorController.getRightY();
 
-    BooleanSupplier ifFeed = ()-> operatorController.y().getAsBoolean();
+    BooleanSupplier ifFeed = ()-> operatorController.getHID().getYButton();
 
     DoubleSupplier xSpeed = ()-> driverController.getLeftX();
     DoubleSupplier ySpeed = ()-> driverController.getLeftY();

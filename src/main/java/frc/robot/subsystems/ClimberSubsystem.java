@@ -74,7 +74,7 @@ public class ClimberSubsystem extends SubsystemBase {
         leftClimberMotor.setVoltage(0);
       }
     }else {
-      if(!rightInTheEnd()) {
+      if(!leftInTheEnd()) {
         leftClimberMotor.setVoltage(Value*12);
       }else {
         leftClimberMotor.setVoltage(0);
@@ -97,10 +97,12 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean rightInTheEnd() {
+    rightClimbEncoder.setPosition(0);
     return !rightRopeFinal.get();
   }
 
   public boolean leftInTheEnd() {
+    leftClimbEncoder.setPosition(0);
     return !leftRopeFinal.get();
   }
 
@@ -111,6 +113,6 @@ public class ClimberSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("rightPosition", getLeftPosition());
     SmartDashboard.putBoolean("leftInTheEnd?", leftInTheEnd());
     SmartDashboard.putBoolean("rightInTheEnd", rightInTheEnd());
-    
+
   }
 }

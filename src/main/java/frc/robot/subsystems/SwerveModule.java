@@ -67,7 +67,7 @@ public class SwerveModule {
     }
 
     public double getDrivePosition() {
-        return driveMotorEncoder.getPosition();
+        return driveMotorEncoder.getPosition();//*360
     }
 
     public double getTurningPosition() {
@@ -75,7 +75,7 @@ public class SwerveModule {
     }
 
     public double getDriveVelocity() {
-        return driveMotorEncoder.getVelocity();
+        return driveMotorEncoder.getVelocity();// /60
     }
 
     public void setState(SwerveModuleState state) {

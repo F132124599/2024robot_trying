@@ -24,10 +24,10 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final SwerveDriveOdometry odometry;
     public SwerveSubsystem() {
-        leftFront = new SwerveModule(SwerveConstants.leftFrontDriveID, SwerveConstants.leftFrontTurnID, SwerveConstants.leftFrontAbsoluteEncoderID, SwerveConstants.leftFrontOffset);
-        rightFront = new SwerveModule(SwerveConstants.rightFrontDriveID, SwerveConstants.rightFrontTurnID, SwerveConstants.rightFrontAbsoluteEncoderID, SwerveConstants.rightFrontOffset);
-        leftBack = new SwerveModule(SwerveConstants.leftBackDriveID, SwerveConstants.leftBackTurnID, SwerveConstants.leftBackAbsoluteEncoderID, SwerveConstants.leftBackOffset);
-        rightBack = new SwerveModule(SwerveConstants.rightBackDriveID, SwerveConstants.rightBackTurnID, SwerveConstants.rightBackAbsoluteEncoderID, SwerveConstants.rightBackOffset);
+        leftFront = new SwerveModule(SwerveConstants.leftFrontDriveMotorID, SwerveConstants.leftFrontTurningMotorID, SwerveConstants.leftFrontAbsoluteEncoderID, SwerveConstants.leftFrontOffset);
+        rightFront = new SwerveModule(SwerveConstants.rightFrontDriveMotorID, SwerveConstants.rightFrontTurningMotorID, SwerveConstants.rightFrontAbsoluteEncoderID, SwerveConstants.rightFrontOffset);
+        leftBack = new SwerveModule(SwerveConstants.leftBackDriveMotorID, SwerveConstants.leftBackTurningMotorID, SwerveConstants.leftBackAbsoluteEncoderID, SwerveConstants.leftBackOffset);
+        rightBack = new SwerveModule(SwerveConstants.rightBackDriveMotorID, SwerveConstants.rightBackTurningMotorID, SwerveConstants.rightBackAbsoluteEncoderID, SwerveConstants.rightBackOffset);
         gyro = new Pigeon2(SwerveConstants.pigean2ID);
         odometry = new SwerveDriveOdometry(SwerveConstants.swervKinematics, gyro.getRotation2d(), getModulePosition());
 

@@ -71,15 +71,15 @@ public final class Constants {
   }
 
   public final class SwerveConstants {
-    public static final int leftFrontDriveID = 0;
-    public static final int rightFrontDriveID = 0;
-    public static final int leftBackDriveID = 0;
-    public static final int rightBackDriveID = 0;
+    public static final int leftFrontDriveMotorID = 0;
+    public static final int rightFrontDriveMotorID = 0;
+    public static final int leftBackDriveMotorID = 0;
+    public static final int rightBackDriveMotorID = 0;
 
-    public static final int leftFrontTurnID = 0;
-    public static final int rightFrontTurnID = 0;
-    public static final int leftBackTurnID = 0;
-    public static final int rightBackTurnID = 0;
+    public static final int leftFrontTurningMotorID = 0;
+    public static final int rightFrontTurningMotorID = 0;
+    public static final int leftBackTurningMotorID = 0;
+    public static final int rightBackTurningMotorID = 0;
 
     public static final int leftFrontAbsoluteEncoderID = 0;
     public static final int rightFrontAbsoluteEncoderID = 0;
