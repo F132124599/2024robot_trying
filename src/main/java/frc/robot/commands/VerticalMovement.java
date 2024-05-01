@@ -14,9 +14,9 @@ public class VerticalMovement extends Command {
   private final ClimberSubsystem m_climberSubsystem;
   private DoubleSupplier leftClimbSpeed;
   private DoubleSupplier rightClimbSpeed;
-  public VerticalMovement(ClimberSubsystem climberSubaystem, DoubleSupplier leftClimbSpeed, DoubleSupplier rightClimbSpeed) {
+  public VerticalMovement(ClimberSubsystem climberSubsystem, DoubleSupplier leftClimbSpeed, DoubleSupplier rightClimbSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_climberSubsystem = climberSubaystem; 
+    this.m_climberSubsystem = climberSubsystem; 
     this.leftClimbSpeed = leftClimbSpeed;
     this.rightClimbSpeed = rightClimbSpeed;
 
