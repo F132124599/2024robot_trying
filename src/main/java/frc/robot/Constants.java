@@ -129,13 +129,9 @@ public final class Constants {
       new Translation2d()
       );
 
-    public static double pathingx_Kp = 0;
-    public static double pathingx_Ki = 0;
-    public static double pathingx_Kd = 0;
-
-    public static double pathingy_Kp = 0;
-    public static double pathingy_Ki = 0;
-    public static double pathingy_Kd = 0;
+    public static double pathingMoving_Kp = 0;
+    public static double pathingMoving_Ki = 0;
+    public static double pathingMoving_Kd = 0;
 
     public static double pathingtheta_Kp = 0;
     public static double pathingtheta_Ki = 0;
