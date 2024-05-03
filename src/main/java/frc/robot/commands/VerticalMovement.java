@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
@@ -14,11 +15,14 @@ public class VerticalMovement extends Command {
   private final ClimberSubsystem m_climberSubsystem;
   private DoubleSupplier leftClimbSpeed;
   private DoubleSupplier rightClimbSpeed;
-  public VerticalMovement(ClimberSubsystem climberSubsystem, DoubleSupplier leftClimbSpeed, DoubleSupplier rightClimbSpeed) {
+
+  private BooleanSupplier climberInsurance;
+  public VerticalMovement(ClimberSubsystem climberSubsystem, DoubleSupplier leftClimbSpeed, DoubleSupplier rightClimbSpeed, BooleanSupplier climberInsurance) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_climberSubsystem = climberSubsystem; 
     this.leftClimbSpeed = leftClimbSpeed;
     this.rightClimbSpeed = rightClimbSpeed;
+    this.climberInsurance = climberInsurance;
 
     addRequirements(m_climberSubsystem);
   }
@@ -31,8 +35,10 @@ public class VerticalMovement extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climberSubsystem.leftClimb(leftClimbSpeed.getAsDouble());
-    m_climberSubsystem.rightClimb(rightClimbSpeed.getAsDouble());
+    if(climberInsurance.getAsBoolean()){
+      m_climberSubsystem.leftClimb(leftClimbSpeed.getAsDouble());
+      m_climberSubsystem.rightClimb(rightClimbSpeed.getAsDouble());
+    }
   }
 
   // Called once the command ends or is interrupted.

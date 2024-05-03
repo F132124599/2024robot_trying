@@ -10,6 +10,7 @@ import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -64,7 +65,6 @@ public class IntakeSubsystem extends SubsystemBase {
 
   }
 
-  //為甚麼要把intake的setpoint寫在這
   public void noteIntake() {
     intakeWheel.setVoltage(IntakeConstants.intakewheelVoltage);
   }
@@ -89,6 +89,9 @@ public class IntakeSubsystem extends SubsystemBase {
     return absoluteArmEncoder.getPosition().getValueAsDouble()*360;
   }
 
+  public boolean isJam(){
+    return !intakeWheel.getFault(FaultID.kOvercurrent);
+  }
 
   @Override
   public void periodic() {

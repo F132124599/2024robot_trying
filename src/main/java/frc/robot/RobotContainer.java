@@ -68,6 +68,9 @@ public class RobotContainer {
     DoubleSupplier leftClimbSpeed = ()-> operatorController.getRightY();
 
     BooleanSupplier ifFeed = ()-> operatorController.getHID().getYButton();
+    BooleanSupplier climberInsurance = ()-> operatorController.getHID().getBButton();
+    BooleanSupplier gyroReseting = ()-> operatorController.getHID().getStartButton();
+    
 
     DoubleSupplier xSpeed = ()-> driverController.getLeftX();
     DoubleSupplier ySpeed = ()-> driverController.getLeftY();
@@ -78,12 +81,13 @@ public class RobotContainer {
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
     operatorController.rightBumper().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftBumper().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
 
     // climberSubaystem.setDefaultCommand(climb);
-    m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed));
-    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed));
+    m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed, climberInsurance));
+    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed, gyroReseting));
     
   
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

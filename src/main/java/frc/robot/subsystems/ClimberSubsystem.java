@@ -53,15 +53,15 @@ public class ClimberSubsystem extends SubsystemBase {
   public void rightClimb(double Value) {
     if(Value >= 0) {
       if(getRightPosition() <= ClimberConstants.maxClimbPosition) {
-      rightClimberMotor.setVoltage(Value*12);
+        rightClimberMotor.setVoltage(Value*12);
       }else {
         rightClimberMotor.setVoltage(0);
       }
     }else {
-      if(!rightInTheEnd()) {
-        rightClimberMotor.setVoltage(Value*12);
-      }else {
+      if(rightInTheEnd()) {
         rightClimberMotor.setVoltage(0);
+      }else {
+        rightClimberMotor.setVoltage(Value*12);
       }
     }
   }
@@ -74,10 +74,10 @@ public class ClimberSubsystem extends SubsystemBase {
         leftClimberMotor.setVoltage(0);
       }
     }else {
-      if(!leftInTheEnd()) {
-        leftClimberMotor.setVoltage(Value*12);
-      }else {
+      if(leftInTheEnd()) {
         leftClimberMotor.setVoltage(0);
+      }else {
+        leftClimberMotor.setVoltage(Value*12);
       }
     }
   }

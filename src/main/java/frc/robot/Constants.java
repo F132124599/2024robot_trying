@@ -127,7 +127,7 @@ public final class Constants {
       new Translation2d(),
       new Translation2d(),
       new Translation2d()
-      );
+    );
 
     public static double pathingMoving_Kp = 0;
     public static double pathingMoving_Ki = 0;

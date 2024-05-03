@@ -24,13 +24,28 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final SwerveDriveOdometry odometry;
     public SwerveSubsystem() {
-        leftFront = new SwerveModule(SwerveConstants.leftFrontDriveMotorID, SwerveConstants.leftFrontTurningMotorID, SwerveConstants.leftFrontAbsoluteEncoderID, SwerveConstants.leftFrontOffset);
-        rightFront = new SwerveModule(SwerveConstants.rightFrontDriveMotorID, SwerveConstants.rightFrontTurningMotorID, SwerveConstants.rightFrontAbsoluteEncoderID, SwerveConstants.rightFrontOffset);
-        leftBack = new SwerveModule(SwerveConstants.leftBackDriveMotorID, SwerveConstants.leftBackTurningMotorID, SwerveConstants.leftBackAbsoluteEncoderID, SwerveConstants.leftBackOffset);
-        rightBack = new SwerveModule(SwerveConstants.rightBackDriveMotorID, SwerveConstants.rightBackTurningMotorID, SwerveConstants.rightBackAbsoluteEncoderID, SwerveConstants.rightBackOffset);
+        leftFront = new SwerveModule(
+            SwerveConstants.leftFrontDriveMotorID,
+            SwerveConstants.leftFrontTurningMotorID, 
+            SwerveConstants.leftFrontAbsoluteEncoderID, 
+            SwerveConstants.leftFrontOffset);
+        rightFront = new SwerveModule(
+            SwerveConstants.rightFrontDriveMotorID, 
+            SwerveConstants.rightFrontTurningMotorID, 
+            SwerveConstants.rightFrontAbsoluteEncoderID, 
+            SwerveConstants.rightFrontOffset);
+        leftBack = new SwerveModule(
+            SwerveConstants.leftBackDriveMotorID, 
+            SwerveConstants.leftBackTurningMotorID, 
+            SwerveConstants.leftBackAbsoluteEncoderID, 
+            SwerveConstants.leftBackOffset);
+        rightBack = new SwerveModule(
+            SwerveConstants.rightBackDriveMotorID, 
+            SwerveConstants.rightBackTurningMotorID, 
+            SwerveConstants.rightBackAbsoluteEncoderID, 
+            SwerveConstants.rightBackOffset);
         gyro = new Pigeon2(SwerveConstants.pigean2ID);
         odometry = new SwerveDriveOdometry(SwerveConstants.swervKinematics, gyro.getRotation2d(), getModulePosition());
-
     }
     @Override
     public void periodic() {
@@ -43,8 +58,7 @@ public class SwerveSubsystem extends SubsystemBase {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(Constants.setMaxOutPut(xSpeed, SwerveConstants.xSpeedMaxOutPut), Constants.setMaxOutPut(ySpeed, SwerveConstants.ySpeedMaxOutPut), Constants.setMaxOutPut(zSpeed, SwerveConstants.zSpeedMaxOutPut),gyro.getRotation2d()));
         }else {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, zSpeed));
-        }
-        
+        }  
     }
     public SwerveModuleState[] getModuleSates() {
         return new SwerveModuleState[] {
@@ -62,7 +76,7 @@ public class SwerveSubsystem extends SubsystemBase {
             leftBack.getPosition(),
             rightBack.getPosition()
         };
-}
+    }
     public void setModuleState(SwerveModuleState[] desiredState) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredState,1);
         leftFront.setState(desiredState[0]);
@@ -77,6 +91,10 @@ public class SwerveSubsystem extends SubsystemBase {
 
     public void setPose(Pose2d pose) {
         odometry.resetPosition(gyro.getRotation2d(), getModulePosition(), pose);
+    }
+
+    public void resetGyro() {
+        gyro.reset();
     }
 
     

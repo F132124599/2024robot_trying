@@ -47,7 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean ifSpeedArrive(double arriveSpeed) {
-    if(getShooterSpeed()>= arriveSpeed) {
+    if(getShooterSpeed() >= arriveSpeed) {
       return true;
     }else {
       return false;
