@@ -9,6 +9,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
@@ -50,6 +51,18 @@ public class SwerveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(gyro.getRotation2d(), getModulePosition());
+        SmartDashboard.getNumber("leftFrontDrivePosition", leftFront.getDrivePosition());
+        SmartDashboard.getNumber("leftFrontturningPostion", leftFront.getTurningPosition());
+        SmartDashboard.getNumber("leftFrontVelocity", leftFront.getDriveVelocity());
+        SmartDashboard.getNumber("leftBackDrivePosition", leftBack.getDrivePosition());
+        SmartDashboard.getNumber("leftBackTurningingPostion", leftBack.getTurningPosition());
+        SmartDashboard.getNumber("leftBackVelocity", leftBack.getDriveVelocity());
+        SmartDashboard.getNumber("rightFrontDrivePosition", rightFront.getDrivePosition());
+        SmartDashboard.getNumber("rightFrontturningPostion", rightFront.getTurningPosition());
+        SmartDashboard.getNumber("rightFrontVelocity", rightFront.getDriveVelocity());
+        SmartDashboard.getNumber("rightBackDrivePosition", rightBack.getDrivePosition());
+        SmartDashboard.getNumber("rightBackturningPostion", rightBack.getTurningPosition());
+        SmartDashboard.getNumber("rightBackVelocity", rightBack.getDriveVelocity());
     }
 
     public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOrient) {

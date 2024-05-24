@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Unit;
 import pabeles.concurrency.IntOperatorTask.Min;
 
 /**
@@ -35,7 +37,7 @@ public final class Constants {
 
     public static final int intakeWheel_ID = 0;
     public static final int intakeArm_ID = 0;
-    public static final int absoluteArmEncoderID = 0;
+    public static final int absoluteArmEncoderID = 45;
   }
 
   public final class ShooterConstants {
@@ -71,42 +73,43 @@ public final class Constants {
   }
 
   public final class SwerveConstants {
-    public static final int leftFrontDriveMotorID = 0;
-    public static final int rightFrontDriveMotorID = 0;
-    public static final int leftBackDriveMotorID = 0;
-    public static final int rightBackDriveMotorID = 0;
+    public static final int leftFrontDriveMotorID = 29;
+    public static final int rightFrontDriveMotorID = 19;
+    public static final int leftBackDriveMotorID = 15;
+    public static final int rightBackDriveMotorID = 16;
 
-    public static final int leftFrontTurningMotorID = 0;
-    public static final int rightFrontTurningMotorID = 0;
-    public static final int leftBackTurningMotorID = 0;
-    public static final int rightBackTurningMotorID = 0;
+    public static final int leftFrontTurningMotorID = 21;
+    public static final int rightFrontTurningMotorID = 17;
+    public static final int leftBackTurningMotorID = 22;
+    public static final int rightBackTurningMotorID = 8;
 
-    public static final int leftFrontAbsoluteEncoderID = 0;
-    public static final int rightFrontAbsoluteEncoderID = 0;
-    public static final int leftBackAbsoluteEncoderID = 0;
-    public static final int rightBackAbsoluteEncoderID = 0;
+    public static final int leftFrontAbsoluteEncoderID = 43;
+    public static final int rightFrontAbsoluteEncoderID = 42;
+    public static final int leftBackAbsoluteEncoderID = 44;
+    public static final int rightBackAbsoluteEncoderID = 41;
 
     public static final double leftFrontOffset = 0;
     public static final double rightFrontOffset = 0;
     public static final double leftBackOffset = 0;
     public static final double rightBackOffset = 0;
 
-    public static final double xSpeedMaxOutPut = 0;
-    public static final double ySpeedMaxOutPut = 0;
-    public static final double zSpeedMaxOutPut = 0;
+    public static final double xSpeedMaxOutPut = 0.6;
+    public static final double ySpeedMaxOutPut = 0.6;
+    public static final double zSpeedMaxOutPut = 0.6;
 
-    public static final int pigean2ID = 0;
+    public static final int pigean2ID = 33;
 
-    public static final double turningPidController_Kp = 0.01;
+    public static final double turningPidController_Kp = 0;
     public static final double turningPidController_Ki = 0;
     public static final double turningPidController_Kd = 0;
 
     public static final int pidRangeMin = -180;
     public static final int pidRangeMax = 180;
 
-    public static final double wheelDiameterMeters = 0;
+    public static final double wheelDiameterMeters = Units.inchesToMeters(4);
 
-    public static final double driveGearRatio = 0;
+    public static final double driveGearRatio = 1/6.75;
+    public static final double turningGearRatio = 1.0/(150/7);
 
     public static final double maxVelocityMetersPersecond = 3;
     public static final double maxAccelerationMeterPersecond = 3;
@@ -122,11 +125,18 @@ public final class Constants {
     public static final double drivePositionConversionFactor = 
     (1/driveGearRatio)*wheelDiameterMeters*Math.PI;
 
+    public static final double driveEncoderRot2Meter = driveGearRatio*Math.PI*wheelDiameterMeters;
+    public static final double turningEncoderRot2Rad = turningGearRatio*2*Math.PI;
+    public static final double driveEncoderRPM2MeterPerSec = driveEncoderRot2Meter/60.0;
+    public static final double turningEncoderRPM2RadPerSec = turningEncoderRot2Rad/60.0;
+
+    public static final double kModuleDistance = 21*0.0254;
+
     public static SwerveDriveKinematics swervKinematics = new SwerveDriveKinematics(
-      new Translation2d(),
-      new Translation2d(),
-      new Translation2d(),
-      new Translation2d()
+      new Translation2d(kModuleDistance/2, kModuleDistance/2),
+      new Translation2d(kModuleDistance/2, -kModuleDistance/2),
+      new Translation2d(-kModuleDistance/2, kModuleDistance/2),
+      new Translation2d(-kModuleDistance/2, -kModuleDistance/2)
     );
 
     public static double pathingMoving_Kp = 0;

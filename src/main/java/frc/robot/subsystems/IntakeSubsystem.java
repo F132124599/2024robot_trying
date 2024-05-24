@@ -86,7 +86,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public double getAngle() {
-    return absoluteArmEncoder.getPosition().getValueAsDouble()*360;
+    return absoluteArmEncoder.getAbsolutePosition().getValueAsDouble()*360;
   }
 
   public boolean isJam(){
