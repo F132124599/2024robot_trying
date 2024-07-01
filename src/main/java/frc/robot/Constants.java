@@ -21,6 +21,7 @@ import pabeles.concurrency.IntOperatorTask.Min;
 public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
+    public static final double kJoystickDeadBand = 0.1;
   }
   public final class IntakeConstants {
     public static final double intakeArmPID_Kp = 0;
@@ -35,13 +36,13 @@ public final class Constants {
     public static final double arriveDownAngle = 0;
     public static final double arriveUpAngle = 0;
 
-    public static final int intakeWheel_ID = 0;
-    public static final int intakeArm_ID = 0;
+    public static final int intakeWheel_ID = 32;
+    public static final int intakeArm_ID = 27;
     public static final int absoluteArmEncoderID = 45;
   }
 
   public final class ShooterConstants {
-    public static final int shooterMotor_ID = 0;
+    public static final int shooterMotor_ID = 23;
 
     public static final double shootAMPVoltage = 0;
     public static final double shootSpeakerVoltage = 0;
@@ -53,11 +54,11 @@ public final class Constants {
   }
 
   public final class ClimberConstants {
-    public static final int leftClimberMotor_ID = 0;
-    public static final int rightClimberMotor_ID = 0;
+    public static final int leftClimberMotor_ID = 31;
+    public static final int rightClimberMotor_ID = 8;
 
-    public static final int rightRopeFinal_ID = 0;
-    public static final int leftRopeFinal_ID = 0;
+    public static final int rightRopeFinal_ID = 1;
+    public static final int leftRopeFinal_ID = 2;
 
     public static final double climbUpVoltage = 0;
     public static final double climbDownVoltage = 0;
@@ -66,8 +67,8 @@ public final class Constants {
   }
   
   public final class IndexerConstants {
-    public static final int indexerMotor_ID = 0;
-    public static final int bottomSwitch_ID = 0;
+    public static final int indexerMotor_ID = 13;
+    public static final int bottomSwitch_ID = 3;
 
     public static final double indexerVoltage = 0;
   }
@@ -81,22 +82,22 @@ public final class Constants {
     public static final int leftFrontTurningMotorID = 21;
     public static final int rightFrontTurningMotorID = 17;
     public static final int leftBackTurningMotorID = 22;
-    public static final int rightBackTurningMotorID = 8;
+    public static final int rightBackTurningMotorID = 26;
 
     public static final int leftFrontAbsoluteEncoderID = 43;
     public static final int rightFrontAbsoluteEncoderID = 42;
     public static final int leftBackAbsoluteEncoderID = 44;
     public static final int rightBackAbsoluteEncoderID = 41;
 
-    public static final double leftFrontOffset = 0;
-    public static final double rightFrontOffset = 0;
-    public static final double leftBackOffset = 0;
-    public static final double rightBackOffset = 0;
+    public static final double leftFrontOffset = 0.122802734375;
+    public static final double rightFrontOffset = 0.35107421875;
+    public static final double leftBackOffset = -0.37890625;
+    public static final double rightBackOffset = 0.32958984375;
 
     public static final double xSpeedMaxOutPut = 0.6;
     public static final double ySpeedMaxOutPut = 0.6;
     public static final double zSpeedMaxOutPut = 0.6;
-
+ 
     public static final int pigean2ID = 33;
 
     public static final double turningPidController_Kp = 0;
@@ -149,11 +150,14 @@ public final class Constants {
 
     public static double maxOutput = 0;
 
+    public static double maxDriveMotorSpeed = 4.5;
+    public static double kDriveBaseRadius = 14.85 * 0.0254;
+
   }
 
   public final class RobotContainerConstants {
     public static final int operatorXboxController_ID = 0;
-    public static final int driverXboxController_ID = 0;
+    public static final int driverXboxController_ID = 1;
   }
 
   public static double setMaxOutPut(double outPut, double maxOutPut){

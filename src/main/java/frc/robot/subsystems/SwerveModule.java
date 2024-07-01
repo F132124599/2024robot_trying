@@ -49,7 +49,7 @@ public class SwerveModule {
         driveMotor.setIdleMode(IdleMode.kCoast);
         turningMotor.setIdleMode(IdleMode.kCoast);
 
-        var cancoderCfg = new CANcoderConfiguration();
+        CANcoderConfiguration cancoderCfg = new CANcoderConfiguration();
         cancoderCfg.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
         cancoderCfg.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
         cancoderCfg.MagnetSensor.MagnetOffset = absoluteEncoderOffset;
@@ -67,15 +67,15 @@ public class SwerveModule {
     }
 
     public double getDrivePosition() {
-        return driveMotorEncoder.getPosition();//*360
+        return driveMotorEncoder.getPosition()*SwerveConstants.driveEncoderRot2Meter;//*SwerveModuleConstants.driveEncoderRot2Meter
     }
 
     public double getTurningPosition() {
-        return turningAbsoluteEncoder.getAbsolutePosition().getValue();//要*360
+        return turningAbsoluteEncoder.getAbsolutePosition().getValueAsDouble()*360;//要*360
     }
 
     public double getDriveVelocity() {
-        return driveMotorEncoder.getVelocity();// /60
+        return driveMotorEncoder.getVelocity()*SwerveConstants.driveEncoderRPM2MeterPerSec;//*SwerveConstants.driveEncoderRPM2MeterPerSec
     }
 
     public void setState(SwerveModuleState state) {
@@ -83,9 +83,13 @@ public class SwerveModule {
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
         turningMotor.set(turningMotorOutput);
         driveMotor.set(optimizedState.speedMetersPerSecond);
-        SmartDashboard.getNumber("drivePosition", getDrivePosition());
-        SmartDashboard.getNumber("turningPostion", getTurningPosition());
-        SmartDashboard.getNumber("driveVelocity", getDriveVelocity());
+    }
+
+    public void setState_Auto(SwerveModuleState state) {
+        SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
+        double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
+        turningMotor.set(turningMotorOutput);
+        driveMotor.set(optimizedState.speedMetersPerSecond/SwerveConstants.maxDriveMotorSpeed);
     }
 
     

@@ -7,9 +7,14 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
+import frc.robot.commands.ClimbBack;
+import frc.robot.commands.ClimbUp;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
+import frc.robot.commands.OutNote;
 import frc.robot.commands.ShootAMP;
+import frc.robot.commands.ShootPrepAMP;
+import frc.robot.commands.ShootPrepSpeaker;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ThrowNoteAway;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -21,8 +26,11 @@ import frc.robot.subsystems.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -50,6 +58,21 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
+    NamedCommands.registerCommand("nevergonna", Commands.run(()->{
+      System.out.println("windgreenisgood");
+    }));
+
+    NamedCommands.registerCommand("climbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
+
+    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
+
+    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
+
+    NamedCommands.registerCommand("OutNote", new OutNote(m_indexerSubsystem));
+
+    
+
+    
     configureBindings();
   }
 
@@ -79,6 +102,7 @@ public class RobotContainer {
 
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
+    operatorController.b().whileTrue(new OutNote(m_indexerSubsystem));
     operatorController.rightBumper().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftBumper().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     
