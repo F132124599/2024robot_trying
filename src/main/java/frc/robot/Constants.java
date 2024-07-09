@@ -42,7 +42,7 @@ public final class Constants {
   }
 
   public final class ShooterConstants {
-    public static final int shooterMotor_ID = 23;
+    public static final int shooterMotor_ID = 0;
 
     public static final double shootAMPVoltage = 0;
     public static final double shootSpeakerVoltage = 0;
@@ -89,10 +89,10 @@ public final class Constants {
     public static final int leftBackAbsoluteEncoderID = 44;
     public static final int rightBackAbsoluteEncoderID = 41;
 
-    public static final double leftFrontOffset = 0.122802734375;
-    public static final double rightFrontOffset = 0.35107421875;
-    public static final double leftBackOffset = -0.37890625;
-    public static final double rightBackOffset = 0.32958984375;
+    public static final double leftFrontOffset = 0.4052734375;
+    public static final double rightFrontOffset = 0.141845703125;
+    public static final double leftBackOffset = -0.11767578125;
+    public static final double rightBackOffset = 0.174072265625;
 
     public static final double xSpeedMaxOutPut = 0.6;
     public static final double ySpeedMaxOutPut = 0.6;

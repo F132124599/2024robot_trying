@@ -72,9 +72,9 @@ public class ManualDrive extends Command {
       ySpeed = ySpeed*0.6;
       zSpeed = zSpeed*0.6;
     }else {
-      xSpeed = xSpeed*0.6;
-      ySpeed = ySpeed*0.6;
-      zSpeed = zSpeed*0.6;
+      xSpeed = xSpeed*0.8;
+      ySpeed = ySpeed*0.8;
+      zSpeed = zSpeed*0.8;
     }
 
     m_swerveSubsystem.drive(this.xSpeed, this.ySpeed, this.zSpeed,true);

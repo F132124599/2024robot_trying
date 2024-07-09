@@ -94,7 +94,7 @@ public class RobotContainer {
     BooleanSupplier climberInsurance = ()-> operatorController.getHID().getBButton();
     driverController.b().whileTrue(
       Commands.runOnce(()-> {m_swerveSubsystem.resetGyro();}));
-    BooleanSupplier isSlow = ()-> driverController.getHID().getXButton();
+    BooleanSupplier isSlow = ()-> driverController.getHID().getLeftTriggerAxis()>0.4;
 
     DoubleSupplier xSpeed = ()-> driverController.getRawAxis(1);
     DoubleSupplier ySpeed = ()-> driverController.getRawAxis(0);
