@@ -89,7 +89,7 @@ public class IntakeSubsystem extends SubsystemBase {
     return absoluteArmEncoder.getAbsolutePosition().getValueAsDouble()*360;
   }
 
-  public boolean isJam(){
+  public boolean isJam() {
     return !intakeWheel.getFault(FaultID.kOvercurrent);
   }
 
