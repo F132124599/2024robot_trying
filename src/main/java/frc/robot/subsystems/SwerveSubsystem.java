@@ -37,25 +37,33 @@ public class SwerveSubsystem extends SubsystemBase {
      */
     public SwerveSubsystem() {
         leftFront = new SwerveModule(
-            SwerveConstants.leftFrontDriveMotorID,
-            SwerveConstants.leftFrontTurningMotorID, 
+            SwerveConstants.leftFrontTurningMotorID,
+            SwerveConstants.leftFrontDriveMotorID, 
             SwerveConstants.leftFrontAbsoluteEncoderID, 
-            SwerveConstants.leftFrontOffset);
+            SwerveConstants.leftFrontOffset,
+            SwerveConstants.leftFrontturningMotorInversion,
+            SwerveConstants.leftFrontDriveMotorInversion);
         rightFront = new SwerveModule(
-            SwerveConstants.rightFrontDriveMotorID, 
             SwerveConstants.rightFrontTurningMotorID, 
+            SwerveConstants.rightFrontDriveMotorID, 
             SwerveConstants.rightFrontAbsoluteEncoderID, 
-            SwerveConstants.rightFrontOffset);
+            SwerveConstants.rightFrontOffset,
+            SwerveConstants.rightFrontturningMotorInversion,
+            SwerveConstants.rightFrontDriveMotorInversion);
         leftBack = new SwerveModule(
-            SwerveConstants.leftBackDriveMotorID, 
             SwerveConstants.leftBackTurningMotorID, 
+            SwerveConstants.leftBackDriveMotorID, 
             SwerveConstants.leftBackAbsoluteEncoderID, 
-            SwerveConstants.leftBackOffset);
+            SwerveConstants.leftBackOffset,
+            SwerveConstants.leftBackturningMotorInversion,
+            SwerveConstants.leftBackDriveMotorInversion);
         rightBack = new SwerveModule(
-            SwerveConstants.rightBackDriveMotorID, 
             SwerveConstants.rightBackTurningMotorID, 
+            SwerveConstants.rightBackDriveMotorID, 
             SwerveConstants.rightBackAbsoluteEncoderID, 
-            SwerveConstants.rightBackOffset);
+            SwerveConstants.rightBackOffset,
+            SwerveConstants.rightBackturningMotorInversion,
+            SwerveConstants.rightBackDriveMotorInversion);
         gyro = new Pigeon2(SwerveConstants.pigean2ID);
         gyroConfig = new Pigeon2Configuration();
         gyroConfig.MountPose.MountPoseYaw = -10;

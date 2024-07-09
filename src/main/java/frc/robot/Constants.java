@@ -100,7 +100,7 @@ public final class Constants {
  
     public static final int pigean2ID = 33;
 
-    public static final double turningPidController_Kp = 0;
+    public static final double turningPidController_Kp = 0.012;
     public static final double turningPidController_Ki = 0;
     public static final double turningPidController_Kd = 0;
 
@@ -115,8 +115,14 @@ public final class Constants {
     public static final double maxVelocityMetersPersecond = 3;
     public static final double maxAccelerationMeterPersecond = 3;
 
-    public static final boolean turningMotorInversion = false;
-    public static final boolean driveMotorInversion = false; 
+    public static final boolean leftFrontturningMotorInversion = true;
+    public static final boolean leftFrontDriveMotorInversion = true; 
+    public static final boolean leftBackturningMotorInversion = true;
+    public static final boolean leftBackDriveMotorInversion = true; 
+    public static final boolean rightFrontturningMotorInversion = true;
+    public static final boolean rightFrontDriveMotorInversion = true; 
+    public static final boolean rightBackturningMotorInversion = true;
+    public static final boolean rightBackDriveMotorInversion = true; 
 
 
 
