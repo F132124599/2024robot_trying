@@ -20,6 +20,7 @@ public class ManualDrive extends Command {
   private final DoubleSupplier xSpeedFunc;
   private final DoubleSupplier ySpeedFunc;
   private final DoubleSupplier zSpeedFunc;
+  private final BooleanSupplier isSlowFunc;
 
   private final SlewRateLimiter xLimiter;
   private final SlewRateLimiter yLimiter;
@@ -28,12 +29,14 @@ public class ManualDrive extends Command {
   private double xSpeed;
   private double ySpeed;
   private double zSpeed;
-  public ManualDrive(SwerveSubsystem swerveSubsystem, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zSpeed) {
+  private boolean isSlow;
+  public ManualDrive(SwerveSubsystem swerveSubsystem, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zSpeed, BooleanSupplier isSlow) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_swerveSubsystem = swerveSubsystem;
     this.xSpeedFunc = xSpeed;
     this.ySpeedFunc = ySpeed;
     this.zSpeedFunc = zSpeed;
+    this.isSlowFunc = isSlow;
 
     this.xLimiter = new SlewRateLimiter(4);
     this.yLimiter = new SlewRateLimiter(4);
@@ -61,6 +64,18 @@ public class ManualDrive extends Command {
     this.xSpeed = xLimiter.calculate(this.xSpeed);
     this.ySpeed = yLimiter.calculate(this.ySpeed);
     this.zSpeed = zLimiter.calculate(this.zSpeed);
+
+    this.isSlow = isSlowFunc.getAsBoolean();
+
+    if(isSlow) {
+      xSpeed = xSpeed*0.6;
+      ySpeed = ySpeed*0.6;
+      zSpeed = zSpeed*0.6;
+    }else {
+      xSpeed = xSpeed*0.6;
+      ySpeed = ySpeed*0.6;
+      zSpeed = zSpeed*0.6;
+    }
 
     m_swerveSubsystem.drive(this.xSpeed, this.ySpeed, this.zSpeed,true);
   }

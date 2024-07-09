@@ -94,7 +94,7 @@ public class RobotContainer {
     BooleanSupplier climberInsurance = ()-> operatorController.getHID().getBButton();
     driverController.b().whileTrue(
       Commands.runOnce(()-> {m_swerveSubsystem.resetGyro();}));
-    
+    BooleanSupplier isSlow = ()-> driverController.getHID().getXButton();
 
     DoubleSupplier xSpeed = ()-> driverController.getRawAxis(1);
     DoubleSupplier ySpeed = ()-> driverController.getRawAxis(0);
@@ -112,7 +112,7 @@ public class RobotContainer {
 
     // climberSubaystem.setDefaultCommand(climb);
     m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed, climberInsurance));
-    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed));
+    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed, isSlow));
     
   
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

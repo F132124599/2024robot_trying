@@ -107,11 +107,11 @@ public class SwerveSubsystem extends SubsystemBase {
     public ChassisSpeeds getSpeeds() {
         return SwerveConstants.swervKinematics.toChassisSpeeds(getModuleSates());
     }
-    
+
     public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOrient) {
         SwerveModuleState[] states = null;
         if(fieldOrient) {
-            states = SwerveConstants.swervKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(Constants.setMaxOutPut(xSpeed, SwerveConstants.xSpeedMaxOutPut), Constants.setMaxOutPut(ySpeed, SwerveConstants.ySpeedMaxOutPut), Constants.setMaxOutPut(zSpeed, SwerveConstants.zSpeedMaxOutPut), gyro.getRotation2d()));
+            states = SwerveConstants.swervKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, gyro.getRotation2d()));
         }else {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, zSpeed));
         }
