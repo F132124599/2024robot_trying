@@ -90,28 +90,29 @@ public class RobotContainer {
     DoubleSupplier rightClimbSpeed = ()-> operatorController.getLeftY();
     DoubleSupplier leftClimbSpeed = ()-> operatorController.getRightY();
 
-    BooleanSupplier ifFeed = ()-> operatorController.getHID().getYButton();
+    BooleanSupplier ifFeed = ()-> operatorController.getHID().getRightBumper();
     BooleanSupplier climberInsurance = ()-> operatorController.getHID().getBButton();
-    BooleanSupplier gyroReseting = ()-> operatorController.getHID().getStartButton();
+    driverController.b().whileTrue(
+      Commands.runOnce(()-> {m_swerveSubsystem.resetGyro();}));
     
 
-    DoubleSupplier xSpeed = ()-> driverController.getLeftX();
-    DoubleSupplier ySpeed = ()-> driverController.getLeftY();
-    DoubleSupplier zSpeed = ()-> driverController.getRightX();
+    DoubleSupplier xSpeed = ()-> driverController.getRawAxis(1);
+    DoubleSupplier ySpeed = ()-> driverController.getRawAxis(0);
+    DoubleSupplier zSpeed = ()-> driverController.getRawAxis(4);
 
 
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
     operatorController.b().whileTrue(new OutNote(m_indexerSubsystem));
-    operatorController.rightBumper().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    operatorController.leftBumper().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
 
     // climberSubaystem.setDefaultCommand(climb);
     m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed, climberInsurance));
-    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed, gyroReseting));
+    m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed));
     
   
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,

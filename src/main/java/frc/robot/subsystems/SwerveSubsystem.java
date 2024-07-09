@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import java.util.Optional;
 
+import com.ctre.phoenix6.configs.Pigeon2Configuration;
+import com.ctre.phoenix6.configs.Pigeon2FeaturesConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -29,8 +31,8 @@ public class SwerveSubsystem extends SubsystemBase {
     private final SwerveModule leftBack;
     private final SwerveModule rightBack;
     
-
     private final Pigeon2 gyro;
+    private final Pigeon2Configuration gyroConfig;
 
     private final SwerveDriveOdometry odometry;
     /**
@@ -58,6 +60,10 @@ public class SwerveSubsystem extends SubsystemBase {
             SwerveConstants.rightBackAbsoluteEncoderID, 
             SwerveConstants.rightBackOffset);
         gyro = new Pigeon2(SwerveConstants.pigean2ID);
+        gyroConfig = new Pigeon2Configuration();
+        gyroConfig.MountPose.MountPoseYaw = -10;
+        gyro.getConfigurator().apply(gyroConfig);
+        resetGyro();
         odometry = new SwerveDriveOdometry(SwerveConstants.swervKinematics, gyro.getRotation2d(), getModulePosition());
         AutoBuilder.configureHolonomic(
             this::getPose, 
@@ -87,18 +93,6 @@ public class SwerveSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         odometry.update(gyro.getRotation2d(), getModulePosition());
-        // SmartDashboard.getNumber("leftFrontDrivePosition", leftFront.getDrivePosition());
-        // SmartDashboard.getNumber("leftFrontturningPostion", leftFront.getTurningPosition());
-        // SmartDashboard.getNumber("leftFrontVelocity", leftFront.getDriveVelocity());
-        // SmartDashboard.getNumber("leftBackDrivePosition", leftBack.getDrivePosition());
-        // SmartDashboard.getNumber("leftBackTurningingPostion", leftBack.getTurningPosition());
-        // SmartDashboard.getNumber("leftBackVelocity", leftBack.getDriveVelocity());
-        // SmartDashboard.getNumber("rightFrontDrivePosition", rightFront.getDrivePosition());
-        // SmartDashboard.getNumber("rightFrontturningPostion", rightFront.getTurningPosition());
-        // SmartDashboard.getNumber("rightFrontVelocity", rightFront.getDriveVelocity());
-        // SmartDashboard.getNumber("rightBackDrivePosition", rightBack.getDrivePosition());
-        // SmartDashboard.getNumber("rightBackturningPostion", rightBack.getTurningPosition());
-        // SmartDashboard.getNumber("rightBackVelocity", rightBack.getDriveVelocity());
         SmartDashboard.putNumber("leftFrontDrivePosition", leftFront.getDrivePosition());
         SmartDashboard.putNumber("leftFrontturningPosition", leftFront.getTurningPosition());
         SmartDashboard.putNumber("leftFrontVelocity", leftFront.getDriveVelocity());
@@ -117,12 +111,13 @@ public class SwerveSubsystem extends SubsystemBase {
         return SwerveConstants.swervKinematics.toChassisSpeeds(getModuleSates());
       }
     public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOrient) {
-        SwerveModuleState[] states;
+        SwerveModuleState[] states = null;
         if(fieldOrient) {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(Constants.setMaxOutPut(xSpeed, SwerveConstants.xSpeedMaxOutPut), Constants.setMaxOutPut(ySpeed, SwerveConstants.ySpeedMaxOutPut), Constants.setMaxOutPut(zSpeed, SwerveConstants.zSpeedMaxOutPut), gyro.getRotation2d()));
         }else {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, zSpeed));
         }
+        setModuleState(states);
     }
 
     public void auto_Drive(ChassisSpeeds speed){

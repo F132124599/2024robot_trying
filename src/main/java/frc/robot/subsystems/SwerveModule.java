@@ -25,17 +25,23 @@ public class SwerveModule {
     private final RelativeEncoder turningMotEncoder;
 
     private final CANcoder turningAbsoluteEncoder;
+    private final CANcoderConfiguration CANcoderConfig;
 
     private final PIDController turningPidController;
-
-    public SwerveModule(int driverMotorID, int turningMotorID, int turningAbsoluteEncoderID, double absoluteEncoderOffset) {
-        driveMotor = new CANSparkMax(driverMotorID, MotorType.kBrushless);
+    
+    public SwerveModule(int turningMotorID, int driveMotorID, int absolutedEncoderID, double absolutedEncoderOffset) {
+        driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
         turningMotor = new CANSparkMax(turningMotorID, MotorType.kBrushless);
 
         driveMotorEncoder = driveMotor.getEncoder();
         turningMotEncoder = turningMotor.getEncoder();
 
-        turningAbsoluteEncoder = new CANcoder(turningAbsoluteEncoderID);
+        turningAbsoluteEncoder = new CANcoder(absolutedEncoderID);
+        CANcoderConfig = new CANcoderConfiguration();
+        CANcoderConfig.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
+        CANcoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
+        CANcoderConfig.MagnetSensor.MagnetOffset = absolutedEncoderOffset;
+        turningAbsoluteEncoder.getConfigurator().apply(CANcoderConfig);
 
         turningPidController = new PIDController(SwerveConstants.turningPidController_Kp, SwerveConstants.turningPidController_Ki, SwerveConstants.turningPidController_Kd);
         turningPidController.enableContinuousInput(SwerveConstants.pidRangeMin, SwerveConstants.pidRangeMin);
@@ -49,21 +55,23 @@ public class SwerveModule {
         driveMotor.setIdleMode(IdleMode.kCoast);
         turningMotor.setIdleMode(IdleMode.kCoast);
 
-        CANcoderConfiguration cancoderCfg = new CANcoderConfiguration();
-        cancoderCfg.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
-        cancoderCfg.MagnetSensor.SensorDirection = SensorDirectionValue.Clockwise_Positive;
-        cancoderCfg.MagnetSensor.MagnetOffset = absoluteEncoderOffset;
-        turningAbsoluteEncoder.getConfigurator().apply(cancoderCfg);
+        driveMotor.burnFlash();
+        turningMotor.burnFlash();
 
         driveMotorEncoder.setVelocityConversionFactor(SwerveConstants.driveVelocityConversionFactor);
         driveMotorEncoder.setPositionConversionFactor(SwerveConstants.drivePositionConversionFactor);
     }
+
     public SwerveModuleState getstate() {
-        return new SwerveModuleState(driveMotorEncoder.getVelocity(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
+        return new SwerveModuleState(getDriveVelocity(), Rotation2d.fromDegrees(getTurningPosition()));
     }
 
     public SwerveModulePosition getPosition() {
-        return new SwerveModulePosition(driveMotorEncoder.getPosition(), Rotation2d.fromDegrees(turningAbsoluteEncoder.getAbsolutePosition().getValue()));
+        return new SwerveModulePosition(getDrivePosition(), Rotation2d.fromDegrees(getTurningPosition()));
+    }
+
+    public void resetEncoder() {
+        driveMotorEncoder.setPosition(0);
     }
 
     public double getDrivePosition() {
@@ -85,12 +93,16 @@ public class SwerveModule {
         driveMotor.set(optimizedState.speedMetersPerSecond);
     }
 
+    public void stopMotor() {
+        driveMotor.set(0);
+        turningMotor.set(0);
+    }
+
     public void setState_Auto(SwerveModuleState state) {
         SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
         turningMotor.set(turningMotorOutput);
         driveMotor.set(optimizedState.speedMetersPerSecond/SwerveConstants.maxDriveMotorSpeed);
     }
-
     
 }

@@ -20,7 +20,6 @@ public class ManualDrive extends Command {
   private final DoubleSupplier xSpeedFunc;
   private final DoubleSupplier ySpeedFunc;
   private final DoubleSupplier zSpeedFunc;
-  private final BooleanSupplier gyroReseting;
 
   private final SlewRateLimiter xLimiter;
   private final SlewRateLimiter yLimiter;
@@ -29,29 +28,17 @@ public class ManualDrive extends Command {
   private double xSpeed;
   private double ySpeed;
   private double zSpeed;
-  public ManualDrive(SwerveSubsystem swerveSubsystem, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zSpeed, BooleanSupplier gyroReseting) {
+  public ManualDrive(SwerveSubsystem swerveSubsystem, DoubleSupplier xSpeed, DoubleSupplier ySpeed, DoubleSupplier zSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_swerveSubsystem = swerveSubsystem;
     this.xSpeedFunc = xSpeed;
     this.ySpeedFunc = ySpeed;
     this.zSpeedFunc = zSpeed;
-    this.gyroReseting = gyroReseting;
-
-    this.xSpeed = xSpeedFunc.getAsDouble();
-    this.ySpeed = ySpeedFunc.getAsDouble();
-    this.zSpeed = zSpeedFunc.getAsDouble();
 
     this.xLimiter = new SlewRateLimiter(4);
     this.yLimiter = new SlewRateLimiter(4);
     this.zLimiter = new SlewRateLimiter(4);
 
-    this.xSpeed = MathUtil.applyDeadband(this.xSpeed, OperatorConstants.kJoystickDeadBand);
-    this.ySpeed = MathUtil.applyDeadband(this.ySpeed, OperatorConstants.kJoystickDeadBand);
-    this.zSpeed = MathUtil.applyDeadband(this.zSpeed, OperatorConstants.kJoystickDeadBand);
-
-    this.xSpeed = xLimiter.calculate(this.xSpeed);
-    this.ySpeed = yLimiter.calculate(this.ySpeed);
-    this.zSpeed = zLimiter.calculate(this.zSpeed);
 
     addRequirements(m_swerveSubsystem);
   }
@@ -63,15 +50,26 @@ public class ManualDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    this.xSpeed = xSpeedFunc.getAsDouble();
+    this.ySpeed = ySpeedFunc.getAsDouble();
+    this.zSpeed = zSpeedFunc.getAsDouble();
+
+    this.xSpeed = MathUtil.applyDeadband(this.xSpeed, OperatorConstants.kJoystickDeadBand);
+    this.ySpeed = MathUtil.applyDeadband(this.ySpeed, OperatorConstants.kJoystickDeadBand);
+    this.zSpeed = MathUtil.applyDeadband(this.zSpeed, OperatorConstants.kJoystickDeadBand);
+
+    this.xSpeed = xLimiter.calculate(this.xSpeed);
+    this.ySpeed = yLimiter.calculate(this.ySpeed);
+    this.zSpeed = zLimiter.calculate(this.zSpeed);
+
     m_swerveSubsystem.drive(this.xSpeed, this.ySpeed, this.zSpeed,true);
-    if(gyroReseting.getAsBoolean()) {
-        m_swerveSubsystem.resetGyro();
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_swerveSubsystem.drive(0, 0, 0, false);
+  }
 
   // Returns true when the command should end.
   @Override
