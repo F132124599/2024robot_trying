@@ -3,16 +3,13 @@ package frc.robot.subsystems;
 import java.util.Optional;
 
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
-import com.ctre.phoenix6.configs.Pigeon2FeaturesConfigs;
 import com.ctre.phoenix6.hardware.Pigeon2;
-import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -109,7 +106,8 @@ public class SwerveSubsystem extends SubsystemBase {
     
     public ChassisSpeeds getSpeeds() {
         return SwerveConstants.swervKinematics.toChassisSpeeds(getModuleSates());
-      }
+    }
+    
     public void drive(double xSpeed, double ySpeed, double zSpeed, boolean fieldOrient) {
         SwerveModuleState[] states = null;
         if(fieldOrient) {
