@@ -28,6 +28,10 @@ public final class Constants {
     public static final double intakeArmPID_Ki = 0;
     public static final double intakeArmPID_Kd = 0;
 
+    public static final double intakeArmFeedForward_Ks = 0;
+    public static final double intakeArmFeedForward_Kg = 0;
+    public static final double intakeArmFeedForward_Kv = 0;
+
     public static final double intakeCancoderOffset = 0;
     public static final double intakewheelVoltage = 0;
 

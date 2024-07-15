@@ -13,15 +13,18 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class VerticalMovement extends Command {
   /** Creates a new climbUp. */
   private final ClimberSubsystem m_climberSubsystem;
-  private DoubleSupplier leftClimbSpeed;
-  private DoubleSupplier rightClimbSpeed;
+  private DoubleSupplier leftClimbSpeedFunc;
+  private DoubleSupplier rightClimbSpeedFunc;
+
+  private double leftClimbSpeed;
+  private double rightClimbSpeed;
 
   private BooleanSupplier climberInsurance;
-  public VerticalMovement(ClimberSubsystem climberSubsystem, DoubleSupplier leftClimbSpeed, DoubleSupplier rightClimbSpeed, BooleanSupplier climberInsurance) {
+  public VerticalMovement(ClimberSubsystem climberSubsystem, DoubleSupplier leftClimbSpeedFunc, DoubleSupplier rightClimbSpeedFunc, BooleanSupplier climberInsurance) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_climberSubsystem = climberSubsystem; 
-    this.leftClimbSpeed = leftClimbSpeed;
-    this.rightClimbSpeed = rightClimbSpeed;
+    this.leftClimbSpeedFunc = leftClimbSpeedFunc;
+    this.rightClimbSpeedFunc = rightClimbSpeedFunc;
     this.climberInsurance = climberInsurance;
 
     addRequirements(m_climberSubsystem);
@@ -35,9 +38,11 @@ public class VerticalMovement extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    rightClimbSpeed = rightClimbSpeedFunc.getAsDouble();
+    leftClimbSpeed = leftClimbSpeedFunc.getAsDouble();
     if(climberInsurance.getAsBoolean()){
-      m_climberSubsystem.leftClimb(leftClimbSpeed.getAsDouble());
-      m_climberSubsystem.rightClimb(rightClimbSpeed.getAsDouble());
+      m_climberSubsystem.leftClimb(leftClimbSpeed);
+      m_climberSubsystem.rightClimb(rightClimbSpeed);
     }
   }
 

@@ -17,9 +17,11 @@ import frc.robot.commands.ShootPrepAMP;
 import frc.robot.commands.ShootPrepSpeaker;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ThrowNoteAway;
+import frc.robot.commands.TrackNote_LimeLight;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -47,6 +49,7 @@ public class RobotContainer {
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
+  private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
@@ -70,6 +73,8 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("OutNote", new OutNote(m_indexerSubsystem));
 
+    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));;
+
     
 
     
@@ -87,18 +92,20 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    DoubleSupplier rightClimbSpeed = ()-> operatorController.getLeftY();
-    DoubleSupplier leftClimbSpeed = ()-> operatorController.getRightY();
+    DoubleSupplier rightClimbSpeed = ()-> operatorController.getRawAxis(1);
+    DoubleSupplier leftClimbSpeed = ()-> operatorController.getRawAxis(5);
 
     BooleanSupplier ifFeed = ()-> operatorController.getHID().getRightBumper();
-    BooleanSupplier climberInsurance = ()-> operatorController.getHID().getBButton();
+    BooleanSupplier climberInsurance = ()-> operatorController.getHID().getLeftBumper();
+    BooleanSupplier isSlow = ()-> driverController.getHID().getLeftTriggerAxis()>0.4;
     driverController.b().whileTrue(
       Commands.runOnce(()-> {m_swerveSubsystem.resetGyro();}));
-    BooleanSupplier isSlow = ()-> driverController.getHID().getLeftTriggerAxis()>0.4;
 
     DoubleSupplier xSpeed = ()-> driverController.getRawAxis(1);
     DoubleSupplier ySpeed = ()-> driverController.getRawAxis(0);
     DoubleSupplier zSpeed = ()-> driverController.getRawAxis(4);
+
+    driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
 
 
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));

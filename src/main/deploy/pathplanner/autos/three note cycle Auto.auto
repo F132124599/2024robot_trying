@@ -1,0 +1,43 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.1266462475863597,
+      "y": 6.628333484912334
+    },
+    "rotation": 0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Go Out"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "left Go Back"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left Go Middle"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle Go Back"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}
