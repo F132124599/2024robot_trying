@@ -23,6 +23,15 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
     public static final double kJoystickDeadBand = 0.1;
   }
+
+  public final class LimeLightConstants {
+    public static final double trackNotePid_Kp = 0.05;
+    public static final double trackNotePid_Ki = 0;
+    public static final double trackNotePid_Kd = 0;
+
+    public static final double trackNotePidMaxOutPut = 0.4;
+    
+  }
   public final class IntakeConstants {
     public static final double intakeArmPID_Kp = 0;
     public static final double intakeArmPID_Ki = 0;
@@ -120,13 +129,13 @@ public final class Constants {
     public static final double maxAccelerationMeterPersecond = 3;
 
     public static final boolean leftFrontturningMotorInversion = true;
-    public static final boolean leftFrontDriveMotorInversion = true; 
+    public static final boolean leftFrontDriveMotorInversion = false; 
     public static final boolean leftBackturningMotorInversion = true;
-    public static final boolean leftBackDriveMotorInversion = true; 
+    public static final boolean leftBackDriveMotorInversion = false; 
     public static final boolean rightFrontturningMotorInversion = true;
-    public static final boolean rightFrontDriveMotorInversion = true; 
+    public static final boolean rightFrontDriveMotorInversion = false; 
     public static final boolean rightBackturningMotorInversion = true;
-    public static final boolean rightBackDriveMotorInversion = true; 
+    public static final boolean rightBackDriveMotorInversion = false; 
 
 
 

@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.LimeLightSubsystem;
@@ -18,16 +19,14 @@ public class TrackNote_LimeLight extends Command {
   private final LimeLightSubsystem m_limLightSubsystem;
   private final IndexerSubsystem m_indexerSubsystem;
 
-  private final PIDController m_pid;
 
   private double pidOutPut;
-  private double noteAngle;
   public TrackNote_LimeLight(SwerveSubsystem swerveSubsystem, LimeLightSubsystem limLightSubsystem, IndexerSubsystem indexerSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_swerveSubsystem = swerveSubsystem;
     this.m_limLightSubsystem = limLightSubsystem;
     this.m_indexerSubsystem = indexerSubsystem;
-    this.m_pid = new PIDController(0.01, 0, 0);
+
     addRequirements(m_swerveSubsystem, m_limLightSubsystem, m_indexerSubsystem);
 
   }
@@ -36,21 +35,18 @@ public class TrackNote_LimeLight extends Command {
   @Override
   public void initialize() {
     pidOutPut = 0;
-    noteAngle = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    noteAngle = m_limLightSubsystem.getNoteX();
-    pidOutPut = m_pid.calculate(noteAngle, 0);
-    pidOutPut = Math.min(Math.max(pidOutPut, -0.4), 0.4);
+    pidOutPut = m_limLightSubsystem.getPidOutPut();
     SmartDashboard.putNumber("NoteDetectionPidOutPut", pidOutPut);
     if(m_limLightSubsystem.hasNote()){
-      if(Math.abs(m_pid.getPositionError())>5){
+      if(Math.abs(m_limLightSubsystem.getPidPositionError())>5){
         m_swerveSubsystem.drive(0, 0, pidOutPut, false);
       }else{
-        m_swerveSubsystem.drive(0.4, 0, 0, false);
+        m_swerveSubsystem.drive(0.1, 0, 0, false);
       }
   }
   }

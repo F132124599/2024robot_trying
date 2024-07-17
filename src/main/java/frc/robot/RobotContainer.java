@@ -101,9 +101,9 @@ public class RobotContainer {
     driverController.b().whileTrue(
       Commands.runOnce(()-> {m_swerveSubsystem.resetGyro();}));
 
-    DoubleSupplier xSpeed = ()-> driverController.getRawAxis(1);
-    DoubleSupplier ySpeed = ()-> driverController.getRawAxis(0);
-    DoubleSupplier zSpeed = ()-> driverController.getRawAxis(4);
+    DoubleSupplier xSpeed = ()-> -driverController.getRawAxis(1);
+    DoubleSupplier ySpeed = ()-> -driverController.getRawAxis(0);
+    DoubleSupplier zSpeed = ()-> -driverController.getRawAxis(4);
 
     driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
 
