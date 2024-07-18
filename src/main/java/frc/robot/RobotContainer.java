@@ -7,6 +7,8 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
+import frc.robot.commands.AMPBarBack;
+import frc.robot.commands.AMPBarOut;
 import frc.robot.commands.ClimbBack;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.ManualDrive;
@@ -18,6 +20,7 @@ import frc.robot.commands.ShootPrepSpeaker;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ThrowNoteAway;
 import frc.robot.commands.TrackNote_LimeLight;
+import frc.robot.subsystems.AMPBarSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -46,10 +49,11 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
-  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  // private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
   private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
+  private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
@@ -67,13 +71,13 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("climbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
 
-    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
+    // NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
 
-    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
+    // NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
 
     NamedCommands.registerCommand("OutNote", new OutNote(m_indexerSubsystem));
 
-    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));;
+    // NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
 
     
 
@@ -108,16 +112,18 @@ public class RobotContainer {
     driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
 
 
-    operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
-    operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
+    // operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
+    // operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
     operatorController.b().whileTrue(new OutNote(m_indexerSubsystem));
+    operatorController.y().whileTrue(new AMPBarOut(m_AMPBarSubsystem));
+    operatorController.y().whileFalse(new AMPBarBack(m_AMPBarSubsystem));
     operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
 
-    // climberSubaystem.setDefaultCommand(climb);
+    //climberSubaystem.setDefaultCommand(climb);
     m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed, climberInsurance));
     m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed, isSlow));
     

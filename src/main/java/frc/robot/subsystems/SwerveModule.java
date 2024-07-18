@@ -52,8 +52,8 @@ public class SwerveModule {
         turningMotor.setInverted(turningMotorInversion);
         driveMotor.setInverted(driveMotorInversion);
 
-        driveMotor.setIdleMode(IdleMode.kCoast);
-        turningMotor.setIdleMode(IdleMode.kCoast);
+        driveMotor.setIdleMode(IdleMode.kBrake);
+        turningMotor.setIdleMode(IdleMode.kBrake);
 
         driveMotor.burnFlash();
         turningMotor.burnFlash();

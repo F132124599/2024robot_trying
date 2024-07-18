@@ -24,6 +24,24 @@ public final class Constants {
     public static final double kJoystickDeadBand = 0.1;
   }
 
+  public final class AMPBarConstants {
+    public static final int arm_ID = 0;
+
+    public static final double armPid_Kp = 0;
+    public static final double armPid_Ki = 0;
+    public static final double armPid_Kd = 0;
+
+    public static final double armMotorGearRatio = 0;
+
+    public static final double outAngle = 0;
+    public static final double backAngle = 0;
+
+    public static final double pidMaxOutPut = 0;
+
+    public static final boolean armMotorInversion = false;
+
+  }
+
   public final class LimeLightConstants {
     public static final double trackNotePid_Kp = 0.05;
     public static final double trackNotePid_Ki = 0;
@@ -57,8 +75,8 @@ public final class Constants {
   public final class ShooterConstants {
     public static final int shooterMotor_ID = 0;
 
-    public static final double shootAMPVoltage = 0;
-    public static final double shootSpeakerVoltage = 0;
+    public static final double shootAMPVoltage = 9.6;
+    public static final double shootSpeakerVoltage = 9.6;
     public static final double passNoteVoltage = 0;
 
     public static final double speedAMP = 0;

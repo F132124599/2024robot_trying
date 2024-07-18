@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -27,6 +28,7 @@ public class IndexerSubsystem extends SubsystemBase {
     bottomSwitch = new DigitalInput(IndexerConstants.bottomSwitch_ID);
 
     indexerMotor.setInverted(true);
+    indexerMotor.setNeutralMode(NeutralModeValue.Brake);
   }
 
   public void startMotor() {

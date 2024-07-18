@@ -6,7 +6,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -20,18 +22,13 @@ import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new shooterSubsystem. */
-  private final CANSparkMax shooterMotor;
+  private final TalonFX shooterMotor;
 
-  private final RelativeEncoder shooterMotorEncoder;
   public ShooterSubsystem() {
-    shooterMotor = new CANSparkMax(ShooterConstants.shooterMotor_ID, MotorType.kBrushless);
+    shooterMotor = new TalonFX(ShooterConstants.shooterMotor_ID);
 
-    shooterMotorEncoder = shooterMotor.getEncoder();
-
-    shooterMotor.restoreFactoryDefaults();
-    shooterMotor.setIdleMode(IdleMode.kCoast);
+    shooterMotor.setNeutralMode(NeutralModeValue.Coast);
     shooterMotor.setInverted(true);
-    shooterMotor.burnFlash();
   }
 
   public void shoot(double speed) {
@@ -43,7 +40,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getShooterSpeed() {
-    return shooterMotorEncoder.getVelocity();
+    return shooterMotor.getVelocity().getValueAsDouble()*60;
   }
 
   public boolean ifSpeedArrive(double arriveSpeed) {
