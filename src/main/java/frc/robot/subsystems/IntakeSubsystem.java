@@ -6,7 +6,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
@@ -24,7 +26,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  private final CANSparkMax intakeWheel;
+  private final TalonFX intakeWheel;
   private final CANSparkMax intakeArm;
 
   private final PIDController armPID;
@@ -45,7 +47,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private double outPut;
 
   public IntakeSubsystem() {
-    intakeWheel = new CANSparkMax(IntakeConstants.intakeWheel_ID, MotorType.kBrushless);
+    intakeWheel = new TalonFX(IntakeConstants.intakeWheel_ID);
     intakeArm = new CANSparkMax(IntakeConstants.intakeArm_ID, MotorType.kBrushless);
 
     armPID = new PIDController(IntakeConstants.intakeArmPID_Kp, IntakeConstants.intakeArmPID_Ki, IntakeConstants.intakeArmPID_Kd);
@@ -62,16 +64,14 @@ public class IntakeSubsystem extends SubsystemBase {
     absoluteArmEncoder.getConfigurator().apply(absoluteEncoderConfig);
 
 
-    intakeWheel.restoreFactoryDefaults();
     intakeArm.restoreFactoryDefaults();
 
-    intakeWheel.setIdleMode(IdleMode.kBrake);
+    intakeWheel.setNeutralMode(NeutralModeValue.Coast);
     intakeArm.setIdleMode(IdleMode.kBrake);
 
     intakeWheel.setInverted(true);
     intakeArm.setInverted(true);
 
-    intakeWheel.burnFlash();
     intakeArm.burnFlash();
 
   }
@@ -109,7 +109,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public boolean isJam() {
-    return !intakeWheel.getFault(FaultID.kOvercurrent);
+    return !intakeWheel.getFault_StatorCurrLimit().getValue();
   }
 
   @Override

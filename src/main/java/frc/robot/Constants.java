@@ -75,12 +75,12 @@ public final class Constants {
   public final class ShooterConstants {
     public static final int shooterMotor_ID = 0;
 
-    public static final double shootAMPVoltage = 9.6;
+    public static final double shootAMPVoltage = 4;
     public static final double shootSpeakerVoltage = 9.6;
     public static final double passNoteVoltage = 0;
 
-    public static final double speedAMP = 0;
-    public static final double speedSpeaker = 0;
+    public static final double speedAMP = 1000;
+    public static final double speedSpeaker = 4100;
     public static final double speedPassNote = 0;
   }
 
