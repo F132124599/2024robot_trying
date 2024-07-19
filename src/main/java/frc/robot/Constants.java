@@ -72,6 +72,8 @@ public final class Constants {
     public static final double arriveDownAngle = 0;
     public static final double arriveUpAngle = 0;
 
+    public static final double intakeArmGearRatio = 0;
+
     public static final int intakeWheel_ID = 32;
     public static final int intakeArm_ID = 27;
     public static final int absoluteArmEncoderID = 45;

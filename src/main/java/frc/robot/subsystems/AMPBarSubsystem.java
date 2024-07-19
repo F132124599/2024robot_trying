@@ -55,15 +55,15 @@ public class AMPBarSubsystem extends SubsystemBase {
   }
 
   public double getVelocity() {
-    return armEncoder.getVelocity();
+    return armEncoder.getVelocity()*AMPBarConstants.armMotorGearRatio/60*2*Math.PI;
   }
 
-  public double getPosition() {
+  public double getAngle() {
     return armEncoder.getPosition()/AMPBarConstants.armMotorGearRatio*360;
   }
 
   public double getRadians() {
-    return armEncoder.getPosition()*2*Math.PI/AMPBarConstants.armMotorGearRatio;
+    return Math.toRadians(getAngle());
   }
 
   public void resetPosition() {
@@ -83,15 +83,15 @@ public class AMPBarSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pidOutPut = armPid.calculate(getPosition(), arriveAngle);
+    pidOutPut = armPid.calculate(getAngle(), arriveAngle);
     pidOutPut = Constants.setMaxOutPut(pidOutPut, AMPBarConstants.pidMaxOutPut);
 
-    feedforwardOutPut = armFeedfoward.calculate(getRadians(), getVelocity());//速度是要獨角速度
+    feedforwardOutPut = armFeedfoward.calculate(getRadians(), getVelocity());//速度是要讀角速度
     feedforwardOutPut = Constants.setMaxOutPut(feedforwardOutPut, AMPBarConstants.feedforwardMaxOutPut);
 
     outPut = feedforwardOutPut + pidOutPut;
 
-    SmartDashboard.putNumber("AMPBarArmPosition", getPosition());
+    SmartDashboard.putNumber("AMPBarArmPosition", getAngle());
     SmartDashboard.putNumber("AMPBarArmVelocity", getVelocity());
     SmartDashboard.putNumber("AMPBarArmOutPut", outPut);
 

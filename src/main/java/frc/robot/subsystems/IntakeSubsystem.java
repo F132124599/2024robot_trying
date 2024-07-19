@@ -101,11 +101,11 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public double getRadians() {
-    return absoluteArmEncoder.getAbsolutePosition().getValueAsDouble()*2*Math.PI;
+    return Math.toRadians(getAngle());
   }
 
   public double getArmVelocity() {
-    return armEncoder.getVelocity();//Rpm
+    return armEncoder.getVelocity()*IntakeConstants.intakeArmGearRatio/60*2*Math.PI;//Rpm/60*gearRatio*2PI = 角速度 radians/s
   }
 
   public boolean isJam() {
