@@ -56,7 +56,7 @@ public class IntakeSubsystem extends SubsystemBase {
     absoluteArmEncoder = new CANcoder(IntakeConstants.absoluteArmEncoderID);
     absoluteEncoderConfig = new CANcoderConfiguration();
 
-    armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedForward_Ks, IntakeConstants.intakeArmFeedForward_Kg, IntakeConstants.intakeArmFeedForward_Kv);
+    armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks, IntakeConstants.intakeArmFeedforward_Kg, IntakeConstants.intakeArmFeedforward_Kv);
 
     absoluteEncoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
     absoluteEncoderConfig.MagnetSensor.MagnetOffset = IntakeConstants.intakeCancoderOffset;

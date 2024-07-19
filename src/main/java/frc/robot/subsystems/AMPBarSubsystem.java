@@ -9,6 +9,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,15 +25,23 @@ public class AMPBarSubsystem extends SubsystemBase {
 
   private final PIDController armPid;
 
+  private final ArmFeedforward armFeedfoward;
+
   private double arriveAngle;
 
+  private double feedforwardOutPut;
+
   private double pidOutPut;
+
+  private double outPut;
   public AMPBarSubsystem() {
     arm = new CANSparkMax(AMPBarConstants.arm_ID, MotorType.kBrushless);
 
     armEncoder = arm.getEncoder();
 
     armPid = new PIDController(AMPBarConstants.armPid_Kp, AMPBarConstants.armPid_Ki, AMPBarConstants.armPid_Kd);
+
+    armFeedfoward = new ArmFeedforward(AMPBarConstants.armFeedforward_Ks, AMPBarConstants.armFeedforward_Kg, AMPBarConstants.armFeedforward_Kv);
 
     arm.restoreFactoryDefaults();
 
@@ -51,6 +60,10 @@ public class AMPBarSubsystem extends SubsystemBase {
 
   public double getPosition() {
     return armEncoder.getPosition()/AMPBarConstants.armMotorGearRatio*360;
+  }
+
+  public double getRadians() {
+    return armEncoder.getPosition()*2*Math.PI/AMPBarConstants.armMotorGearRatio;
   }
 
   public void resetPosition() {
@@ -73,11 +86,16 @@ public class AMPBarSubsystem extends SubsystemBase {
     pidOutPut = armPid.calculate(getPosition(), arriveAngle);
     pidOutPut = Constants.setMaxOutPut(pidOutPut, AMPBarConstants.pidMaxOutPut);
 
+    feedforwardOutPut = armFeedfoward.calculate(getRadians(), getVelocity());//速度是要獨角速度
+    feedforwardOutPut = Constants.setMaxOutPut(feedforwardOutPut, AMPBarConstants.feedforwardMaxOutPut);
+
+    outPut = feedforwardOutPut + pidOutPut;
+
     SmartDashboard.putNumber("AMPBarArmPosition", getPosition());
     SmartDashboard.putNumber("AMPBarArmVelocity", getVelocity());
-    SmartDashboard.putNumber("AMPBarArmOutPut", pidOutPut);
+    SmartDashboard.putNumber("AMPBarArmOutPut", outPut);
 
-    arm.set(pidOutPut);
+    arm.set(outPut);
 
   }
 }
