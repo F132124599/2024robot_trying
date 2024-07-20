@@ -100,6 +100,10 @@ public class IntakeSubsystem extends SubsystemBase {
     return absoluteArmEncoder.getAbsolutePosition().getValueAsDouble()*360;
   }
 
+  public double getAbsolutePosition() {
+    return absoluteArmEncoder.getAbsolutePosition().getValueAsDouble();
+  }
+
   public double getRadians() {
     return Math.toRadians(getAngle());
   }
@@ -115,16 +119,20 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pidOutput = armPID.calculate(getAngle(), arriveAngle);
+    if(armPID.getPositionError() > 5) {
+      pidOutput = armPID.calculate(getAngle(), arriveAngle);
+    }
     feedForwardOutPut = armFeedforward.calculate(getRadians(), getArmVelocity());
     outPut = pidOutput + feedForwardOutPut;
     outPut = Constants.setMaxOutPut(outPut, IntakeConstants.intakeArmMaxOutPut);
 
-    SmartDashboard.getNumber("intakeArmPidOutPut", pidOutput);
-    SmartDashboard.getNumber("intakeArmFeedForwardOutPut", feedForwardOutPut);
+    SmartDashboard.putNumber("IntakeArmAbsolutedEncoderPosition", getAbsolutePosition());
+    SmartDashboard.putNumber("IntakeArmAbsoluteEncoderAngle", getAngle());
+    SmartDashboard.getNumber("IntakeArmPidOutPut", pidOutput);
+    SmartDashboard.getNumber("IntakeArmFeedForwardOutPut", feedForwardOutPut);
     SmartDashboard.getNumber("ArmOutPut", outPut);
-    SmartDashboard.getNumber("armAngle", getAngle());
+    SmartDashboard.getNumber("ArmAngle", getAngle());
 
-    intakeArm.setVoltage(outPut);
+    intakeArm.set(outPut);
   }
 }

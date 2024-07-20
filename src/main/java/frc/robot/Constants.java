@@ -40,8 +40,7 @@ public final class Constants {
     public static final double outAngle = 0;
     public static final double backAngle = 0;
 
-    public static final double pidMaxOutPut = 0;
-    public static final double feedforwardMaxOutPut = 0;
+    public static final double maxOutPut = 0.3;
 
     public static final boolean armMotorInversion = false;
 

@@ -83,13 +83,14 @@ public class AMPBarSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    pidOutPut = armPid.calculate(getAngle(), arriveAngle);
-    pidOutPut = Constants.setMaxOutPut(pidOutPut, AMPBarConstants.pidMaxOutPut);
+    if (armPid.getPositionError() > 5) {
+      pidOutPut = armPid.calculate(getAngle(), arriveAngle);
+    }
 
     feedforwardOutPut = armFeedfoward.calculate(getRadians(), getVelocity());//速度是要讀角速度
-    feedforwardOutPut = Constants.setMaxOutPut(feedforwardOutPut, AMPBarConstants.feedforwardMaxOutPut);
 
     outPut = feedforwardOutPut + pidOutPut;
+    outPut = Constants.setMaxOutPut(outPut, AMPBarConstants.maxOutPut);
 
     SmartDashboard.putNumber("AMPBarArmPosition", getAngle());
     SmartDashboard.putNumber("AMPBarArmVelocity", getVelocity());
