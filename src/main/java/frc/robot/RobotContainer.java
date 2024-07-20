@@ -49,7 +49,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
-  //private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
   private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
@@ -69,7 +69,9 @@ public class RobotContainer {
       System.out.println("windgreenisgood");
     }));
 
-    NamedCommands.registerCommand("climbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 9.6).withTimeout(0));
+
+    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
 
     // NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
 
@@ -77,7 +79,11 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("OutNote", new OutNote(m_indexerSubsystem));
 
-    // NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
+    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
+
+    NamedCommands.registerCommand("AMPBarOut", new AMPBarOut(m_AMPBarSubsystem));
+
+    NamedCommands.registerCommand("AMPBarBack", new AMPBarBack(m_AMPBarSubsystem));
 
     
 
