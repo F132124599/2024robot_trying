@@ -108,6 +108,8 @@ public final class Constants {
     public static final int bottomSwitch_ID = 3;
 
     public static final double indexerVoltage = 0;
+
+    public static boolean getBottomSwitch = true;//很邪教，但現在只能這樣
   }
 
   public final class SwerveConstants {

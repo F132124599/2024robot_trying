@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.LimelightHelpers;
+import frc.robot.Constants.IndexerConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.LimeLightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
@@ -17,7 +18,6 @@ public class TrackNote_LimeLight extends Command {
   /** Creates a new TrackNote_LimeLight. */
   private final SwerveSubsystem m_swerveSubsystem;
   private final LimeLightSubsystem m_limLightSubsystem;
-  private final IndexerSubsystem m_indexerSubsystem;
 
 
   private double pidOutPut;
@@ -25,9 +25,8 @@ public class TrackNote_LimeLight extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_swerveSubsystem = swerveSubsystem;
     this.m_limLightSubsystem = limLightSubsystem;
-    this.m_indexerSubsystem = indexerSubsystem;
 
-    addRequirements(m_swerveSubsystem, m_limLightSubsystem, m_indexerSubsystem);
+    addRequirements(m_swerveSubsystem, m_limLightSubsystem);
 
   }
 
@@ -61,6 +60,6 @@ public class TrackNote_LimeLight extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_indexerSubsystem.getBottomSwitch();
+    return IndexerConstants.getBottomSwitch;
   }
 }

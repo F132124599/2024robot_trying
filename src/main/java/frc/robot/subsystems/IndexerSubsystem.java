@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.IndexerConstants;
 /**
  * 把intakeNote和feedNote變成一個funtion
@@ -40,8 +41,9 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public boolean getBottomSwitch(){
-    return !bottomSwitch.get();
-  }
+    IndexerConstants.getBottomSwitch = !bottomSwitch.get();
+    return IndexerConstants.getBottomSwitch;
+  }//之後要改
 
   @Override
   public void periodic() {
