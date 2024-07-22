@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.1266462475863597,
-      "y": 6.628333484912334
+      "x": 0.797219890403907,
+      "y": 6.506695703974367
     },
-    "rotation": 0
+    "rotation": 58.495733280795854
   },
   "command": {
     "type": "sequential",
@@ -14,25 +14,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left Go Out"
+            "pathName": "Left go out to left"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "left Go Back"
+            "pathName": "Leftout go back to left"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left Go Middle"
+            "pathName": "Left go out to middle"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middle Go Back"
+            "pathName": "Middleout go back to left"
           }
         }
       ]

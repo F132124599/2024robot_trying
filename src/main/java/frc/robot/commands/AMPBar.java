@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.AMPBarSubsystem;
 
-public class AMPBarOut extends Command {
+public class AMPBar extends Command {
   /** Creates a new AMPBarOut. */
 
   private final AMPBarSubsystem m_AMPBarSubsystem;
 
-  public AMPBarOut(AMPBarSubsystem AMPBarSubsystem) {
+  public AMPBar(AMPBarSubsystem AMPBarSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.m_AMPBarSubsystem = AMPBarSubsystem;
 
@@ -32,7 +32,9 @@ public class AMPBarOut extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_AMPBarSubsystem.setBackAngle();
+  }
 
   // Returns true when the command should end.
   @Override

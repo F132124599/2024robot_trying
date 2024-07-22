@@ -7,8 +7,7 @@ package frc.robot;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
-import frc.robot.commands.AMPBarBack;
-import frc.robot.commands.AMPBarOut;
+import frc.robot.commands.AMPBar;
 import frc.robot.commands.ClimbBack;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.ManualDrive;
@@ -81,9 +80,9 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
 
-    NamedCommands.registerCommand("AMPBarOut", new AMPBarOut(m_AMPBarSubsystem));
+    NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem));
 
-    NamedCommands.registerCommand("AMPBarBack", new AMPBarBack(m_AMPBarSubsystem));
+    
 
     
 
@@ -122,8 +121,7 @@ public class RobotContainer {
     // operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     // operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
     operatorController.b().whileTrue(new OutNote(m_indexerSubsystem));
-    operatorController.y().whileTrue(new AMPBarOut(m_AMPBarSubsystem));
-    operatorController.y().whileFalse(new AMPBarBack(m_AMPBarSubsystem));
+    operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
     operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     
