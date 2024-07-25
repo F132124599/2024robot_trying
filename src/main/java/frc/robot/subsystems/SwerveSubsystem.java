@@ -98,8 +98,8 @@ public class SwerveSubsystem extends SubsystemBase {
             this
             );
 
-            PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
-            SmartDashboard.putData("Field", field);
+            // PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
+            // SmartDashboard.putData("Field", field);
 
     }
     @Override

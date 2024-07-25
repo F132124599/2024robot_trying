@@ -59,21 +59,25 @@ public final class Constants {
     public static final double intakeArmPID_Ki = 0;
     public static final double intakeArmPID_Kd = 0;
 
-    public static final double intakeArmFeedforward_Ks = 0;
-    public static final double intakeArmFeedforward_Kg = 0;
-    public static final double intakeArmFeedforward_Kv = 0;
+    public static final double intakeArmFeedforward_Ks1 = 0.001;
+    public static final double intakeArmFeedforward_Kg1 = 1;
+    public static final double intakeArmFeedforward_Kv1 = 0;
+
+    public static final double intakeArmFeedforward_Ks2 = 0.001;
+    public static final double intakeArmFeedforward_Kg2 = 0.5;
+    public static final double intakeArmFeedforward_Kv2 = 0;
 
     public static final double intakeCancoderOffset = 0;
     public static final double intakewheelVoltage = 0;
 
     public static final double intakeArmArriveAngle = 0;
-    public static final double intakeArmMaxOutPut = 0;
+    public static final double intakeArmMaxOutPut = 0.3;
     public static final double arriveDownAngle = 0;
     public static final double arriveUpAngle = 0;
 
     public static final double intakeArmGearRatio = 0;
 
-    public static final int intakeWheel_ID = 32;
+    public static final int intakeWheel_ID = 1;
     public static final int intakeArm_ID = 27;
     public static final int absoluteArmEncoderID = 45;
   }

@@ -34,7 +34,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private final RelativeEncoder armEncoder;
   private final CANcoder absoluteArmEncoder;
 
-  private final ArmFeedforward armFeedforward;
+  private ArmFeedforward armFeedforward;
 
   private final CANcoderConfiguration absoluteEncoderConfig;
 
@@ -56,7 +56,7 @@ public class IntakeSubsystem extends SubsystemBase {
     absoluteArmEncoder = new CANcoder(IntakeConstants.absoluteArmEncoderID);
     absoluteEncoderConfig = new CANcoderConfiguration();
 
-    armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks, IntakeConstants.intakeArmFeedforward_Kg, IntakeConstants.intakeArmFeedforward_Kv);
+    armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks1, IntakeConstants.intakeArmFeedforward_Kg1, IntakeConstants.intakeArmFeedforward_Kv1);
 
     absoluteEncoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
     absoluteEncoderConfig.MagnetSensor.MagnetOffset = IntakeConstants.intakeCancoderOffset;
@@ -70,7 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
     intakeArm.setIdleMode(IdleMode.kBrake);
 
     intakeWheel.setInverted(true);
-    intakeArm.setInverted(true);
+    intakeArm.setInverted(false);
 
     intakeArm.burnFlash();
 
@@ -104,6 +104,14 @@ public class IntakeSubsystem extends SubsystemBase {
     return absoluteArmEncoder.getAbsolutePosition().getValueAsDouble();
   }
 
+  public double getRelativePosition() {
+    return armEncoder.getPosition();
+  }
+
+  public void resetAbsolutedEncoder() {
+    absoluteArmEncoder.setPosition(0);
+  }
+
   public double getRadians() {
     return Math.toRadians(getAngle());
   }
@@ -119,19 +127,23 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(armPID.getPositionError() > 5) {
-      pidOutput = armPID.calculate(getAngle(), arriveAngle);
+    if(getAngle() > 0) {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks2, IntakeConstants.intakeArmFeedforward_Kg2, IntakeConstants.intakeArmFeedforward_Kv2);
+    }else {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks1, IntakeConstants.intakeArmFeedforward_Kg1, IntakeConstants.intakeArmFeedforward_Kv1);
     }
-    feedForwardOutPut = armFeedforward.calculate(getRadians(), getArmVelocity());
+    pidOutput = armPID.calculate(getAngle(), arriveAngle);
+    feedForwardOutPut = armFeedforward.calculate(getRadians(), getArmVelocity())/12;
     outPut = pidOutput + feedForwardOutPut;
     outPut = Constants.setMaxOutPut(outPut, IntakeConstants.intakeArmMaxOutPut);
 
     SmartDashboard.putNumber("IntakeArmAbsolutedEncoderPosition", getAbsolutePosition());
     SmartDashboard.putNumber("IntakeArmAbsoluteEncoderAngle", getAngle());
-    SmartDashboard.getNumber("IntakeArmPidOutPut", pidOutput);
-    SmartDashboard.getNumber("IntakeArmFeedForwardOutPut", feedForwardOutPut);
-    SmartDashboard.getNumber("ArmOutPut", outPut);
-    SmartDashboard.getNumber("ArmAngle", getAngle());
+    SmartDashboard.putNumber("IntakeArmPidOutPut", pidOutput);
+    SmartDashboard.putNumber("IntakeArmFeedForwardOutPut", feedForwardOutPut);
+    SmartDashboard.putNumber("ArmOutPut", outPut);
+    SmartDashboard.putBoolean("IntakeArmIsJam", isJam());
+    SmartDashboard.putNumber("IntakeArmRelativePosition", getRelativePosition());
 
     intakeArm.set(outPut);
   }

@@ -12,11 +12,15 @@ import frc.robot.commands.ClimbBack;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
-import frc.robot.commands.OutNote;
+import frc.robot.commands.ResetArmCancoder;
 import frc.robot.commands.ShootAMP;
+import frc.robot.commands.ShootAMP_Auto;
 import frc.robot.commands.ShootPrepAMP;
+import frc.robot.commands.ShootPrepAMP_Auto;
 import frc.robot.commands.ShootPrepSpeaker;
+import frc.robot.commands.ShootPrepSpeaker_Auto;
 import frc.robot.commands.ShootSpeaker;
+import frc.robot.commands.ShootSpeaker_Auto;
 import frc.robot.commands.ThrowNoteAway;
 import frc.robot.commands.TrackNote_LimeLight;
 import frc.robot.subsystems.AMPBarSubsystem;
@@ -46,13 +50,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
-  private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
+  //private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  //private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
   private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
-  private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
+  //private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
@@ -68,24 +72,27 @@ public class RobotContainer {
       System.out.println("windgreenisgood");
     }));
 
-    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 9.6).withTimeout(0));
+    // NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 9.6).withTimeout(0));
 
-    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
+    // NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
 
     // NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
 
     // NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
 
-    NamedCommands.registerCommand("OutNote", new OutNote(m_indexerSubsystem));
+    // NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
 
-    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
+    // NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem).withTimeout(0));
 
-    NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem));
+    // NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0));
+
+    // NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP_Auto(m_shooterSubsystem).withTimeout(0));
+
+    // NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
+
+    // NamedCommands.registerCommand("ShootAMP", new ShootAMP_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
 
     
-
-    
-
     
     configureBindings();
   }
@@ -114,22 +121,21 @@ public class RobotContainer {
     DoubleSupplier ySpeed = ()-> -driverController.getRawAxis(0);
     DoubleSupplier zSpeed = ()-> -driverController.getRawAxis(4);
 
-    driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
+    // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     //driverController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
 
-
+    //driverController.x().whileTrue(new ResetArmCancoder(m_intakeSubsystem));
     // operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     // operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
-    operatorController.b().whileTrue(new OutNote(m_indexerSubsystem));
-    operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
-    operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    // operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
+    // operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    // operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
 
     //climberSubaystem.setDefaultCommand(climb);
-    m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed, climberInsurance));
+    // m_climberSubsystem.setDefaultCommand(new VerticalMovement(m_climberSubsystem, leftClimbSpeed, rightClimbSpeed, climberInsurance));
     m_swerveSubsystem.setDefaultCommand(new ManualDrive(m_swerveSubsystem, xSpeed, ySpeed, zSpeed, isSlow));
     
   
