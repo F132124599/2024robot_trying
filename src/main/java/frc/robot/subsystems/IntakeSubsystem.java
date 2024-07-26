@@ -108,9 +108,9 @@ public class IntakeSubsystem extends SubsystemBase {
     return armEncoder.getPosition();
   }
 
-  public void resetAbsolutedEncoder() {
-    absoluteArmEncoder.setPosition(0);
-  }
+  // public void resetAbsolutedEncoder() {
+  //   absoluteArmEncoder.setPosition(0);
+  // }
 
   public double getRadians() {
     return Math.toRadians(getAngle());

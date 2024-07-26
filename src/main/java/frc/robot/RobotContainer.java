@@ -12,7 +12,7 @@ import frc.robot.commands.ClimbBack;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
-import frc.robot.commands.ResetArmCancoder;
+// import frc.robot.commands.ResetArmCancoder;
 import frc.robot.commands.ShootAMP;
 import frc.robot.commands.ShootAMP_Auto;
 import frc.robot.commands.ShootPrepAMP;
@@ -34,9 +34,12 @@ import frc.robot.subsystems.SwerveSubsystem;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -60,6 +63,7 @@ public class RobotContainer {
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
+  private final SendableChooser<Command> autoChooser;
 
 
 
@@ -95,6 +99,9 @@ public class RobotContainer {
     
     
     configureBindings();
+
+    autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+    SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
   /**
@@ -124,7 +131,7 @@ public class RobotContainer {
     // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     //driverController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
 
-    //driverController.x().whileTrue(new ResetArmCancoder(m_intakeSubsystem));
+    // driverController.x().whileTrue(new ResetArmCancoder(m_intakeSubsystem));
     // operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     // operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
     // operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
