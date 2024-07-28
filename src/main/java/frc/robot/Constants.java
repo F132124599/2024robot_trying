@@ -91,7 +91,7 @@ public final class Constants {
 
     public static final double shootAMPVoltage = 4;
     public static final double shootSpeakerVoltage = 9.6;
-    public static final double passNoteVoltage = 0;
+    public static final double passNoteVoltage = 11.5;
 
     public static final double speedAMP = 1000;
     public static final double speedSpeaker = 4100;

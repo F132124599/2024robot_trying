@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.797219890403907,
-      "y": 6.506695703974367
+      "x": 1.2554654495899562,
+      "y": 5.492382339971527
     },
-    "rotation": 58.495733280795854
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left go out to left"
+            "pathName": "Middle go out to middle"
           }
         },
         {
@@ -50,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Leftout go back to left"
+            "pathName": "Middleout go back to middle"
           }
         },
         {
@@ -68,7 +68,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left go out to middle"
+            "pathName": "Middle go out to left"
           }
         },
         {
@@ -86,13 +86,55 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middleout go back to left"
+            "pathName": "Leftout go back to middle"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "ShootSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Middle go out to right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "NoteIntake"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Rightout go back to middle"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.5
           }
         }
       ]

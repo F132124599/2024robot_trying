@@ -53,13 +53,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  //private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
-  //private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
+  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
-  //private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
   private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
-  //private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
+  private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
@@ -76,25 +76,26 @@ public class RobotContainer {
       System.out.println("windgreenisgood");
     }));
 
-    // NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 9.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 9.6).withTimeout(0));
 
-    // NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
 
-    // NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP_Auto(m_shooterSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP_Auto(m_shooterSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
 
-    // NamedCommands.registerCommand("ShootAMP", new ShootAMP_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootAMP", new ShootAMP_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
+
 
     
     
