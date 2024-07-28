@@ -82,7 +82,7 @@ public class SwerveSubsystem extends SubsystemBase {
             new HolonomicPathFollowerConfig(
                 new PIDConstants(11, 0, 0.056), // Translation constants 
                 new PIDConstants(3, 0, 0.035), // Rotation constants 
-                SwerveConstants.maxDriveMotorSpeed, 
+                SwerveConstants.maxVelocityMetersPersecond, 
                 SwerveConstants.kDriveBaseRadius, // Drive base radius (distance from center to furthest module) 
                 new ReplanningConfig(false, false)
             ),

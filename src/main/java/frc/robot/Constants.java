@@ -20,7 +20,6 @@ import pabeles.concurrency.IntOperatorTask.Min;
  */
 public final class Constants {
   public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
     public static final double kJoystickDeadBand = 0.1;
   }
 
@@ -159,8 +158,8 @@ public final class Constants {
     public static final double driveGearRatio = 1/6.75;
     public static final double turningGearRatio = 1.0/(150/7);
 
-    public static final double maxVelocityMetersPersecond = 3;
-    public static final double maxAccelerationMeterPersecond = 3;
+    public static final double maxVelocityMetersPersecond = 5;
+    public static final double maxAccelerationMeterPersecond = 10;
 
     public static final boolean leftFrontturningMotorInversion = true;
     public static final boolean leftFrontDriveMotorInversion = false; 
@@ -193,18 +192,18 @@ public final class Constants {
       new Translation2d(-kModuleDistance/2, -kModuleDistance/2)
     );
 
-    public static double pathingMoving_Kp = 0;
-    public static double pathingMoving_Ki = 0;
-    public static double pathingMoving_Kd = 0;
+    public static final double pathingMoving_Kp = 11;
+    public static final double pathingMoving_Ki = 0;
+    public static final double pathingMoving_Kd = 0.056;
 
-    public static double pathingtheta_Kp = 0;
-    public static double pathingtheta_Ki = 0;
-    public static double pathingtheta_Kd = 0;
+    public static final double pathingtheta_Kp = 3;
+    public static final double pathingtheta_Ki = 0;
+    public static final double pathingtheta_Kd = 0.035;
 
-    public static double maxOutput = 0;
+    public static final double maxOutput = 0;
 
-    public static double maxDriveMotorSpeed = 4.5;
-    public static double kDriveBaseRadius = 14.85 * 0.0254;
+    public static final double maxDriveMotorSpeed = 5;
+    public static final double kDriveBaseRadius = 14.85 * 0.0254;
 
   }
 
