@@ -40,7 +40,6 @@ public class ShootSpeaker_Auto extends Command {
   @Override
   public void end(boolean interrupted) {
     m_IndexerSubsystem.stopIndexer();
-    m_ShooterSubsystem.stopShoot();
   }
 
   // Returns true when the command should end.
