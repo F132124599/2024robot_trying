@@ -76,9 +76,9 @@ public class RobotContainer {
       System.out.println("windgreenisgood");
     }));
 
-    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 9.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 0.6).withTimeout(0));
 
-    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -9.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -0.6).withTimeout(0));
 
     NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
 
