@@ -80,10 +80,6 @@ public class RobotContainer {
 
     NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -0.6).withTimeout(0));
 
-    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker(m_shooterSubsystem).withTimeout(0));
-
-    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP(m_shooterSubsystem).withTimeout(0));
-
     NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
 
     NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem).withTimeout(0));
