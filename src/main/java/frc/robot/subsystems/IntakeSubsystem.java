@@ -63,13 +63,15 @@ public class IntakeSubsystem extends SubsystemBase {
     absoluteEncoderConfig.MagnetSensor.AbsoluteSensorRange = AbsoluteSensorRangeValue.Signed_PlusMinusHalf;
     absoluteArmEncoder.getConfigurator().apply(absoluteEncoderConfig);
 
+    arriveAngle = IntakeConstants.arriveUpAngle;
+
 
     intakeArm.restoreFactoryDefaults();
 
     intakeWheel.setNeutralMode(NeutralModeValue.Coast);
     intakeArm.setIdleMode(IdleMode.kBrake);
 
-    intakeWheel.setInverted(true);
+    intakeWheel.setInverted(false);
     intakeArm.setInverted(false);
 
     intakeArm.burnFlash();
@@ -127,10 +129,18 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if(getAngle() > 0) {
-      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks2, IntakeConstants.intakeArmFeedforward_Kg2, IntakeConstants.intakeArmFeedforward_Kv2);
-    }else {
+    if(getAngle() > 45) {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks6, IntakeConstants.intakeArmFeedforward_Kg6, IntakeConstants.intakeArmFeedforward_Kv6);
+    }else if(32 < getAngle() && getAngle() <= 45) {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks3, IntakeConstants.intakeArmFeedforward_Kg3, IntakeConstants.intakeArmFeedforward_Kv3);
+    }else if(28 < getAngle() && getAngle() <= 32) {
       armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks1, IntakeConstants.intakeArmFeedforward_Kg1, IntakeConstants.intakeArmFeedforward_Kv1);
+    }else if(0 < getAngle() && getAngle() <= 28) {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks5, IntakeConstants.intakeArmFeedforward_Kg5, IntakeConstants.intakeArmFeedforward_Kv5);
+    }else if(-35 < getAngle() && getAngle() <= 0 ) {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks4, IntakeConstants.intakeArmFeedforward_Kg4, IntakeConstants.intakeArmFeedforward_Kv4);
+    }else {
+      armFeedforward = new ArmFeedforward(IntakeConstants.intakeArmFeedforward_Ks2, IntakeConstants.intakeArmFeedforward_Kg2, IntakeConstants.intakeArmFeedforward_Kv2);
     }
     pidOutput = armPID.calculate(getAngle(), arriveAngle);
     feedForwardOutPut = armFeedforward.calculate(getRadians(), getArmVelocity())/12;
@@ -144,6 +154,7 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("ArmOutPut", outPut);
     SmartDashboard.putBoolean("IntakeArmIsJam", isJam());
     SmartDashboard.putNumber("IntakeArmRelativePosition", getRelativePosition());
+    SmartDashboard.putNumber("IntakeWheelTem", intakeWheel.getDeviceTemp().getValueAsDouble());
 
     intakeArm.set(outPut);
   }

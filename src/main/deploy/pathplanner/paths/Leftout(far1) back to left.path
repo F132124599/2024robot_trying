@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.22,
-        "y": 5.52
+        "x": 8.040175362861937,
+        "y": 7.445426908791037
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.32,
-        "y": 5.52
+        "x": 8.140175362861937,
+        "y": 7.445426908791037
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.683885547143292,
-        "y": 4.1046482092964185
+        "x": 0.79,
+        "y": 6.51
       },
       "prevControl": {
-        "x": 1.6064885849313935,
-        "y": 3.9055639880181334
+        "x": 0.6900000000000001,
+        "y": 6.51
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,25 +42,7 @@
       }
     }
   ],
-  "eventMarkers": [
-    {
-      "name": "New Event Marker",
-      "waypointRelativePos": 0.55,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "NoteIntake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 10.0,
@@ -69,7 +51,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": 60.94539590092276,
     "rotateFast": false
   },
   "reversed": false,

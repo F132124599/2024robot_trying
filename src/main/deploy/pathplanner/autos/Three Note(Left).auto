@@ -20,7 +20,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.0
+            "waitTime": 0.5
           }
         },
         {
@@ -30,21 +30,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
           "type": "path",
           "data": {
             "pathName": "Left go out to left"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "NoteIntake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         },
         {
@@ -62,37 +56,55 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.5
+            "waitTime": 0.25
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Left go out to middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "NoteIntake"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
+            "pathName": "Left go out to left(far1)"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Middleout go back to left"
+            "pathName": "Leftout(far1) back to left"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "ShootSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Left go out to left(far2)"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Leftout(far2) go back to blueline"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ShootSpeaker"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.25
           }
         }
       ]

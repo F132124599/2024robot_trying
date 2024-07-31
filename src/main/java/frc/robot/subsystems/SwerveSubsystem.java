@@ -80,8 +80,8 @@ public class SwerveSubsystem extends SubsystemBase {
             this::getSpeeds, 
             this::auto_Drive,
             new HolonomicPathFollowerConfig(
-                new PIDConstants(11, 0, 0.056), // Translation constants 
-                new PIDConstants(3, 0, 0.035), // Rotation constants 
+                new PIDConstants(SwerveConstants.pathingMoving_Kp, SwerveConstants.pathingMoving_Ki, SwerveConstants.pathingMoving_Kd), // Translation constants 
+                new PIDConstants(SwerveConstants.pathingtheta_Kp, SwerveConstants.pathingtheta_Ki, SwerveConstants.pathingtheta_Kd), // Rotation constants 
                 SwerveConstants.maxVelocityMetersPersecond, 
                 SwerveConstants.kDriveBaseRadius, // Drive base radius (distance from center to furthest module) 
                 new ReplanningConfig(false, false)

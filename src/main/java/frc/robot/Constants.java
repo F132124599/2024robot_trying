@@ -54,29 +54,41 @@ public final class Constants {
     
   }
   public final class IntakeConstants {
-    public static final double intakeArmPID_Kp = 0;
+    public static final double intakeArmPID_Kp = 0.0027;
     public static final double intakeArmPID_Ki = 0;
-    public static final double intakeArmPID_Kd = 0;
+    public static final double intakeArmPID_Kd = 0.0001;
 
-    public static final double intakeArmFeedforward_Ks1 = 0.1;
-    public static final double intakeArmFeedforward_Kg1 = 1.1;
+    public static final double intakeArmFeedforward_Ks1 = 0;
+    public static final double intakeArmFeedforward_Kg1 = 0;
     public static final double intakeArmFeedforward_Kv1 = 0;
 
-    public static final double intakeArmFeedforward_Ks2 = -0.5;
-    public static final double intakeArmFeedforward_Kg2 = 0.4;
+    public static final double intakeArmFeedforward_Ks2 = 0.1;
+    public static final double intakeArmFeedforward_Kg2 = 1;
     public static final double intakeArmFeedforward_Kv2 = 0;
 
-    public static final double intakeArmFeedforward_Ks3 = -0.4;
-    public static final double intakeArmFeedforward_Kg3 = 0.15;
+    public static final double intakeArmFeedforward_Ks3 = -0.01;
+    public static final double intakeArmFeedforward_Kg3 = -0.3;
     public static final double intakeArmFeedforward_Kv3 = 0;
 
+    public static final double intakeArmFeedforward_Ks4 = 0.1;
+    public static final double intakeArmFeedforward_Kg4 = 0.7;
+    public static final double intakeArmFeedforward_Kv4 = 0;
+
+    public static final double intakeArmFeedforward_Ks5 = 0.001;
+    public static final double intakeArmFeedforward_Kg5 = 0.35;
+    public static final double intakeArmFeedforward_Kv5 = 0;
+
+    public static final double intakeArmFeedforward_Ks6 = 0;
+    public static final double intakeArmFeedforward_Kg6 = -0.6;
+    public static final double intakeArmFeedforward_Kv6 = 0;
+
     public static final double intakeCancoderOffset = 0.428;
-    public static final double intakewheelVoltage = 0;
+    public static final double intakewheelVoltage = 8.4;
 
     public static final double intakeArmArriveAngle = 0;
     public static final double intakeArmMaxOutPut = 0.3;
-    public static final double arriveDownAngle = 0;
-    public static final double arriveUpAngle = 0;
+    public static final double arriveDownAngle = -58;
+    public static final double arriveUpAngle = 60;
 
     public static final double intakeArmGearRatio = 0;
 
@@ -86,7 +98,7 @@ public final class Constants {
   }
 
   public final class ShooterConstants {
-    public static final int shooterMotor_ID = 0;
+    public static final int shooterMotor_ID = 2;
 
     public static final double shootAMPVoltage = 4;
     public static final double shootSpeakerVoltage = 9.6;
@@ -111,10 +123,10 @@ public final class Constants {
   }
   
   public final class IndexerConstants {
-    public static final int indexerMotor_ID = 13;
+    public static final int indexerMotor_ID = 10;
     public static final int bottomSwitch_ID = 3;
 
-    public static final double indexerVoltage = 0;
+    public static final double indexerVoltage = 4;
 
     public static boolean getBottomSwitch = true;//很邪教，但現在只能這樣
   }
@@ -208,8 +220,8 @@ public final class Constants {
   }
 
   public final class RobotContainerConstants {
-    public static final int operatorXboxController_ID = 1;
-    public static final int driverXboxController_ID = 0;
+    public static final int operatorXboxController_ID = 0;
+    public static final int driverXboxController_ID = 1;
   }
 
   public static double setMaxOutPut(double outPut, double maxOutPut){

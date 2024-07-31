@@ -12,6 +12,7 @@ import frc.robot.commands.ClimbBack;
 import frc.robot.commands.ClimbUp;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
+import frc.robot.commands.PassNote;
 // import frc.robot.commands.ResetArmCancoder;
 import frc.robot.commands.ShootAMP;
 import frc.robot.commands.ShootAMP_Auto;
@@ -53,17 +54,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  // private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
   private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
   private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
+  private final ClimberSubsystem m_ClimberSubsystem = new ClimberSubsystem();
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
-  private final SendableChooser<Command> autoChooser;
+  // private final SendableChooser<Command> autoChooser;
 
 
 
@@ -72,33 +74,32 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
-    NamedCommands.registerCommand("nevergonna", Commands.run(()->{
-      System.out.println("windgreenisgood");
-    }));
+    // NamedCommands.registerCommand("nevergonna", Commands.run(()->{
+    //   System.out.println("windgreenisgood");
+    // }));
 
-    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_climberSubsystem, 0.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbOut", new ClimbUp(m_ClimberSubsystem, 0.6).withTimeout(0.02));
 
-    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_climberSubsystem, -0.6).withTimeout(0));
+    NamedCommands.registerCommand("ClimbBack", new ClimbBack(m_ClimberSubsystem, -0.6).withTimeout(0.02));
 
-    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(0.02));
 
-    NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("AMPBar", new AMPBar(m_AMPBarSubsystem).withTimeout(0.02));
 
-    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0.02));
 
-    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP_Auto(m_shooterSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootPrepAMP", new ShootPrepAMP_Auto(m_shooterSubsystem).withTimeout(0.02));
 
-    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0.02));
 
-    NamedCommands.registerCommand("ShootAMP", new ShootAMP_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0));
+    NamedCommands.registerCommand("ShootAMP", new ShootAMP_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0.02));
 
 
-    
     
     configureBindings();
 
-    autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
-    SmartDashboard.putData("Auto Mode", autoChooser);
+    // autoChooser = AutoBuilder.buildAutoChooser(); // Default auto will be `Commands.none()`
+    // SmartDashboard.putData("Auto Mode", autoChooser);
   }
 
   /**
@@ -112,8 +113,8 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    DoubleSupplier rightClimbSpeed = ()-> operatorController.getRawAxis(1);
-    DoubleSupplier leftClimbSpeed = ()-> operatorController.getRawAxis(5);
+    // DoubleSupplier rightClimbSpeed = ()-> operatorController.getRawAxis(1);
+    // DoubleSupplier leftClimbSpeed = ()-> operatorController.getRawAxis(5);
 
     BooleanSupplier ifFeed = ()-> operatorController.getHID().getRightBumper();
     BooleanSupplier climberInsurance = ()-> operatorController.getHID().getLeftBumper();
@@ -126,14 +127,13 @@ public class RobotContainer {
     DoubleSupplier zSpeed = ()-> -driverController.getRawAxis(4);
 
     // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
-    //driverController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
 
     // driverController.x().whileTrue(new ResetArmCancoder(m_intakeSubsystem));
-    // operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
-    // operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
+    operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
+    operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
     // operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
     // operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    // operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
+    operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
@@ -154,6 +154,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return autoChooser.getSelected();
+    // return autoChooser.getSelected();
+    return null;
   }
 }
