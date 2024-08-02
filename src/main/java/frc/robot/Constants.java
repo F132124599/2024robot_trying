@@ -7,8 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
-import edu.wpi.first.units.Unit;
-import pabeles.concurrency.IntOperatorTask.Min;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -24,9 +22,9 @@ public final class Constants {
   }
 
   public final class AMPBarConstants {
-    public static final int arm_ID = 0;
+    public static final int arm_ID = 32;
 
-    public static final double armPid_Kp = 0;
+    public static final double armPid_Kp = 1;
     public static final double armPid_Ki = 0;
     public static final double armPid_Kd = 0;
 
@@ -36,7 +34,7 @@ public final class Constants {
 
     public static final double armMotorGearRatio = 0;
 
-    public static final double outAngle = 0;
+    public static final double outAngle = 100;
     public static final double backAngle = 0;
 
     public static final double maxOutPut = 0.3;
@@ -55,10 +53,10 @@ public final class Constants {
   }
 
   public final class LEDConstants {
-    public static final int LedNum = 0;
-    public static final int candle_ID = 0;
+    public static final int LedNum = 19;
+    public static final int candle_ID = 46;
 
-    public static boolean LEDFlag = false;
+    public static boolean LEDFlag = true;
     public static boolean hasNote = false;
     public static boolean intaking = false;
     public static boolean trackingNote = false;
@@ -152,7 +150,7 @@ public final class Constants {
 
     public static final double indexerVoltage = 4;
 
-    public static boolean getBottomSwitch = true;//很邪教，但現在只能這樣
+    public static boolean getBottomSwitch = false;//很邪教，但現在只能這樣
   }
 
   public final class SwerveConstants {
@@ -180,7 +178,7 @@ public final class Constants {
     public static final double ySpeedMaxOutPut = 0.6;
     public static final double zSpeedMaxOutPut = 0.6;
  
-    public static final int pigean2ID = 33;
+    public static final int pigeon2ID = 33;
 
     public static final double turningPidController_Kp = 0.012;
     public static final double turningPidController_Ki = 0;

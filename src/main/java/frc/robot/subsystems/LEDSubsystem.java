@@ -20,7 +20,6 @@ public class LEDSubsystem extends SubsystemBase {
   private final CANdleConfiguration candleConfig;
   private final int ledNum;
   private Animation ledAnimation;
-  private AnimationTypes currentAnimation;
 
   public enum AnimationTypes {
     ColorFlow,
@@ -48,14 +47,16 @@ public class LEDSubsystem extends SubsystemBase {
     ledAnimation = null;
 
   }
-
+  /* =========
+   *   Blink
+   * =========*/
   public void redBlink(){
     ledAnimation = new StrobeAnimation(255, 0, 0, 0, 0.4, ledNum);
     candle.animate(ledAnimation);
     LEDConstants.LEDFlag = false;
   }
-  public void orangeBlink(){
-    ledAnimation = new StrobeAnimation(255, 255, 0, 0, 0.4, ledNum);
+  public void blueBlink(){
+    ledAnimation = new StrobeAnimation(0, 0, 255, 0, 0.4, ledNum);
     candle.animate(ledAnimation);
     LEDConstants.LEDFlag = false;
   }
@@ -102,7 +103,6 @@ public class LEDSubsystem extends SubsystemBase {
     candle.setLEDs(0, 0, 0);
     LEDConstants.LEDFlag = false;
   }
-
   public void pinkSolid(){
     candle.animate(null);
     candle.setLEDs(77, 0, 9);
@@ -118,13 +118,14 @@ public class LEDSubsystem extends SubsystemBase {
       else if(LEDConstants.speedReadySPEAKER) purpleSolid();
       else if(LEDConstants.speedReadyPassNote) pinkSolid();
       else if(LEDConstants.prepSPEAKER) purpleBlink();
-      else if(LEDConstants.prepAMP) orangeBlink();
+      else if(LEDConstants.prepAMP) blueBlink();
       else if(LEDConstants.prepPassNote) pinkBlink();
-      else if(LEDConstants.hasNoteInSight && LEDConstants.trackingNote) orangeBlink();
+      else if(LEDConstants.hasNoteInSight && LEDConstants.trackingNote) yellowBlink();
       else if(LEDConstants.hasNoteInSight == false && LEDConstants.trackingNote) redBlink();
       else if(LEDConstants.intaking) redBlink();
       else if(LEDConstants.hasNote) greenSolid();
       else if(LEDConstants.hasNote == false) redSolid();
+      LEDConstants.LEDFlag = false;
     }    
   }
 }

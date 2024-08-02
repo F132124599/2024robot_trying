@@ -92,9 +92,9 @@ public class AMPBarSubsystem extends SubsystemBase {
     outPut = feedforwardOutPut + pidOutPut;
     outPut = Constants.setMaxOutPut(outPut, AMPBarConstants.maxOutPut);
 
-    SmartDashboard.putNumber("AMPBarArmPosition", getAngle());
-    SmartDashboard.putNumber("AMPBarArmVelocity", getVelocity());
-    SmartDashboard.putNumber("AMPBarArmOutPut", outPut);
+    SmartDashboard.putNumber("AMPBar/ArmPosition", getAngle());
+    SmartDashboard.putNumber("AMPBar/ArmVelocity", getVelocity());
+    SmartDashboard.putNumber("AMPBar/ArmOutPut", outPut);
 
     arm.set(outPut);
 

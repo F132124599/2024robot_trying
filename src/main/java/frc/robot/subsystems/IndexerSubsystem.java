@@ -6,24 +6,25 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkBase.IdleMode;
-import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.IndexerConstants;
-/**
- * 把intakeNote和feedNote變成一個funtion
- */
+
 public class IndexerSubsystem extends SubsystemBase {
   /** Creates a new indexerSubsystem. */
+  private boolean startTime;
+  private final Timer timer;
+  private double nowTime;
   private final TalonFX indexerMotor;
 
   private final DigitalInput bottomSwitch;
   public IndexerSubsystem() {
+    timer = new Timer();
+    startTime = true;
+
     indexerMotor = new TalonFX(IndexerConstants.indexerMotor_ID);
 
     bottomSwitch = new DigitalInput(IndexerConstants.bottomSwitch_ID);
@@ -45,13 +46,28 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public boolean getBottomSwitch(){
-    IndexerConstants.getBottomSwitch = !bottomSwitch.get();
-    return IndexerConstants.getBottomSwitch;
-  }//之後要改
+    if(bottomSwitch.get() && startTime == true){
+      timer.reset();
+      timer.start();
+      startTime = false;
+    }
+    nowTime = timer.get();
+    if(!bottomSwitch.get() && nowTime >= 0.05){
+      IndexerConstants.getBottomSwitch = true;
+      timer.stop();
+      return true;
+    }else{
+      startTime = true;
+      return false;
+    }
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("indexerBottonSwitch", getBottomSwitch());
+    getBottomSwitch();
+    SmartDashboard.putBoolean("indexer/BottonSwitch", getBottomSwitch());
+    SmartDashboard.putNumber("nowTime", nowTime);
+    SmartDashboard.putBoolean("hasNote", bottomSwitch.get());
   }
 }

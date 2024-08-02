@@ -21,7 +21,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 
 public class SwerveSubsystem extends SubsystemBase {
@@ -69,7 +68,7 @@ public class SwerveSubsystem extends SubsystemBase {
             SwerveConstants.rightBackturningMotorInversion,
             SwerveConstants.rightBackDriveMotorInversion);
         field = new Field2d();
-        gyro = new Pigeon2(SwerveConstants.pigean2ID);
+        gyro = new Pigeon2(SwerveConstants.pigeon2ID);
         gyroConfig = new Pigeon2Configuration();
         gyroConfig.MountPose.MountPoseYaw = -10;
         gyro.getConfigurator().apply(gyroConfig);

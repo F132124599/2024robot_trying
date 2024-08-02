@@ -7,7 +7,6 @@ package frc.robot.commands;
 import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -42,7 +41,7 @@ public class ShootAMP extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if( m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedAMP) && ifFeed.getAsBoolean()){
+    if( m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedAMP)){
       LEDConstants.speedReadyAMP = true;
       LEDConstants.LEDFlag = true;
       if(ifFeed.getAsBoolean()) {

@@ -12,13 +12,11 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -147,14 +145,14 @@ public class IntakeSubsystem extends SubsystemBase {
     outPut = pidOutput + feedForwardOutPut;
     outPut = Constants.setMaxOutPut(outPut, IntakeConstants.intakeArmMaxOutPut);
 
-    SmartDashboard.putNumber("IntakeArmAbsolutedEncoderPosition", getAbsolutePosition());
-    SmartDashboard.putNumber("IntakeArmAbsoluteEncoderAngle", getAngle());
-    SmartDashboard.putNumber("IntakeArmPidOutPut", pidOutput);
-    SmartDashboard.putNumber("IntakeArmFeedForwardOutPut", feedForwardOutPut);
-    SmartDashboard.putNumber("ArmOutPut", outPut);
-    SmartDashboard.putBoolean("IntakeArmIsJam", isJam());
-    SmartDashboard.putNumber("IntakeArmRelativePosition", getRelativePosition());
-    SmartDashboard.putNumber("IntakeWheelTem", intakeWheel.getDeviceTemp().getValueAsDouble());
+    SmartDashboard.putNumber("Intake/ArmAbsolutedEncoderPosition", getAbsolutePosition());
+    SmartDashboard.putNumber("Intake/ArmAbsoluteEncoderAngle", getAngle());
+    SmartDashboard.putNumber("Intake/ArmPidOutPut", pidOutput);
+    SmartDashboard.putNumber("Intake/ArmFeedForwardOutPut", feedForwardOutPut);
+    SmartDashboard.putNumber("Intake/ArmOutPut", outPut);
+    SmartDashboard.putBoolean("Intake/ArmIsJam", isJam());
+    SmartDashboard.putNumber("Intake/ArmRelativePosition", getRelativePosition());
+    SmartDashboard.putNumber("Intake/WheelMotorTemp", intakeWheel.getDeviceTemp().getValueAsDouble());
 
     intakeArm.set(outPut);
   }

@@ -109,10 +109,10 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("leftPostion", getLeftPosition());
-    SmartDashboard.putNumber("rightPosition", getLeftPosition());
-    SmartDashboard.putBoolean("leftInTheEnd?", leftInTheEnd());
-    SmartDashboard.putBoolean("rightInTheEnd", rightInTheEnd());
+    SmartDashboard.putNumber("Climber/leftPostion", getLeftPosition());
+    SmartDashboard.putNumber("Climber/rightPosition", getLeftPosition());
+    SmartDashboard.putBoolean("Climber/leftInTheEnd?", leftInTheEnd());
+    SmartDashboard.putBoolean("Climber/rightInTheEnd?", rightInTheEnd());
 
   }
 }

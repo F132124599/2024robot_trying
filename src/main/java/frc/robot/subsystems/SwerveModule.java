@@ -13,8 +13,6 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Constants;
 import frc.robot.Constants.SwerveConstants;
 
 public class SwerveModule {
@@ -22,7 +20,6 @@ public class SwerveModule {
     private final CANSparkMax turningMotor;
 
     private final RelativeEncoder driveMotorEncoder;
-    private final RelativeEncoder turningMotEncoder;
 
     private final CANcoder turningAbsoluteEncoder;
     private final CANcoderConfiguration CANcoderConfig;
@@ -34,7 +31,6 @@ public class SwerveModule {
         turningMotor = new CANSparkMax(turningMotorID, MotorType.kBrushless);
 
         driveMotorEncoder = driveMotor.getEncoder();
-        turningMotEncoder = turningMotor.getEncoder();
 
         turningAbsoluteEncoder = new CANcoder(absolutedEncoderID);
         CANcoderConfig = new CANcoderConfiguration();
