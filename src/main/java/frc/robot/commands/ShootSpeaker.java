@@ -9,6 +9,7 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -32,15 +33,26 @@ public class ShootSpeaker extends Command {
   @Override
   public void initialize() {
     m_shooterSubsystem.shoot(ShooterConstants.shootSpeakerVoltage);
+
+    LEDConstants.prepSPEAKER = true;
+    LEDConstants.LEDFlag = true;
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedSpeaker) && ifFeed.getAsBoolean()){
-    m_indexerSubsystem.startMotor();
+    if(m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedSpeaker)){
+    LEDConstants.speedReadySPEAKER = true;
+    LEDConstants.LEDFlag = true;
+    if(ifFeed.getAsBoolean()) {
+      m_indexerSubsystem.startMotor();
+    }
     } else {
       m_indexerSubsystem.stopIndexer();
+      LEDConstants.prepSPEAKER = true;
+      LEDConstants.speedReadySPEAKER = false;
+      LEDConstants.LEDFlag = true;
     }
   }
 
@@ -49,6 +61,15 @@ public class ShootSpeaker extends Command {
   public void end(boolean interrupted) {
     m_shooterSubsystem.stopShoot();
     m_indexerSubsystem.stopIndexer();
+
+    if(m_indexerSubsystem.getBottomSwitch()){
+      LEDConstants.hasNote = true;
+    }else {
+      LEDConstants.hasNote = false;
+    }
+    LEDConstants.speedReadySPEAKER = false;
+    LEDConstants.prepSPEAKER = false;
+    LEDConstants.LEDFlag = true;
   }
 
   // Returns true when the command should end.

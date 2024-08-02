@@ -4,14 +4,127 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.led.Animation;
+import com.ctre.phoenix.led.CANdle;
+import com.ctre.phoenix.led.CANdle.LEDStripType;
+import com.ctre.phoenix.led.CANdle.VBatOutputMode;
+import com.ctre.phoenix.led.CANdleConfiguration;
+import com.ctre.phoenix.led.StrobeAnimation;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LEDConstants;
 
 public class LEDSubsystem extends SubsystemBase {
   /** Creates a new LEDSubsystem. */
-  public LEDSubsystem() {}
+  private final CANdle candle;
+  private final CANdleConfiguration candleConfig;
+  private final int ledNum;
+  private Animation ledAnimation;
+  private AnimationTypes currentAnimation;
+
+  public enum AnimationTypes {
+    ColorFlow,
+    Fire,
+    Larson,
+    Rainbow,
+    RgbFade,
+    SingleFade,
+    Strobe,
+    Twinkle,
+    TwinkleOff,
+    SetAll
+}
+  public LEDSubsystem() {
+    candle = new CANdle(LEDConstants.candle_ID);
+
+    ledNum = LEDConstants.LedNum;
+    candleConfig = new CANdleConfiguration();
+    candleConfig.stripType = LEDStripType.RGB;
+    candleConfig.statusLedOffWhenActive = true;
+    candleConfig.disableWhenLOS = false;
+    candleConfig.vBatOutputMode = VBatOutputMode.Modulated;
+    candle.configAllSettings(candleConfig);
+
+    ledAnimation = null;
+
+  }
+
+  public void redBlink(){
+    ledAnimation = new StrobeAnimation(255, 0, 0, 0, 0.4, ledNum);
+    candle.animate(ledAnimation);
+    LEDConstants.LEDFlag = false;
+  }
+  public void orangeBlink(){
+    ledAnimation = new StrobeAnimation(255, 255, 0, 0, 0.4, ledNum);
+    candle.animate(ledAnimation);
+    LEDConstants.LEDFlag = false;
+  }
+  public void yellowBlink(){
+    ledAnimation = new StrobeAnimation(255, 100, 0, 0, 0.4, ledNum);
+    candle.animate(ledAnimation);
+    LEDConstants.LEDFlag = false;
+  }
+  public void purpleBlink(){
+    ledAnimation = new StrobeAnimation(255, 0, 255, 0, 0.4, ledNum);
+    candle.animate(ledAnimation);
+    LEDConstants.LEDFlag = false;
+  }
+  public void pinkBlink(){
+    ledAnimation = new StrobeAnimation(77, 0, 9, 0, 0.4, ledNum);
+    candle.animate(ledAnimation);
+    LEDConstants.LEDFlag = false;
+  }
+  /* =========
+   *   Solid
+   * =========*/
+  public void redSolid(){
+    candle.animate(null);
+    candle.setLEDs(255, 0, 0);
+    LEDConstants.LEDFlag = false;
+  }
+  public void greenSolid(){
+    candle.animate(null);
+    candle.setLEDs(0, 255, 0);
+    LEDConstants.LEDFlag = false;
+  }
+  public void blueSolid(){
+    candle.animate(null);
+    candle.setLEDs(0, 0, 255);
+    LEDConstants.LEDFlag = false;
+  }
+  public void purpleSolid(){
+    candle.animate(null);
+    candle.setLEDs(255, 0, 255);
+    LEDConstants.LEDFlag = false;
+  }
+  public void stopLED(){
+    candle.animate(null);
+    candle.setLEDs(0, 0, 0);
+    LEDConstants.LEDFlag = false;
+  }
+
+  public void pinkSolid(){
+    candle.animate(null);
+    candle.setLEDs(77, 0, 9);
+    LEDConstants.LEDFlag = false;
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if(LEDConstants.LEDFlag){
+      if(LEDConstants.playing == false) stopLED();
+      else if(LEDConstants.speedReadyAMP) blueSolid();
+      else if(LEDConstants.speedReadySPEAKER) purpleSolid();
+      else if(LEDConstants.speedReadyPassNote) pinkSolid();
+      else if(LEDConstants.prepSPEAKER) purpleBlink();
+      else if(LEDConstants.prepAMP) orangeBlink();
+      else if(LEDConstants.prepPassNote) pinkBlink();
+      else if(LEDConstants.hasNoteInSight && LEDConstants.trackingNote) orangeBlink();
+      else if(LEDConstants.hasNoteInSight == false && LEDConstants.trackingNote) redBlink();
+      else if(LEDConstants.intaking) redBlink();
+      else if(LEDConstants.hasNote) greenSolid();
+      else if(LEDConstants.hasNote == false) redSolid();
+    }    
   }
 }

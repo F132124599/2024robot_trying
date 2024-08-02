@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -29,6 +30,9 @@ public class NoteIntake extends Command {
     m_indexerSubsystem.startMotor();
     m_intakeSubsystem.DownArm();
     m_intakeSubsystem.noteIntake();
+
+    LEDConstants.intaking = true;
+    LEDConstants.LEDFlag = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -42,6 +46,14 @@ public class NoteIntake extends Command {
     m_intakeSubsystem.stopIntake();
     m_indexerSubsystem.stopIndexer();
     m_intakeSubsystem.raiseArm();
+
+    if(m_indexerSubsystem.getBottomSwitch()){
+      LEDConstants.hasNote = true;
+    }else{
+      LEDConstants.hasNote = false;
+    }
+    LEDConstants.intaking = false;
+    LEDConstants.LEDFlag = true;
   }
 
   // Returns true when the command should end.

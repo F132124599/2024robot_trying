@@ -95,7 +95,7 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void noteOut() {
-    intakeWheel.setVoltage(-IntakeConstants.intakewheelVoltage);
+    intakeWheel.setVoltage(IntakeConstants.intakeWheelEjectVoltage);
   }
 
   public double getAngle() {

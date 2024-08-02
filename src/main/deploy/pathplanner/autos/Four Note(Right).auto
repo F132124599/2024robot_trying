@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.797219890403907,
-      "y": 6.506695703974367
+      "x": 0.73,
+      "y": 4.555607317492662
     },
-    "rotation": 58.495733280795854
+    "rotation": -59.676393137449985
   },
   "command": {
     "type": "sequential",
@@ -32,13 +32,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left go out to left"
+            "pathName": "Right go out to right"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leftout go back to left"
+            "pathName": "Rightout go back to right"
           }
         },
         {
@@ -56,13 +56,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left go out to left(far1)"
+            "pathName": "Right go out to right(far1)"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leftout(far1) back to left"
+            "pathName": "Rightout(far1) go back to right"
           }
         },
         {
@@ -80,13 +80,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Left go out to left(far2)"
+            "pathName": "Right go out to right(far2)"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leftout(far2) go back to blueline"
+            "pathName": "Rightout(far2) go back to right"
           }
         },
         {

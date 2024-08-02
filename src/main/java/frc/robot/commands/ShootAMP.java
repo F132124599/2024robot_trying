@@ -8,6 +8,7 @@ import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -33,15 +34,25 @@ public class ShootAMP extends Command {
   @Override
   public void initialize() {
     m_shooterSubsystem.shoot(ShooterConstants.shootAMPVoltage);
+
+    LEDConstants.prepAMP = true;
+    LEDConstants.LEDFlag = true;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     if( m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedAMP) && ifFeed.getAsBoolean()){
-      m_indexerSubsystem.startMotor();
+      LEDConstants.speedReadyAMP = true;
+      LEDConstants.LEDFlag = true;
+      if(ifFeed.getAsBoolean()) {
+        m_indexerSubsystem.startMotor();
+      }
     } else {
       m_indexerSubsystem.stopIndexer();
+      LEDConstants.speedReadyAMP = false;
+      LEDConstants.prepAMP = true;
+      LEDConstants.LEDFlag = true;
     }
   }
 
@@ -50,6 +61,15 @@ public class ShootAMP extends Command {
   public void end(boolean interrupted) {
     m_shooterSubsystem.stopShoot();
     m_indexerSubsystem.stopIndexer();
+
+    if(m_indexerSubsystem.getBottomSwitch()){
+      LEDConstants.hasNote = true;
+    }else {
+      LEDConstants.hasNote = false;
+    }
+    LEDConstants.speedReadyAMP = false;
+    LEDConstants.prepAMP = false;
+    LEDConstants.LEDFlag = true;
   }
 
   // Returns true when the command should end.

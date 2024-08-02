@@ -53,10 +53,33 @@ public final class Constants {
     public static final double trackNotePidMaxOutPut = 0.4;
     
   }
+
+  public final class LEDConstants {
+    public static final int LedNum = 0;
+    public static final int candle_ID = 0;
+
+    public static boolean LEDFlag = false;
+    public static boolean hasNote = false;
+    public static boolean intaking = false;
+    public static boolean trackingNote = false;
+    public static boolean hasNoteInSight = false;
+    public static boolean prepSPEAKER = false;
+    public static boolean prepAMP = false;
+    public static boolean speedReadySPEAKER = false;
+    public static boolean speedReadyAMP = false;
+    public static boolean aimingAMP = true;
+    public static boolean aimReadyAMP = false;
+    public static boolean haveApriltag = true ;
+    public static boolean playing = false;
+    public static boolean prepPassNote = false;
+    public static boolean speedReadyPassNote = false;
+    
+    
+  }
   public final class IntakeConstants {
-    public static final double intakeArmPID_Kp = 0.0027;
+    public static final double intakeArmPID_Kp = 0.0047;
     public static final double intakeArmPID_Ki = 0;
-    public static final double intakeArmPID_Kd = 0.0001;
+    public static final double intakeArmPID_Kd = 0.00032;
 
     public static final double intakeArmFeedforward_Ks1 = 0;
     public static final double intakeArmFeedforward_Kg1 = 0;
@@ -83,7 +106,8 @@ public final class Constants {
     public static final double intakeArmFeedforward_Kv6 = 0;
 
     public static final double intakeCancoderOffset = 0.428;
-    public static final double intakewheelVoltage = 8.4;
+    public static final double intakewheelVoltage = 9;
+    public static final double intakeWheelEjectVoltage = -5;
 
     public static final double intakeArmArriveAngle = 0;
     public static final double intakeArmMaxOutPut = 0.3;

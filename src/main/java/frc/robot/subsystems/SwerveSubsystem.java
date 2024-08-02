@@ -35,7 +35,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
     private final SwerveDriveOdometry odometry;
 
-    private Field2d field;
+    private final Field2d field;
     /**
      * 
      */
@@ -68,6 +68,7 @@ public class SwerveSubsystem extends SubsystemBase {
             SwerveConstants.rightBackOffset,
             SwerveConstants.rightBackturningMotorInversion,
             SwerveConstants.rightBackDriveMotorInversion);
+        field = new Field2d();
         gyro = new Pigeon2(SwerveConstants.pigean2ID);
         gyroConfig = new Pigeon2Configuration();
         gyroConfig.MountPose.MountPoseYaw = -10;
@@ -98,13 +99,14 @@ public class SwerveSubsystem extends SubsystemBase {
             this
             );
 
-            // PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
-            // SmartDashboard.putData("Field", field);
+            PathPlannerLogging.setLogActivePathCallback((poses) -> field.getObject("path").setPoses(poses));
+            SmartDashboard.putData("Field", field);
 
     }
     @Override
     public void periodic() {
         odometry.update(gyro.getRotation2d(), getModulePosition());
+        field.setRobotPose(odometry.getPoseMeters());
         SmartDashboard.putNumber("leftFrontDrivePosition", leftFront.getDrivePosition());
         SmartDashboard.putNumber("leftFrontturningPosition", leftFront.getTurningPosition());
         SmartDashboard.putNumber("leftFrontVelocity", leftFront.getDriveVelocity());

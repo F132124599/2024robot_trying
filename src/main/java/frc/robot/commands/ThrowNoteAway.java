@@ -22,6 +22,7 @@ public class ThrowNoteAway extends Command {
   @Override
   public void initialize() {
     m_intakeSubsystem.noteOut();
+    m_intakeSubsystem.DownArm();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -33,6 +34,7 @@ public class ThrowNoteAway extends Command {
   @Override
   public void end(boolean interrupted) {
     m_intakeSubsystem.stopIntake();
+    m_intakeSubsystem.raiseArm();
   }
 
   // Returns true when the command should end.
