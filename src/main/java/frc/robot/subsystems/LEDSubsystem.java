@@ -21,18 +21,6 @@ public class LEDSubsystem extends SubsystemBase {
   private final int ledNum;
   private Animation ledAnimation;
 
-  public enum AnimationTypes {
-    ColorFlow,
-    Fire,
-    Larson,
-    Rainbow,
-    RgbFade,
-    SingleFade,
-    Strobe,
-    Twinkle,
-    TwinkleOff,
-    SetAll
-}
   public LEDSubsystem() {
     candle = new CANdle(LEDConstants.candle_ID);
 
@@ -45,7 +33,6 @@ public class LEDSubsystem extends SubsystemBase {
     candle.configAllSettings(candleConfig);
 
     ledAnimation = null;
-
   }
   /* =========
    *   Blink
