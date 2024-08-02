@@ -10,6 +10,7 @@ import frc.robot.commands.VerticalMovement;
 import frc.robot.commands.AMPBar;
 import frc.robot.commands.ClimbBack;
 import frc.robot.commands.ClimbUp;
+import frc.robot.commands.IndexerReverse;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
 import frc.robot.commands.PassNote;
@@ -38,7 +39,6 @@ import java.util.function.DoubleSupplier;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -130,11 +130,11 @@ public class RobotContainer {
 
     // driverController.x().whileTrue(new ResetArmCancoder(m_intakeSubsystem));
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
-    operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem));
+    operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem, m_indexerSubsystem));
     // operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
     // operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    
+    operatorController.pov(0).or(operatorController.pov(315)).or(operatorController.pov(45)).whileTrue(new IndexerReverse(m_indexerSubsystem));
 
     // Climb climb = new Climb(climberSubaystem, leftClimbSpeed, rightClimbSpeed);
 
