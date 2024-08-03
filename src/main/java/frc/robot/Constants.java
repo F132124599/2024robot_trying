@@ -56,7 +56,7 @@ public final class Constants {
     public static final int LedNum = 19;
     public static final int candle_ID = 46;
 
-    public static boolean LEDFlag = true;
+    public static boolean LEDFlag = false;
     public static boolean hasNote = false;
     public static boolean intaking = false;
     public static boolean trackingNote = false;

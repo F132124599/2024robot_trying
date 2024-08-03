@@ -51,6 +51,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     LEDConstants.playing = false;
+    LEDConstants.LEDFlag = true;
   }
 
   @Override
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     LEDConstants.playing = true;
+    LEDConstants.LEDFlag = true;
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -79,6 +81,7 @@ public class Robot extends TimedRobot {
     // continue until interrupted by another command, remove
     // this line or comment it out.
     LEDConstants.playing = true;
+    LEDConstants.LEDFlag = true;
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
