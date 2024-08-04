@@ -5,7 +5,7 @@
       "x": 0.73,
       "y": 4.555607317492662
     },
-    "rotation": -59.676393137449985
+    "rotation": -59.68000000000001
   },
   "command": {
     "type": "sequential",
@@ -86,7 +86,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Rightout(far2) go back to blueline"
+            "pathName": "Rightout(far2) go back to CommunityLine"
           }
         },
         {

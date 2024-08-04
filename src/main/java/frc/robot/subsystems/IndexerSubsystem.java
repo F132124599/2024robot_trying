@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IndexerConstants;
+import frc.robot.Constants.LEDConstants;
 
 public class IndexerSubsystem extends SubsystemBase {
   /** Creates a new indexerSubsystem. */
@@ -20,14 +21,14 @@ public class IndexerSubsystem extends SubsystemBase {
   private double nowTime;
   private final TalonFX indexerMotor;
 
-  private final DigitalInput bottomSwitch;
+  private final DigitalInput irSensor;
   public IndexerSubsystem() {
     timer = new Timer();
     startTime = true;
 
     indexerMotor = new TalonFX(IndexerConstants.indexerMotor_ID);
 
-    bottomSwitch = new DigitalInput(IndexerConstants.bottomSwitch_ID);
+    irSensor = new DigitalInput(IndexerConstants.irSensor_ID);
 
     indexerMotor.setInverted(true);
     indexerMotor.setNeutralMode(NeutralModeValue.Brake);
@@ -45,29 +46,53 @@ public class IndexerSubsystem extends SubsystemBase {
     indexerMotor.setVoltage(0);
   }
 
-  public boolean getBottomSwitch(){
-    if(bottomSwitch.get() && startTime == true){
+  public boolean getBottomLimitSwitch(){
+    return !irSensor.get();
+  }
+
+  public boolean hasNote(){
+    nowTime = timer.get();
+    if(getBottomLimitSwitch() && startTime == true){
       timer.reset();
       timer.start();
       startTime = false;
     }
-    nowTime = timer.get();
-    if(!bottomSwitch.get() && nowTime >= 0.05){
-      IndexerConstants.getBottomSwitch = true;
+    if(getBottomLimitSwitch() && nowTime >= 0.05){
+      LEDConstants.hasNote = true;
       timer.stop();
       return true;
     }else{
       startTime = true;
+      nowTime = 0;
       return false;
     }
   }
 
+  //如果上面那個可以用就把這個刪掉
+  // public boolean hasNote(){
+  //   if(irSensor.get() && startTime == true){
+  //     timer.reset();
+  //     timer.start();
+  //     startTime = false;
+  //   }
+  //   nowTime = timer.get();
+  //   if(!irSensor.get() && nowTime >= 0.05){
+  //     LEDConstants.hasNote = true;
+  //     timer.stop();
+  //     return true;
+  //   }else{
+  //     startTime = true;
+  //     return false;
+  //   }
+  // }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    getBottomSwitch();
-    SmartDashboard.putBoolean("indexer/BottonSwitch", getBottomSwitch());
-    SmartDashboard.putNumber("nowTime", nowTime);
-    SmartDashboard.putBoolean("hasNote", bottomSwitch.get());
+    getBottomLimitSwitch();
+    hasNote();
+    SmartDashboard.putBoolean("indexer/BottonSwitch", getBottomLimitSwitch());//確定沒問題之後就把這行刪了
+    SmartDashboard.putNumber("nowTime", nowTime);//確定沒問題之後就把這行刪了
+    SmartDashboard.putBoolean("Indexer/hasNote", hasNote());
   }
 }

@@ -51,7 +51,7 @@ public class ShootSpeaker_Auto extends Command {
   public void end(boolean interrupted) {
     m_IndexerSubsystem.stopIndexer();
 
-    if(m_IndexerSubsystem.getBottomSwitch()) {
+    if(m_IndexerSubsystem.hasNote()) {
       LEDConstants.hasNote = true;
     } else {
       LEDConstants.hasNote = true;
