@@ -76,54 +76,6 @@
           "data": {
             "waitTime": 0.5
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Middle go out to right"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rightout go back to middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Middle go out to right(far2)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rightout(far2) go back to middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
         }
       ]
     }

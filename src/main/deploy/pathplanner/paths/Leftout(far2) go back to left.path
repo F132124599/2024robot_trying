@@ -20,8 +20,8 @@
         "y": 6.51
       },
       "prevControl": {
-        "x": 0.69,
-        "y": 6.51
+        "x": 5.9613919227838466,
+        "y": 6.9956624528633675
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.8,
+      "minWaypointRelativePos": 0.95,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -51,7 +51,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 61.28697298414667,
+    "rotation": 62.90472570641893,
     "rotateFast": true
   },
   "reversed": false,
