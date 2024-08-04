@@ -11,10 +11,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.AMPBarConstants;
+import frc.robot.commands.AMPBar;
 
 public class AMPBarSubsystem extends SubsystemBase {
   /** Creates a new AMPBarSubsystem. */
@@ -26,6 +28,8 @@ public class AMPBarSubsystem extends SubsystemBase {
   private final PIDController armPid;
 
   private final ArmFeedforward armFeedfoward;
+
+  private Timer timer;
 
   private double arriveAngle;
 
@@ -75,7 +79,11 @@ public class AMPBarSubsystem extends SubsystemBase {
   }
 
   public void setBackAngle() {
-    this.arriveAngle = AMPBarConstants.backAngle;
+    timer.restart();
+    while(timer.get() < AMPBarConstants.waitTime) {
+      this.arriveAngle = AMPBarConstants.backAngle;
+    }
+    resetPosition();
   }
 
 
@@ -83,7 +91,7 @@ public class AMPBarSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (armPid.getPositionError() > 5) {
+    if (armPid.getPositionError() > 2) {
       pidOutPut = armPid.calculate(getAngle(), arriveAngle);
     }
 

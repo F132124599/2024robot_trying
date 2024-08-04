@@ -41,6 +41,8 @@ public final class Constants {
 
     public static final boolean armMotorInversion = false;
 
+    public static final double waitTime = 0;
+
   }
 
   public final class LimeLightConstants {

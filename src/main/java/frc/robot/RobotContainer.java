@@ -109,7 +109,7 @@ public class RobotContainer {
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.b().whileTrue(new PassNote(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    operatorController.y().whileTrue(new AMPBar(m_AMPBarSubsystem));
+    operatorController.y().onTrue(new AMPBar(m_AMPBarSubsystem));
     operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.pov(0).or(operatorController.pov(315)).or(operatorController.pov(45)).whileTrue(new IndexerReverse(m_indexerSubsystem));
