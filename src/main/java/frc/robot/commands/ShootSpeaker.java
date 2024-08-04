@@ -60,7 +60,7 @@ public class ShootSpeaker extends Command {
     m_shooterSubsystem.stopShoot();
     m_indexerSubsystem.stopIndexer();
 
-    if(m_indexerSubsystem.getBottomSwitch()){
+    if(m_indexerSubsystem.hasNote()){
       LEDConstants.hasNote = true;
     }else {
       LEDConstants.hasNote = false;

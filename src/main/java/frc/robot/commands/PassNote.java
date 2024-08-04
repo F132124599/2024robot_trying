@@ -45,7 +45,6 @@ public class PassNote extends Command {
       LEDConstants.LEDFlag = true;
       if(ifFeed.getAsBoolean()) {
         m_indexerSubsystem.startMotor();
-
       }
     }else {
       m_indexerSubsystem.stopIndexer();
@@ -61,7 +60,7 @@ public class PassNote extends Command {
     m_shooterSubsystem.stopShoot();
     m_indexerSubsystem.stopIndexer();
 
-    if(m_indexerSubsystem.getBottomSwitch() == true) {
+    if(m_indexerSubsystem.hasNote()) {
       LEDConstants.hasNote = true;
     }else {
       LEDConstants.hasNote = false;

@@ -47,7 +47,7 @@ public class NoteIntake extends Command {
     m_indexerSubsystem.stopIndexer();
     m_intakeSubsystem.raiseArm();
 
-    if(m_indexerSubsystem.getBottomSwitch()){
+    if(m_indexerSubsystem.hasNote()){
       LEDConstants.hasNote = true;
     }else{
       LEDConstants.hasNote = false;
@@ -59,6 +59,6 @@ public class NoteIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_indexerSubsystem.getBottomSwitch();
+    return m_indexerSubsystem.hasNote();
   }
 }

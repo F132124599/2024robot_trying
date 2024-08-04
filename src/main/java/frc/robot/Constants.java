@@ -146,11 +146,9 @@ public final class Constants {
   
   public final class IndexerConstants {
     public static final int indexerMotor_ID = 10;
-    public static final int bottomSwitch_ID = 3;
+    public static final int irSensor_ID = 3;
 
     public static final double indexerVoltage = 4;
-
-    public static boolean getBottomSwitch = false;//很邪教，但現在只能這樣
   }
 
   public final class SwerveConstants {
