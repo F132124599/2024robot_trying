@@ -91,7 +91,11 @@ public class AMPBarSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    if (armPid.getPositionError() > 2) {
+    if(arriveAngle == AMPBarConstants.outAngle){
+      if (armPid.getPositionError() > 2) {
+        pidOutPut = armPid.calculate(getAngle(), arriveAngle);
+      }
+    }else {
       pidOutPut = armPid.calculate(getAngle(), arriveAngle);
     }
 
