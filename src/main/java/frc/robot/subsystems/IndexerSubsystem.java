@@ -50,41 +50,41 @@ public class IndexerSubsystem extends SubsystemBase {
     return !irSensor.get();
   }
 
-  public boolean hasNote(){
-    nowTime = timer.get();
-    if(getBottomLimitSwitch() && startTime == true){
-      timer.reset();
-      timer.start();
-      startTime = false;
-    }
-    if(getBottomLimitSwitch() && nowTime >= 0.05){
-      LEDConstants.hasNote = true;
-      timer.stop();
-      return true;
-    }else{
-      startTime = true;
-      nowTime = 0;
-      return false;
-    }
-  }
-
-  //如果上面那個可以用就把這個刪掉
   // public boolean hasNote(){
-  //   if(irSensor.get() && startTime == true){
+  //   nowTime = timer.get();
+  //   if(getBottomLimitSwitch() && startTime == true){
   //     timer.reset();
   //     timer.start();
   //     startTime = false;
   //   }
-  //   nowTime = timer.get();
-  //   if(!irSensor.get() && nowTime >= 0.05){
+  //   if(getBottomLimitSwitch() && nowTime >= 0.05){
   //     LEDConstants.hasNote = true;
   //     timer.stop();
   //     return true;
   //   }else{
   //     startTime = true;
+  //     nowTime = 0;
   //     return false;
   //   }
   // }
+
+  //如果上面那個可以用就把這個刪掉
+  public boolean hasNote(){
+    if(irSensor.get() && startTime == true){
+      timer.reset();
+      timer.start();
+      startTime = false;
+    }
+    nowTime = timer.get();
+    if(!irSensor.get() && nowTime >= 0){
+      LEDConstants.hasNote = true;
+      timer.stop();
+      return true;
+    }else{
+      startTime = true;
+      return false;
+    }
+  }
 
   @Override
   public void periodic() {

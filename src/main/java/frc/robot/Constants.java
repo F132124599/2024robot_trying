@@ -79,7 +79,7 @@ public final class Constants {
   public final class IntakeConstants {
     public static final double intakeArmPID_Kp = 0.0047;
     public static final double intakeArmPID_Ki = 0;
-    public static final double intakeArmPID_Kd = 0.00032;
+    public static final double intakeArmPID_Kd = 0.00039;
 
     public static final double intakeArmFeedforward_Ks1 = 0;
     public static final double intakeArmFeedforward_Kg1 = 0;
@@ -124,18 +124,18 @@ public final class Constants {
   public final class ShooterConstants {
     public static final int shooterMotor_ID = 2;
 
-    public static final double shootAMPVoltage = 4;
+    public static final double shootAMPVoltage = 4.8;
     public static final double shootSpeakerVoltage = 9.6;
     public static final double passNoteVoltage = 11.5;
 
     public static final double speedAMP = 1000;
     public static final double speedSpeaker = 4100;
-    public static final double speedPassNote = 0;
+    public static final double speedPassNote = 5700;
   }
 
   public final class ClimberConstants {
-    public static final int leftClimberMotor_ID = 31;
-    public static final int rightClimberMotor_ID = 8;
+    public static final int leftClimberMotor_ID = 8;
+    public static final int rightClimberMotor_ID = 31;
 
     public static final int rightRopeFinal_ID = 1;
     public static final int leftRopeFinal_ID = 2;
@@ -143,14 +143,14 @@ public final class Constants {
     public static final double climbUpVoltage = 0;
     public static final double climbDownVoltage = 0;
 
-    public static final double maxClimbPosition = 0;
+    public static final double maxClimbPosition = 4;
   }
   
   public final class IndexerConstants {
     public static final int indexerMotor_ID = 10;
     public static final int irSensor_ID = 3;
 
-    public static final double indexerVoltage = 4;
+    public static final double indexerVoltage = 9;
   }
 
   public final class SwerveConstants {
@@ -226,11 +226,11 @@ public final class Constants {
       new Translation2d(-kModuleDistance/2, -kModuleDistance/2)
     );
 
-    public static final double pathingMoving_Kp = 11;
+    public static final double pathingMoving_Kp = 12;
     public static final double pathingMoving_Ki = 0;
     public static final double pathingMoving_Kd = 0.056;
 
-    public static final double pathingtheta_Kp = 3;
+    public static final double pathingtheta_Kp = 3.5;
     public static final double pathingtheta_Ki = 0;
     public static final double pathingtheta_Kd = 0.035;
 

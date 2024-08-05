@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.signals.AbsoluteSensorRangeValue;
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 import com.revrobotics.CANSparkMax;
@@ -13,9 +14,11 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.SwerveConstants;
 
-public class SwerveModule {
+public class SwerveModule extends SubsystemBase{
     private final CANSparkMax driveMotor;
     private final CANSparkMax turningMotor;
 
@@ -89,6 +92,17 @@ public class SwerveModule {
         driveMotor.set(optimizedState.speedMetersPerSecond);
     }
 
+    public void setDesiredState_Auto(SwerveModuleState state){
+        state = SwerveModuleState.optimize(state, getstate().angle);
+        // Drive Motor pid
+        // double drivePidOutput = driveingPIDController.calculate(getState().speedMetersPerSecond, state.speedMetersPerSecond);
+        driveMotor.set(state.speedMetersPerSecond/SwerveConstants.maxDriveMotorSpeed);
+        // Angle Motor pid
+        double anglePidOutput = turningPidController.calculate(getstate().angle.getDegrees(), state.angle.getDegrees());
+        anglePidOutput = Math.abs(turningPidController.getPositionError())<1 ? 0 : anglePidOutput;
+        turningMotor.set(anglePidOutput);
+    }
+
     public void stopMotor() {
         driveMotor.set(0);
         turningMotor.set(0);
@@ -99,6 +113,12 @@ public class SwerveModule {
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
         turningMotor.set(turningMotorOutput);
         driveMotor.set(optimizedState.speedMetersPerSecond/SwerveConstants.maxDriveMotorSpeed);
+    }
+
+    @Override
+    public void periodic() {
+    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Robotposition", getDrivePosition());
     }
     
 }

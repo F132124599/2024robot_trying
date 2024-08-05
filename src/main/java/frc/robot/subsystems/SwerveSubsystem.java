@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.ctre.phoenix6.configs.Pigeon2Configuration;
 import com.ctre.phoenix6.hardware.Pigeon2;
+import com.ctre.phoenix6.mechanisms.swerve.SwerveModuleConstants;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
@@ -78,7 +79,7 @@ public class SwerveSubsystem extends SubsystemBase {
             this::getPose, 
             this::setPose, 
             this::getSpeeds, 
-            this::auto_Drive,
+            this::driveAuto,
             new HolonomicPathFollowerConfig(
                 new PIDConstants(SwerveConstants.pathingMoving_Kp, SwerveConstants.pathingMoving_Ki, SwerveConstants.pathingMoving_Kd), // Translation constants 
                 new PIDConstants(SwerveConstants.pathingtheta_Kp, SwerveConstants.pathingtheta_Ki, SwerveConstants.pathingtheta_Kd), // Rotation constants 
@@ -134,6 +135,19 @@ public class SwerveSubsystem extends SubsystemBase {
         setModuleState(states);
     }
 
+    public void setModuleStatesAuto(SwerveModuleState[] autoDesiredStates){
+    SwerveDriveKinematics.desaturateWheelSpeeds(autoDesiredStates, SwerveConstants.maxDriveMotorSpeed);
+    leftFront.setDesiredState_Auto(autoDesiredStates[0]);
+    rightFront.setDesiredState_Auto(autoDesiredStates[1]);
+    leftBack.setDesiredState_Auto(autoDesiredStates[2]);
+    rightBack.setDesiredState_Auto(autoDesiredStates[3]);
+  }
+    // Auto Drive
+    public void driveAuto(ChassisSpeeds RobotSpeeds){
+        ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(RobotSpeeds, 0.01);
+        SwerveModuleState[] states = SwerveConstants.swervKinematics.toSwerveModuleStates(targetSpeeds);
+        setModuleStatesAuto(states);
+    }
     public void auto_Drive(ChassisSpeeds speed){
         ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(speed, 0.02);
         SwerveModuleState[] states = SwerveConstants.swervKinematics.toSwerveModuleStates(targetSpeeds);

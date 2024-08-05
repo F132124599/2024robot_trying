@@ -43,8 +43,8 @@ public class ClimberSubsystem extends SubsystemBase {
     rightClimberMotor.setIdleMode(IdleMode.kBrake);
 
     //記得到時候要測方向
-    leftClimberMotor.setInverted(true);
-    rightClimberMotor.setInverted(true);
+    leftClimberMotor.setInverted(false);
+    rightClimberMotor.setInverted(false);
 
     leftClimberMotor.burnFlash();
     rightClimberMotor.burnFlash();
@@ -52,13 +52,14 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void rightClimb(double Value) {
     if(Value >= 0) {
-      if(getRightPosition() <= ClimberConstants.maxClimbPosition) {
+      if(getRightPosition() < ClimberConstants.maxClimbPosition) {
         rightClimberMotor.setVoltage(Value*12);
       }else {
         rightClimberMotor.setVoltage(0);
       }
     }else {
       if(rightInTheEnd()) {
+        resetRightPosition();
         rightClimberMotor.setVoltage(0);
       }else {
         rightClimberMotor.setVoltage(Value*12);
@@ -68,13 +69,14 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public void leftClimb(double Value) {
     if(Value >= 0) {
-      if(getLeftPosition() <= ClimberConstants.maxClimbPosition) {
+      if(getLeftPosition() < ClimberConstants.maxClimbPosition) {
         leftClimberMotor.setVoltage(Value*12);
       }else {
         leftClimberMotor.setVoltage(0);
       }
     }else {
       if(leftInTheEnd()) {
+        resetLeftPosition();
         leftClimberMotor.setVoltage(0);
       }else {
         leftClimberMotor.setVoltage(Value*12);
@@ -82,6 +84,13 @@ public class ClimberSubsystem extends SubsystemBase {
     }
   }
 
+  public void resetRightPosition() {
+    rightClimbEncoder.setPosition(0);
+  }
+
+  public void resetLeftPosition() {
+    leftClimbEncoder.setPosition(0);
+  }
   public double getRightPosition() {
     return rightClimbEncoder.getPosition();
   }
@@ -97,12 +106,10 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public boolean rightInTheEnd() {
-    rightClimbEncoder.setPosition(0);
     return !rightRopeFinal.get();
   }
 
   public boolean leftInTheEnd() {
-    leftClimbEncoder.setPosition(0);
     return !leftRopeFinal.get();
   }
 
@@ -110,9 +117,10 @@ public class ClimberSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Climber/leftPostion", getLeftPosition());
-    SmartDashboard.putNumber("Climber/rightPosition", getLeftPosition());
+    SmartDashboard.putNumber("Climber/rightPosition", getRightPosition());
     SmartDashboard.putBoolean("Climber/leftInTheEnd?", leftInTheEnd());
     SmartDashboard.putBoolean("Climber/rightInTheEnd?", rightInTheEnd());
+    SmartDashboard.putNumber("Climber/maxClimbPosition", ClimberConstants.maxClimbPosition);
 
   }
 }
