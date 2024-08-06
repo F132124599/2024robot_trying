@@ -12,6 +12,7 @@ import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
 import frc.robot.commands.PassNote;
 import frc.robot.commands.ShootAMP;
+import frc.robot.commands.ShootFinalSpeaker_Auto;
 import frc.robot.commands.ShootPrepSpeaker_Auto;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ShootSpeaker_Auto;
@@ -72,6 +73,7 @@ public class RobotContainer {
     NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0.02));
     NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(1));
     NamedCommands.registerCommand("StopShoot", new StopShoot(m_shooterSubsystem).withTimeout(0.02));
+    NamedCommands.registerCommand("ShootFinalSpeaker", new ShootFinalSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem));
 
     configureBindings();
 
