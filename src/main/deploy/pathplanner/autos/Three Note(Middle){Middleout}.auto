@@ -5,7 +5,7 @@
       "x": 1.22,
       "y": 5.52
     },
-    "rotation": 0.32730047485948405
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -62,73 +62,19 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Middle go out to left"
+            "pathName": "Middle go out to middleout(far)"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "Leftout go back to middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Middle go out to right"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Rightout go back to middle"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "ShootSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Middle go out to left(far1)"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Leftout(far1) go back to middle"
+            "pathName": "Middleout(far) go back to middle"
           }
         },
         {
           "type": "named",
           "data": {
             "name": "ShootFinalSpeaker"
-          }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
           }
         }
       ]
