@@ -18,6 +18,8 @@ public class ShootAMP extends Command {
 
   private final IndexerSubsystem m_indexerSubsystem;
 
+  private boolean shouldShoot;
+
   private BooleanSupplier ifFeed;
   public ShootAMP(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, BooleanSupplier ifFeed) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -25,6 +27,8 @@ public class ShootAMP extends Command {
     this.m_indexerSubsystem = indexerSubsystem;
 
     this.ifFeed = ifFeed;
+
+    this.shouldShoot = false;
 
     addRequirements(m_shooterSubsystem, m_indexerSubsystem);
   }
@@ -41,16 +45,21 @@ public class ShootAMP extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if( m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedAMP)){
+    if(ifFeed.getAsBoolean() && shouldShoot == true){
+      m_indexerSubsystem.startMotor();
+    }
+    if(m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedAMP)){
       LEDConstants.speedReadyAMP = true;
       LEDConstants.LEDFlag = true;
-      if(ifFeed.getAsBoolean()) {
-        m_indexerSubsystem.startMotor();
+      if(ifFeed.getAsBoolean() && shouldShoot == false) {
+        shouldShoot = true;
       }
     } else {
+      if(shouldShoot == false) {
       m_indexerSubsystem.stopIndexer();
-      LEDConstants.speedReadyAMP = false;
+      }
       LEDConstants.prepAMP = true;
+      LEDConstants.speedReadyAMP = false;
       LEDConstants.LEDFlag = true;
     }
   }

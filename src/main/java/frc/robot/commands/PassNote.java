@@ -17,6 +17,8 @@ public class PassNote extends Command {
   private final ShooterSubsystem m_shooterSubsystem;
 
   private final BooleanSupplier ifFeed;
+
+  private boolean shouldShoot;
   
   private final IndexerSubsystem m_indexerSubsystem;
   public PassNote(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, BooleanSupplier ifFeed) {
@@ -24,6 +26,8 @@ public class PassNote extends Command {
     this.m_shooterSubsystem = shooterSubsystem;
     this.m_indexerSubsystem = indexerSubsystem;
     this.ifFeed = ifFeed;
+
+    this.shouldShoot = false;
 
     addRequirements(m_shooterSubsystem, m_indexerSubsystem);
   }
@@ -40,16 +44,21 @@ public class PassNote extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if( m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedPassNote)) {
+    if(ifFeed.getAsBoolean() && shouldShoot == true){
+      m_indexerSubsystem.startMotor();
+    }
+    if(m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedPassNote)){
       LEDConstants.speedReadyPassNote = true;
       LEDConstants.LEDFlag = true;
-      if(ifFeed.getAsBoolean()) {
-        m_indexerSubsystem.startMotor();
+      if(ifFeed.getAsBoolean() && shouldShoot == false) {
+        shouldShoot = true;
       }
-    }else {
+    } else {
+      if(shouldShoot == false) {
       m_indexerSubsystem.stopIndexer();
-      LEDConstants.speedReadyPassNote = false;
+      }
       LEDConstants.prepPassNote = true;
+      LEDConstants.speedReadyPassNote = false;
       LEDConstants.LEDFlag = true;
     }
   }

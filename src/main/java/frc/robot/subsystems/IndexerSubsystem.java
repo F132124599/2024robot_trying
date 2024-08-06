@@ -91,8 +91,6 @@ public class IndexerSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     getBottomLimitSwitch();
     hasNote();
-    SmartDashboard.putBoolean("indexer/BottonSwitch", getBottomLimitSwitch());//確定沒問題之後就把這行刪了
-    SmartDashboard.putNumber("nowTime", nowTime);//確定沒問題之後就把這行刪了
     SmartDashboard.putBoolean("Indexer/hasNote", hasNote());
   }
 }

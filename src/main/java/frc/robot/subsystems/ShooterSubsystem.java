@@ -50,5 +50,6 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Shooter/ShooterSpeed", getShooterSpeed());
     SmartDashboard.putNumber("Shooter/speedSetpoint", speedSetpoint);
+    SmartDashboard.putNumber("Shooter/ShooterMoterTemp", shooterMotor.getDeviceTemp().getValueAsDouble());
   }
 }

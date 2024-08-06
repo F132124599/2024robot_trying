@@ -4,57 +4,51 @@
 
 package frc.robot.commands;
 
-import java.util.function.BooleanSupplier;
-
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.LEDConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
-public class ShootSpeaker extends Command {
-  /** Creates a new ShootSpeaker. */
-  private final ShooterSubsystem m_shooterSubsystem;
+public class ShootFinalSpeaker_Auto extends Command {
+  /** Creates a new ShootSpeaker_Auto. */
+  private final ShooterSubsystem m_ShooterSubsystem;
+  private final IndexerSubsystem m_IndexerSubsystem;
 
-  private final IndexerSubsystem m_indexerSubsystem;
-  private BooleanSupplier ifFeed;
   private boolean shouldShoot;
-  public ShootSpeaker(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, BooleanSupplier ifFeed) {
+  public ShootFinalSpeaker_Auto(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_shooterSubsystem = shooterSubsystem;
-    this.m_indexerSubsystem = indexerSubsystem;
-    this.ifFeed = ifFeed;
+
+    this.m_ShooterSubsystem = shooterSubsystem;
+    this.m_IndexerSubsystem = indexerSubsystem;
+
     this.shouldShoot = false;
 
-    addRequirements(m_shooterSubsystem, m_indexerSubsystem);
+    addRequirements(m_ShooterSubsystem, m_IndexerSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooterSubsystem.shoot(ShooterConstants.shootSpeakerVoltage);
+    m_ShooterSubsystem.shoot(ShooterConstants.shootSpeakerVoltage);
 
     LEDConstants.prepSPEAKER = true;
     LEDConstants.LEDFlag = true;
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(ifFeed.getAsBoolean() && shouldShoot == true){
-      m_indexerSubsystem.startMotor();
+    if(shouldShoot == true) {
+      m_IndexerSubsystem.startMotor();
     }
-    if(m_shooterSubsystem.ifSpeedArrive(ShooterConstants.speedSpeaker)){
-      LEDConstants.speedReadySPEAKER = true;
-      LEDConstants.LEDFlag = true;
-      if(ifFeed.getAsBoolean() && shouldShoot == false) {
+    if(m_ShooterSubsystem.getShooterSpeed() > ShooterConstants.speedSpeaker) {
+      if(shouldShoot == false) {
         shouldShoot = true;
       }
+      LEDConstants.speedReadySPEAKER = true;
+      LEDConstants.LEDFlag = true;
     } else {
-      if(shouldShoot == false) {
-      m_indexerSubsystem.stopIndexer();
-      }
       LEDConstants.prepSPEAKER = true;
       LEDConstants.speedReadySPEAKER = false;
       LEDConstants.LEDFlag = true;
@@ -64,16 +58,17 @@ public class ShootSpeaker extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooterSubsystem.stopShoot();
-    m_indexerSubsystem.stopIndexer();
+    m_IndexerSubsystem.stopIndexer();
+    m_ShooterSubsystem.stopShoot();
 
-    if(m_indexerSubsystem.hasNote()){
+    if(m_IndexerSubsystem.hasNote()) {
       LEDConstants.hasNote = true;
-    }else {
-      LEDConstants.hasNote = false;
+    } else {
+      LEDConstants.hasNote = true;
     }
-    LEDConstants.speedReadySPEAKER = false;
+
     LEDConstants.prepSPEAKER = false;
+    LEDConstants.speedReadySPEAKER = false;
     LEDConstants.LEDFlag = true;
   }
 

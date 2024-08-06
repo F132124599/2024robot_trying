@@ -107,18 +107,18 @@ public class SwerveSubsystem extends SubsystemBase {
     public void periodic() {
         odometry.update(gyro.getRotation2d(), getModulePosition());
         field.setRobotPose(odometry.getPoseMeters());
-        SmartDashboard.putNumber("leftFrontDrivePosition", leftFront.getDrivePosition());
-        SmartDashboard.putNumber("leftFrontturningPosition", leftFront.getTurningPosition());
-        SmartDashboard.putNumber("leftFrontVelocity", leftFront.getDriveVelocity());
-        SmartDashboard.putNumber("leftBackDrivePosition", leftBack.getDrivePosition());
-        SmartDashboard.putNumber("leftBackturningPosition", leftBack.getTurningPosition());
-        SmartDashboard.putNumber("leftBackVelocity", leftBack.getDriveVelocity());
-        SmartDashboard.putNumber("rightFrontDrivePosition", rightFront.getDrivePosition());
-        SmartDashboard.putNumber("rightFrontturningPosition", rightFront.getTurningPosition());
-        SmartDashboard.putNumber("rightFrontVelocity", rightFront.getDriveVelocity());
-        SmartDashboard.putNumber("rightBackDrivePosition", rightBack.getDrivePosition());
-        SmartDashboard.putNumber("rightBackturningPosition", rightBack.getTurningPosition());
-        SmartDashboard.putNumber("rightBackVelocity", rightBack.getDriveVelocity());
+        // SmartDashboard.putNumber("leftFrontDrivePosition", leftFront.getDrivePosition());
+        // SmartDashboard.putNumber("leftFrontturningPosition", leftFront.getTurningPosition());
+        // SmartDashboard.putNumber("leftFrontVelocity", leftFront.getDriveVelocity());
+        // SmartDashboard.putNumber("leftBackDrivePosition", leftBack.getDrivePosition());
+        // SmartDashboard.putNumber("leftBackturningPosition", leftBack.getTurningPosition());
+        // SmartDashboard.putNumber("leftBackVelocity", leftBack.getDriveVelocity());
+        // SmartDashboard.putNumber("rightFrontDrivePosition", rightFront.getDrivePosition());
+        // SmartDashboard.putNumber("rightFrontturningPosition", rightFront.getTurningPosition());
+        // SmartDashboard.putNumber("rightFrontVelocity", rightFront.getDriveVelocity());
+        // SmartDashboard.putNumber("rightBackDrivePosition", rightBack.getDrivePosition());
+        // SmartDashboard.putNumber("rightBackturningPosition", rightBack.getTurningPosition());
+        // SmartDashboard.putNumber("rightBackVelocity", rightBack.getDriveVelocity());
     }
     
     public ChassisSpeeds getSpeeds() {

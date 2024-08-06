@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.ClimberSubsystem;
 
@@ -39,7 +40,7 @@ public class VerticalMovement extends Command {
   @Override
   public void execute() {
     rightClimbSpeed = -rightClimbSpeedFunc.getAsDouble();
-    leftClimbSpeed = -leftClimbSpeedFunc.getAsDouble();
+    leftClimbSpeed =-leftClimbSpeedFunc.getAsDouble();
 
     if(climberInsurance.getAsBoolean()){
       m_climberSubsystem.leftClimb(leftClimbSpeed*0.4);

@@ -14,11 +14,15 @@ public class ShootSpeaker_Auto extends Command {
   /** Creates a new ShootSpeaker_Auto. */
   private final ShooterSubsystem m_ShooterSubsystem;
   private final IndexerSubsystem m_IndexerSubsystem;
+
+  private boolean shouldShoot;
   public ShootSpeaker_Auto(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
 
     this.m_ShooterSubsystem = shooterSubsystem;
     this.m_IndexerSubsystem = indexerSubsystem;
+
+    this.shouldShoot = false;
 
     addRequirements(m_ShooterSubsystem, m_IndexerSubsystem);
   }
@@ -35,8 +39,13 @@ public class ShootSpeaker_Auto extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_ShooterSubsystem.getShooterSpeed() > ShooterConstants.speedSpeaker) {
+    if(shouldShoot == true) {
       m_IndexerSubsystem.startMotor();
+    }
+    if(m_ShooterSubsystem.getShooterSpeed() > ShooterConstants.speedSpeaker) {
+      if(shouldShoot == false) {
+        shouldShoot = true;
+      }
       LEDConstants.speedReadySPEAKER = true;
       LEDConstants.LEDFlag = true;
     } else {

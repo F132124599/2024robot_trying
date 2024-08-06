@@ -30,8 +30,8 @@ public class ClimberSubsystem extends SubsystemBase {
     leftClimberMotor = new CANSparkMax(ClimberConstants.leftClimberMotor_ID, MotorType.kBrushless);
     rightClimberMotor = new CANSparkMax(ClimberConstants.rightClimberMotor_ID, MotorType.kBrushless);
 
-    rightRopeFinal = new DigitalInput(ClimberConstants.rightRopeFinal_ID);
-    leftRopeFinal = new DigitalInput(ClimberConstants.leftRopeFinal_ID);
+    rightRopeFinal = new DigitalInput(ClimberConstants.leftRopeFinal_ID);
+    leftRopeFinal = new DigitalInput(ClimberConstants.rightRopeFinal_ID);
 
     leftClimbEncoder = leftClimberMotor.getEncoder();
     rightClimbEncoder = rightClimberMotor.getEncoder();
@@ -43,16 +43,16 @@ public class ClimberSubsystem extends SubsystemBase {
     rightClimberMotor.setIdleMode(IdleMode.kBrake);
 
     //記得到時候要測方向
-    leftClimberMotor.setInverted(false);
-    rightClimberMotor.setInverted(false);
+    leftClimberMotor.setInverted(true);
+    rightClimberMotor.setInverted(true);
 
     leftClimberMotor.burnFlash();
     rightClimberMotor.burnFlash();
   }
 
   public void rightClimb(double Value) {
-    if(Value >= 0) {
-      if(getRightPosition() < ClimberConstants.maxClimbPosition) {
+    if(Value > 0) {
+      if(getRightPosition() < ClimberConstants.rightMaxClimbposition) {
         rightClimberMotor.setVoltage(Value*12);
       }else {
         rightClimberMotor.setVoltage(0);
@@ -68,8 +68,8 @@ public class ClimberSubsystem extends SubsystemBase {
   }
 
   public void leftClimb(double Value) {
-    if(Value >= 0) {
-      if(getLeftPosition() < ClimberConstants.maxClimbPosition) {
+    if(Value > 0) {
+      if(getLeftPosition() < ClimberConstants.leftmaxClimbPosition) {
         leftClimberMotor.setVoltage(Value*12);
       }else {
         leftClimberMotor.setVoltage(0);
@@ -116,11 +116,7 @@ public class ClimberSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Climber/leftPostion", getLeftPosition());
-    SmartDashboard.putNumber("Climber/rightPosition", getRightPosition());
     SmartDashboard.putBoolean("Climber/leftInTheEnd?", leftInTheEnd());
     SmartDashboard.putBoolean("Climber/rightInTheEnd?", rightInTheEnd());
-    SmartDashboard.putNumber("Climber/maxClimbPosition", ClimberConstants.maxClimbPosition);
-
   }
 }

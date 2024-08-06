@@ -106,8 +106,8 @@ public final class Constants {
     public static final double intakeArmFeedforward_Kv6 = 0;
 
     public static final double intakeCancoderOffset = 0.428;
-    public static final double intakewheelVoltage = 9;
-    public static final double intakeWheelEjectVoltage = -5;
+    public static final double intakewheelVoltage = 7.2;
+    public static final double intakeWheelEjectVoltage = -3;
 
     public static final double intakeArmArriveAngle = 0;
     public static final double intakeArmMaxOutPut = 0.3;
@@ -124,12 +124,12 @@ public final class Constants {
   public final class ShooterConstants {
     public static final int shooterMotor_ID = 2;
 
-    public static final double shootAMPVoltage = 4.8;
+    public static final double shootAMPVoltage = 4;
     public static final double shootSpeakerVoltage = 9.6;
     public static final double passNoteVoltage = 11.5;
 
-    public static final double speedAMP = 1000;
-    public static final double speedSpeaker = 4100;
+    public static final double speedAMP = 1800;
+    public static final double speedSpeaker = 4800;
     public static final double speedPassNote = 5700;
   }
 
@@ -142,8 +142,8 @@ public final class Constants {
 
     public static final double climbUpVoltage = 0;
     public static final double climbDownVoltage = 0;
-
-    public static final double maxClimbPosition = 4;
+    public static final double rightMaxClimbposition = 130;
+    public static final double leftmaxClimbPosition = 130;
   }
   
   public final class IndexerConstants {

@@ -15,6 +15,7 @@ import frc.robot.commands.ShootAMP;
 import frc.robot.commands.ShootPrepSpeaker_Auto;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ShootSpeaker_Auto;
+import frc.robot.commands.StopShoot;
 import frc.robot.commands.ThrowNoteAway;
 import frc.robot.commands.TrackNote_LimeLight;
 import frc.robot.subsystems.AMPBarSubsystem;
@@ -47,7 +48,6 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  // private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final IndexerSubsystem m_indexerSubsystem = new IndexerSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
@@ -70,7 +70,8 @@ public class RobotContainer {
     // Configure the trigger bindings
     NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(7));
     NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0.02));
-    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0.5));
+    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(1));
+    NamedCommands.registerCommand("StopShoot", new StopShoot(m_shooterSubsystem).withTimeout(0.02));
 
     configureBindings();
 
