@@ -16,7 +16,6 @@ import frc.robot.commands.ShootFinalSpeaker_Auto;
 import frc.robot.commands.ShootPrepSpeaker_Auto;
 import frc.robot.commands.ShootSpeaker;
 import frc.robot.commands.ShootSpeaker_Auto;
-import frc.robot.commands.StopShoot;
 import frc.robot.commands.ThrowNoteAway;
 import frc.robot.commands.TrackNote_LimeLight;
 import frc.robot.subsystems.AMPBarSubsystem;
@@ -54,7 +53,7 @@ public class RobotContainer {
   private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
   private final SwerveSubsystem m_swerveSubsystem = new SwerveSubsystem();
   private final LimeLightSubsystem m_LimeLightSubsystem = new LimeLightSubsystem();
-  private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
+  // private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final LEDSubsystem m_LedSubsystem = new LEDSubsystem();
 
@@ -71,8 +70,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     NamedCommands.registerCommand("NoteIntake", new NoteIntake(m_intakeSubsystem, m_indexerSubsystem).withTimeout(7));
     NamedCommands.registerCommand("ShootPrepSpeaker", new ShootPrepSpeaker_Auto(m_shooterSubsystem).withTimeout(0.02));
-    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(1));
-    NamedCommands.registerCommand("StopShoot", new StopShoot(m_shooterSubsystem).withTimeout(0.02));
+    NamedCommands.registerCommand("ShootSpeaker", new ShootSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem).withTimeout(0.5));
     NamedCommands.registerCommand("ShootFinalSpeaker", new ShootFinalSpeaker_Auto(m_shooterSubsystem, m_indexerSubsystem));
 
     configureBindings();
@@ -102,17 +100,17 @@ public class RobotContainer {
     DoubleSupplier ySpeed = ()-> -driverController.getRawAxis(0);
     DoubleSupplier zSpeed = ()-> -driverController.getRawAxis(4);
 
-    driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
+    // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     driverController.b().whileTrue(
       Commands.runOnce(()-> {
         m_swerveSubsystem.resetGyro();
       })
     );
-
+    operatorController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem))
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.b().whileTrue(new PassNote(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
-    operatorController.y().onTrue(new AMPBar(m_AMPBarSubsystem));
+    // operatorController.y().onTrue(new AMPBar(m_AMPBarSubsystem));
     operatorController.rightTrigger().whileTrue(new ShootSpeaker(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.leftTrigger().whileTrue(new ShootAMP(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
     operatorController.pov(0).or(operatorController.pov(315)).or(operatorController.pov(45)).whileTrue(new IndexerReverse(m_indexerSubsystem));
