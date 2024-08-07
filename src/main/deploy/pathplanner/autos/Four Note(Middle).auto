@@ -100,12 +100,6 @@
           "data": {
             "name": "ShootFinalSpeaker"
           }
-        },
-        {
-          "type": "wait",
-          "data": {
-            "waitTime": 0.5
-          }
         }
       ]
     }
