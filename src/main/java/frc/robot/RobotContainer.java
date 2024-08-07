@@ -106,7 +106,7 @@ public class RobotContainer {
         m_swerveSubsystem.resetGyro();
       })
     );
-    operatorController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem))
+    operatorController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.b().whileTrue(new PassNote(m_shooterSubsystem, m_indexerSubsystem, ifFeed));
