@@ -102,12 +102,12 @@ public class RobotContainer {
     DoubleSupplier zSpeed = ()-> -driverController.getRawAxis(4);
 
     // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
+    driverController.leftBumper().and(operatorController.y()).whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     driverController.b().whileTrue(
       Commands.runOnce(()-> {
         m_swerveSubsystem.resetGyro();
       })
     );
-    driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     operatorController.y().whileTrue(new ShooterReserve(m_shooterSubsystem));
     operatorController.x().whileTrue(new NoteIntake(m_intakeSubsystem, m_indexerSubsystem));
     operatorController.a().whileTrue(new ThrowNoteAway(m_intakeSubsystem, m_indexerSubsystem));

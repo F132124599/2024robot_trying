@@ -43,8 +43,8 @@ public class VerticalMovement extends Command {
     leftClimbSpeed =-leftClimbSpeedFunc.getAsDouble();
 
     if(climberInsurance.getAsBoolean()){
-      m_climberSubsystem.leftClimb(leftClimbSpeed*0.4);
-      m_climberSubsystem.rightClimb(rightClimbSpeed*0.4);
+      m_climberSubsystem.leftClimb(leftClimbSpeed);
+      m_climberSubsystem.rightClimb(rightClimbSpeed);
     }else {
       m_climberSubsystem.leftClimb(0);
       m_climberSubsystem.rightClimb(0);
