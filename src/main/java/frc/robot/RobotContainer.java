@@ -6,7 +6,6 @@ package frc.robot;
 
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
-import frc.robot.commands.AMPBar;
 import frc.robot.commands.IndexerReverse;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
@@ -20,7 +19,6 @@ import frc.robot.commands.ShooterReserve;
 import frc.robot.commands.StopIntake;
 import frc.robot.commands.ThrowNoteAway;
 import frc.robot.commands.TrackNote_LimeLight;
-import frc.robot.subsystems.AMPBarSubsystem;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
