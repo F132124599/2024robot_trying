@@ -57,8 +57,7 @@ public class SwerveModule extends SubsystemBase{
         driveMotor.burnFlash();
         turningMotor.burnFlash();
 
-        driveMotorEncoder.setVelocityConversionFactor(SwerveConstants.driveVelocityConversionFactor);
-        driveMotorEncoder.setPositionConversionFactor(SwerveConstants.drivePositionConversionFactor);
+        resetEncoder();
     }
 
     public SwerveModuleState getstate() {

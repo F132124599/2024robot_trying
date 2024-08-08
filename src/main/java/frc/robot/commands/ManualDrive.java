@@ -68,13 +68,13 @@ public class ManualDrive extends Command {
     this.isSlow = isSlowFunc.getAsBoolean();
 
     if(isSlow) {
-      xSpeed = xSpeed*0.4;
-      ySpeed = ySpeed*0.4;
-      zSpeed = zSpeed*0.4;
+      xSpeed = xSpeed*0.2;
+      ySpeed = ySpeed*0.2;
+      zSpeed = zSpeed*0.2;
     }else {
-      xSpeed = xSpeed*0.8;
-      ySpeed = ySpeed*0.8;
-      zSpeed = zSpeed*0.8;
+      xSpeed = xSpeed*0.95;
+      ySpeed = ySpeed*0.95;
+      zSpeed = zSpeed*0.95;
     }
 
     m_swerveSubsystem.drive(this.xSpeed, this.ySpeed, this.zSpeed,true);

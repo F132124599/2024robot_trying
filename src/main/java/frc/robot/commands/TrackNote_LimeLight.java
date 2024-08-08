@@ -47,7 +47,7 @@ public class TrackNote_LimeLight extends Command {
       if(Math.abs(m_limLightSubsystem.getPidPositionError())>5){
         m_swerveSubsystem.drive(0, 0, pidOutPut, false);
       }else{
-        m_swerveSubsystem.drive(0.1, 0, 0, false);
+        m_swerveSubsystem.drive(0.4, 0, 0, false);
       }
   }else {
     LEDConstants.hasNoteInSight = false;

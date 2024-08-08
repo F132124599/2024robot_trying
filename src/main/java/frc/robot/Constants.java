@@ -46,7 +46,7 @@ public final class Constants {
   }
 
   public final class LimeLightConstants {
-    public static final double trackNotePid_Kp = 0.05;
+    public static final double trackNotePid_Kp = 0.1;
     public static final double trackNotePid_Ki = 0;
     public static final double trackNotePid_Kd = 0;
 
@@ -230,7 +230,7 @@ public final class Constants {
     public static final double pathingMoving_Ki = 0;
     public static final double pathingMoving_Kd = 0.056;
 
-    public static final double pathingtheta_Kp = 3.5;
+    public static final double pathingtheta_Kp = 3;
     public static final double pathingtheta_Ki = 0;
     public static final double pathingtheta_Kd = 0.035;
 

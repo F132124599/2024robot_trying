@@ -58,12 +58,6 @@
           "data": {
             "waitTime": 0.5
           }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "Left go out to left(far1)"
-          }
         }
       ]
     }

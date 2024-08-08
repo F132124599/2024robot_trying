@@ -32,12 +32,28 @@
     },
     {
       "anchor": {
-        "x": 8.46,
-        "y": 4.11
+        "x": 6.572185241374762,
+        "y": 4.075371117931965
       },
       "prevControl": {
-        "x": 6.314546837367568,
-        "y": 4.239322829572906
+        "x": 5.939800067902562,
+        "y": 4.215901156481343
+      },
+      "nextControl": {
+        "x": 6.669803947393159,
+        "y": 4.053678072150099
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 8.04775064614323,
+        "y": 4.075371117931965
+      },
+      "prevControl": {
+        "x": 8.147201718005281,
+        "y": 4.064907643103347
       },
       "nextControl": null,
       "isLocked": false,
@@ -67,7 +83,7 @@
   "eventMarkers": [
     {
       "name": "NoteIntake",
-      "waypointRelativePos": 1.8,
+      "waypointRelativePos": 1.7,
       "command": {
         "type": "parallel",
         "data": {
@@ -92,7 +108,7 @@
   "goalEndState": {
     "velocity": 0,
     "rotation": 0,
-    "rotateFast": false
+    "rotateFast": true
   },
   "reversed": false,
   "folder": null,

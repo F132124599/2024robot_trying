@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0003800949114017,
-        "y": 7.003080254377342
+        "x": 2.702292041355384,
+        "y": 6.94
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.1003800949114018,
-        "y": 7.003080254377342
+        "x": 2.802292041355384,
+        "y": 6.94
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.2203329399526117,
-        "y": 5.52
+        "x": 1.14,
+        "y": 5.42
       },
       "prevControl": {
-        "x": 1.1203329399526116,
-        "y": 5.52
+        "x": 1.0399999999999998,
+        "y": 5.42
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,7 +32,7 @@
   "constraintZones": [
     {
       "name": "New Constraints Zone",
-      "minWaypointRelativePos": 0.7,
+      "minWaypointRelativePos": 0.55,
       "maxWaypointRelativePos": 1.0,
       "constraints": {
         "maxVelocity": 1.0,
@@ -42,7 +42,25 @@
       }
     }
   ],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "New Event Marker",
+      "waypointRelativePos": 0.0,
+      "command": {
+        "type": "sequential",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "NoteIntake"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 5.0,
     "maxAcceleration": 10.0,

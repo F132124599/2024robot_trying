@@ -116,7 +116,7 @@ public class SwerveSubsystem extends SubsystemBase {
         // SmartDashboard.putNumber("rightFrontDrivePosition", rightFront.getDrivePosition());
         // SmartDashboard.putNumber("rightFrontturningPosition", rightFront.getTurningPosition());
         // SmartDashboard.putNumber("rightFrontVelocity", rightFront.getDriveVelocity());
-        // SmartDashboard.putNumber("rightBackDrivePosition", rightBack.getDrivePosition());
+        SmartDashboard.putNumber("rightBackDrivePosition", rightBack.getDrivePosition());
         // SmartDashboard.putNumber("rightBackturningPosition", rightBack.getTurningPosition());
         // SmartDashboard.putNumber("rightBackVelocity", rightBack.getDriveVelocity());
     }
