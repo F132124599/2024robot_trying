@@ -54,6 +54,21 @@ public final class Constants {
     
   }
 
+  public final class PhotonvisionConstants {
+    public static final double xPid_Kp = 0;
+    public static final double xPid_Ki = 0;
+    public static final double xPid_Kd = 0;
+
+    public static final double yPid_Kp = 0;
+    public static final double yPid_Ki = 0;
+    public static final double yPid_Kd = 0;
+
+    public static final double zPid_Kp = 0;
+    public static final double zPid_Ki = 0;
+    public static final double zPid_Kd = 0;
+    
+  }
+
   public final class LEDConstants {
     public static final int LedNum = 19;
     public static final int candle_ID = 46;

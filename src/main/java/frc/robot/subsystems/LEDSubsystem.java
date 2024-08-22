@@ -21,6 +21,25 @@ public class LEDSubsystem extends SubsystemBase {
   private final int ledNum;
   private Animation ledAnimation;
 
+  public interface InnerLEDSubsystem {
+     boolean LEDFlag = false;
+     boolean hasNote = false;
+     boolean intaking = false;
+     boolean trackingNote = false;
+     boolean hasNoteInSight = false;
+     boolean prepSPEAKER = false;
+     boolean prepAMP = false;
+     boolean speedReadySPEAKER = false;
+     boolean speedReadyAMP = false;
+     boolean aimingAMP = true;
+     boolean aimReadyAMP = false;
+     boolean haveApriltag = true ;
+     boolean playing = false;
+     boolean prepPassNote = false;
+     boolean speedReadyPassNote = false;
+
+  }
+
   public LEDSubsystem() {
     candle = new CANdle(LEDConstants.candle_ID);
 
