@@ -32,10 +32,12 @@ public class AprilTag extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    xSpeedOutPut = m_PhotonVisionSubsystem.getXPidOutPut();
-    ySpeedOutPut = m_PhotonVisionSubsystem.getYPidOutPut();
-    zSpeedOutPut = m_PhotonVisionSubsystem.getZPidOutPut();
-    m_SwerveSubsystem.drive(xSpeedOutPut, ySpeedOutPut, zSpeedOutPut, false);
+    if(m_PhotonVisionSubsystem.hasTarget()) {
+      xSpeedOutPut = m_PhotonVisionSubsystem.getXPidOutPut();
+      ySpeedOutPut = m_PhotonVisionSubsystem.getYPidOutPut();
+      zSpeedOutPut = m_PhotonVisionSubsystem.getZPidOutPut();
+      m_SwerveSubsystem.drive(xSpeedOutPut, ySpeedOutPut, zSpeedOutPut, false);
+    }
   }
 
   // Called once the command ends or is interrupted.
