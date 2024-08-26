@@ -76,12 +76,12 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     result = photonCamera.getLatestResult();
     target = result.getBestTarget();
-    target_ID = target.getFiducialId();
     SmartDashboard.putBoolean("Photon/hasTarget", result.hasTargets());
     if(hasTarget()){
       double botXValue = getTargetPose().getX();
       double botYValue = getTargetPose().getY();
       double botZValue = getTargetPose().getRotation().getAngle();
+      target_ID = target.getFiducialId();
       SmartDashboard.putNumber("Photon/TargetID", getTargetID());
       SmartDashboard.putNumber("Photon/botXValue", botXValue);
       SmartDashboard.putNumber("Photon/botYValue", botYValue);
