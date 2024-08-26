@@ -66,6 +66,24 @@ public final class Constants {
     public static final double zPid_Kp = 0;
     public static final double zPid_Ki = 0;
     public static final double zPid_Kd = 0;
+
+    public static final int blueSpeakerCenterID = 7;
+    public static final int blueSpeakerLeftID = 8;
+    public static final int blueAmpID = 9;
+    public static final int bluesourceRightID = 1;
+    public static final int blueSourceLeftID = 2;
+    public static final int blueTrapLeftID = 15;
+    public static final int blueTrapRightID = 16;
+    public static final int blueTrapCenterID = 14; 
+
+    public static final int redSpeakerCenterID = 4;
+    public static final int redSpeakerRightID = 3;
+    public static final int redAmpID = 5;
+    public static final int redSourceRightID = 9;
+    public static final int redSourceLeftID = 10;
+    public static final int redTrapLeftID = 11;
+    public static final int redTrapRightID = 12;
+    public static final int redTrapCenterID = 13;
     
   }
 
