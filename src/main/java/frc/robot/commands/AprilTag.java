@@ -35,7 +35,7 @@ public class AprilTag extends Command {
     xSpeedOutPut = m_PhotonVisionSubsystem.getXPidOutPut();
     ySpeedOutPut = m_PhotonVisionSubsystem.getYPidOutPut();
     zSpeedOutPut = m_PhotonVisionSubsystem.getZPidOutPut();
-    m_SwerveSubsystem.drive(xSpeedOutPut, ySpeedOutPut, zSpeedOutPut, true);
+    m_SwerveSubsystem.drive(xSpeedOutPut, ySpeedOutPut, zSpeedOutPut, false);
   }
 
   // Called once the command ends or is interrupted.
