@@ -39,7 +39,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 
   
   public PhotonVisionSubsystem() {
-    photonCamera = new PhotonCamera(getName());
+    photonCamera = new PhotonCamera("Logitech,_Inc._Webcam_C270");
 
 
     xPidController = new PIDController(PhotonvisionConstants.xPid_Kp, PhotonvisionConstants.xPid_Ki, PhotonvisionConstants.xPid_Kd);
