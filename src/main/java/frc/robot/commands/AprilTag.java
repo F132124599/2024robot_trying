@@ -42,7 +42,9 @@ public class AprilTag extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_SwerveSubsystem.drive(0, 0, 0, false);
+  }
 
   // Returns true when the command should end.
   @Override
