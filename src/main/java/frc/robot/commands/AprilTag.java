@@ -17,10 +17,10 @@ public class AprilTag extends Command {
   private double ySpeedOutPut;
   private double zSpeedOutPut;
   
-  public AprilTag() {
+  public AprilTag(PhotonVisionSubsystem photonVisionSubsystem, SwerveSubsystem swerveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_PhotonVisionSubsystem = new PhotonVisionSubsystem();
-    m_SwerveSubsystem = new SwerveSubsystem();
+    this.m_PhotonVisionSubsystem = photonVisionSubsystem;
+    this.m_SwerveSubsystem = swerveSubsystem;
 
     addRequirements(m_PhotonVisionSubsystem, m_SwerveSubsystem);
   }
@@ -36,7 +36,7 @@ public class AprilTag extends Command {
       xSpeedOutPut = m_PhotonVisionSubsystem.getXPidOutPut();
       ySpeedOutPut = m_PhotonVisionSubsystem.getYPidOutPut();
       zSpeedOutPut = m_PhotonVisionSubsystem.getZPidOutPut();
-      m_SwerveSubsystem.drive(xSpeedOutPut, ySpeedOutPut, zSpeedOutPut, false);
+      m_SwerveSubsystem.drive(0, 0, zSpeedOutPut, false);
     }
   }
 

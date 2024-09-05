@@ -6,6 +6,7 @@ package frc.robot;
 
 import frc.robot.Constants.RobotContainerConstants;
 import frc.robot.commands.VerticalMovement;
+import frc.robot.commands.AprilTag;
 import frc.robot.commands.IndexerReverse;
 import frc.robot.commands.ManualDrive;
 import frc.robot.commands.NoteIntake;
@@ -24,6 +25,7 @@ import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.LimeLightSubsystem;
+import frc.robot.subsystems.PhotonVisionSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -56,6 +58,7 @@ public class RobotContainer {
   // private final AMPBarSubsystem m_AMPBarSubsystem = new AMPBarSubsystem();
   private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
   private final LEDSubsystem m_LedSubsystem = new LEDSubsystem();
+  private final PhotonVisionSubsystem m_PhotonVisionSubsystem = new PhotonVisionSubsystem();
 
   private final CommandXboxController operatorController = new CommandXboxController(RobotContainerConstants.operatorXboxController_ID);
   private final CommandXboxController driverController = new CommandXboxController(RobotContainerConstants.driverXboxController_ID);
@@ -102,6 +105,7 @@ public class RobotContainer {
 
     // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     driverController.leftBumper().and(operatorController.y()).whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
+    driverController.x().whileTrue(new AprilTag(m_PhotonVisionSubsystem, m_swerveSubsystem));
     driverController.b().whileTrue(
       Commands.runOnce(()-> {
         m_swerveSubsystem.resetGyro();
