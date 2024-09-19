@@ -80,7 +80,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     if(hasTarget()){
       double botXValue = getTargetPose().getX();
       double botYValue = getTargetPose().getY();
-      double botZValue = getTargetPose().getRotation().getAngle();
+      double botZValue = -target.getBestCameraToTarget().getRotation().getAngle();
       target_ID = target.getFiducialId();
       SmartDashboard.putNumber("Photon/TargetID", getTargetID());
       SmartDashboard.putNumber("Photon/botXValue", botXValue);

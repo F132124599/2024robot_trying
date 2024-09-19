@@ -151,7 +151,7 @@ public class SwerveSubsystem extends SubsystemBase {
     public void auto_Drive(ChassisSpeeds speed){
         ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(speed, 0.02);
         SwerveModuleState[] states = SwerveConstants.swervKinematics.toSwerveModuleStates(targetSpeeds);
-        setModuleState(states);
+        setModuleStatesAuto(states);
     }
 
     public SwerveModuleState[] getModuleSates() {
