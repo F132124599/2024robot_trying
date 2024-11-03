@@ -110,9 +110,9 @@ public final class Constants {
     
   }
   public final class IntakeConstants {
-    public static final double intakeArmPID_Kp = 0.0047;
+    public static final double intakeArmPID_Kp = 0.000;
     public static final double intakeArmPID_Ki = 0;
-    public static final double intakeArmPID_Kd = 0.00039;
+    public static final double intakeArmPID_Kd = 0.0000;
 
     public static final double intakeArmFeedforward_Ks1 = 0;
     public static final double intakeArmFeedforward_Kg1 = 0;

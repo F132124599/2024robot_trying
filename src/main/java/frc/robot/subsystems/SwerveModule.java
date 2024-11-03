@@ -108,7 +108,7 @@ public class SwerveModule extends SubsystemBase{
     }
 
     public void setState_Auto(SwerveModuleState state) {
-        SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
+        SwerveModuleState optimizedState = SwerveModuleState.optimize(state, getstate().angle);
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
         turningMotor.set(turningMotorOutput);
         driveMotor.set(optimizedState.speedMetersPerSecond/SwerveConstants.maxDriveMotorSpeed);

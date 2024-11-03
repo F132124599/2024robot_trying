@@ -136,12 +136,12 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void setModuleStatesAuto(SwerveModuleState[] autoDesiredStates){
-    SwerveDriveKinematics.desaturateWheelSpeeds(autoDesiredStates, SwerveConstants.maxDriveMotorSpeed);
-    leftFront.setDesiredState_Auto(autoDesiredStates[0]);
-    rightFront.setDesiredState_Auto(autoDesiredStates[1]);
-    leftBack.setDesiredState_Auto(autoDesiredStates[2]);
-    rightBack.setDesiredState_Auto(autoDesiredStates[3]);
-  }
+        SwerveDriveKinematics.desaturateWheelSpeeds(autoDesiredStates, SwerveConstants.maxDriveMotorSpeed);
+        leftFront.setDesiredState_Auto(autoDesiredStates[0]);
+        rightFront.setDesiredState_Auto(autoDesiredStates[1]);
+        leftBack.setDesiredState_Auto(autoDesiredStates[2]);
+        rightBack.setDesiredState_Auto(autoDesiredStates[3]);
+    }
     // Auto Drive
     public void driveAuto(ChassisSpeeds RobotSpeeds){
         ChassisSpeeds targetSpeeds = ChassisSpeeds.discretize(RobotSpeeds, 0.01);

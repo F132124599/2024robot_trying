@@ -105,7 +105,7 @@ public class RobotContainer {
 
     // driverController.x().whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
     driverController.leftBumper().and(operatorController.y()).whileTrue(new TrackNote_LimeLight(m_swerveSubsystem, m_LimeLightSubsystem, m_indexerSubsystem));
-    //driverController.x().whileTrue(new AprilTag(m_PhotonVisionSubsystem, m_swerveSubsystem));
+    driverController.x().whileTrue(new AprilTag(m_PhotonVisionSubsystem, m_swerveSubsystem));
     driverController.b().whileTrue(
       Commands.runOnce(()-> {
         m_swerveSubsystem.resetGyro();

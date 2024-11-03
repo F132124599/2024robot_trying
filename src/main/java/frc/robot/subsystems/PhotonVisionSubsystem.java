@@ -39,7 +39,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
 
   
   public PhotonVisionSubsystem() {
-    photonCamera = new PhotonCamera("Logitech,_Inc._Webcam_C270");
+    photonCamera = new PhotonCamera("Logitech");
 
 
     xPidController = new PIDController(PhotonvisionConstants.xPid_Kp, PhotonvisionConstants.xPid_Ki, PhotonvisionConstants.xPid_Kd);
@@ -80,7 +80,7 @@ public class PhotonVisionSubsystem extends SubsystemBase {
     if(hasTarget()){
       double botXValue = getTargetPose().getX();
       double botYValue = getTargetPose().getY();
-      double botZValue = -target.getBestCameraToTarget().getRotation().getAngle();
+      double botZValue = -Math.toDegrees(target.getBestCameraToTarget().getRotation().getAngle());
       target_ID = target.getFiducialId();
       SmartDashboard.putNumber("Photon/TargetID", getTargetID());
       SmartDashboard.putNumber("Photon/botXValue", botXValue);
