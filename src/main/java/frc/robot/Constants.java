@@ -110,9 +110,9 @@ public final class Constants {
     
   }
   public final class IntakeConstants {
-    public static final double intakeArmPID_Kp = 0.000;
+    public static final double intakeArmPID_Kp = 0.0047;
     public static final double intakeArmPID_Ki = 0;
-    public static final double intakeArmPID_Kd = 0.0000;
+    public static final double intakeArmPID_Kd = 0.00039;
 
     public static final double intakeArmFeedforward_Ks1 = 0;
     public static final double intakeArmFeedforward_Kg1 = 0;
@@ -217,6 +217,13 @@ public final class Constants {
     public static final double turningPidController_Ki = 0;
     public static final double turningPidController_Kd = 0;
 
+    public static final double drivePidController_Kp = 0;
+    public static final double drivePidController_Ki = 0;
+    public static final double drivePidController_Kd = 0;
+
+    public static final double driveFeedforward_Ks = 0;
+    public static final double driveFeedforward_Kv = 0;
+
     public static final int pidRangeMin = -180;
     public static final int pidRangeMax = 180;
 
@@ -250,7 +257,7 @@ public final class Constants {
     public static final double driveEncoderRPM2MeterPerSec = driveEncoderRot2Meter/60.0;
     public static final double turningEncoderRPM2RadPerSec = turningEncoderRot2Rad/60.0;
 
-    public static final double kModuleDistance = 21*0.0254;
+    public static final double kModuleDistance = 25.5 / Math.pow(2, 0.5);
 
     public static SwerveDriveKinematics swervKinematics = new SwerveDriveKinematics(
       new Translation2d(kModuleDistance/2, kModuleDistance/2),
@@ -269,7 +276,8 @@ public final class Constants {
 
     public static final double maxOutput = 0;
 
-    public static final double maxDriveMotorSpeed = 5;
+    public static final double maxDriveMotorSpeed = 4.6;
+    public static final double maxAngularVelocity = maxDriveMotorSpeed /  kModuleDistance;
     public static final double kDriveBaseRadius = 14.85 * 0.0254;
 
   }

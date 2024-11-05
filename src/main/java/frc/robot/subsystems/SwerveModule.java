@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -28,6 +29,11 @@ public class SwerveModule extends SubsystemBase{
     private final CANcoderConfiguration CANcoderConfig;
 
     private final PIDController turningPidController;
+    private final PIDController drivePIDController;
+
+    private double driveOutPut;
+
+    private final SimpleMotorFeedforward driveFeedforward;
     
     public SwerveModule(int turningMotorID, int driveMotorID, int absolutedEncoderID, double absolutedEncoderOffset, boolean turningMotorInversion, boolean driveMotorInversion) {
         driveMotor = new CANSparkMax(driveMotorID, MotorType.kBrushless);
@@ -44,6 +50,10 @@ public class SwerveModule extends SubsystemBase{
 
         turningPidController = new PIDController(SwerveConstants.turningPidController_Kp, SwerveConstants.turningPidController_Ki, SwerveConstants.turningPidController_Kd);
         turningPidController.enableContinuousInput(SwerveConstants.pidRangeMin, SwerveConstants.pidRangeMax);
+
+        drivePIDController = new PIDController(0.0, 0, 0);
+
+        driveFeedforward = new SimpleMotorFeedforward(0, 0.0000075);
 
         driveMotor.restoreFactoryDefaults();
         turningMotor.restoreFactoryDefaults();
@@ -87,8 +97,11 @@ public class SwerveModule extends SubsystemBase{
     public void setState(SwerveModuleState state) {
         SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
+        double driveFeedforwardOutPut = driveFeedforward.calculate(optimizedState.speedMetersPerSecond / SwerveConstants.driveEncoderRPM2MeterPerSec);
+        double drivePidOutPut = drivePIDController.calculate(getDriveVelocity() / SwerveConstants.driveEncoderRPM2MeterPerSec, optimizedState.speedMetersPerSecond / SwerveConstants.driveEncoderRPM2MeterPerSec);
+        double driveMotorOutput = driveFeedforwardOutPut + drivePidOutPut;
         turningMotor.set(turningMotorOutput);
-        driveMotor.set(optimizedState.speedMetersPerSecond);
+        driveMotor.set(driveMotorOutput);
     }
 
     public void setDesiredState_Auto(SwerveModuleState state){

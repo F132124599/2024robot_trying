@@ -147,12 +147,13 @@ public class IntakeSubsystem extends SubsystemBase {
 
     // SmartDashboard.putNumber("Intake/ArmAbsolutedEncoderPosition", getAbsolutePosition());
     // SmartDashboard.putNumber("Intake/ArmAbsoluteEncoderAngle", getAngle());
-    // SmartDashboard.putNumber("Intake/ArmPidOutPut", pidOutput);
-    // SmartDashboard.putNumber("Intake/ArmFeedForwardOutPut", feedForwardOutPut);
+    SmartDashboard.putNumber("Intake/ArmPidOutPut", pidOutput);
+    SmartDashboard.putNumber("Intake/ArmFeedForwardOutPut", feedForwardOutPut);
     // SmartDashboard.putNumber("Intake/ArmOutPut", outPut);
     SmartDashboard.putBoolean("Intake/ArmIsJam", isJam());
     // SmartDashboard.putNumber("Intake/ArmRelativePosition", getRelativePosition());
     SmartDashboard.putNumber("Intake/WheelMotorTemp", intakeWheel.getDeviceTemp().getValueAsDouble());
+    SmartDashboard.putNumber("Intake/Speed", intakeArm.getEncoder().getVelocity());
 
     intakeArm.set(outPut);
   }
