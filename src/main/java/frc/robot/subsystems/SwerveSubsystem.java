@@ -116,10 +116,12 @@ public class SwerveSubsystem extends SubsystemBase {
         // SmartDashboard.putNumber("leftBackVelocity", leftBack.getDriveVelocity());
         // SmartDashboard.putNumber("rightFrontDrivePosition", rightFront.getDrivePosition());
         // SmartDashboard.putNumber("rightFrontturningPosition", rightFront.getTurningPosition());
-        // SmartDashboard.putNumber("rightFrontVelocity", rightFront.getDriveVelocity());
-        SmartDashboard.putNumber("rightBackDrivePosition", rightBack.getDrivePosition());
+        SmartDashboard.putNumber("Swerve/rightFrontVelocity", rightFront.getDriveVelocity());
+        SmartDashboard.putNumber("Swerve/rightBackDrivePosition", rightBack.getDrivePosition());
+        SmartDashboard.putNumber("Swerve/AngularVelocity", gyro.getAngularVelocityXDevice().getValueAsDouble());
         // SmartDashboard.putNumber("rightBackturningPosition", rightBack.getTurningPosition());
         // SmartDashboard.putNumber("rightBackVelocity", rightBack.getDriveVelocity());
+        SmartDashboard.putNumber("SwerveConstants/KModuleDistance", SwerveConstants.kModuleDistance);
     }
     
     public ChassisSpeeds getSpeeds() {
@@ -130,7 +132,7 @@ public class SwerveSubsystem extends SubsystemBase {
         SwerveModuleState[] states = null;
         xSpeed = xSpeed * SwerveConstants.maxDriveMotorSpeed;
         ySpeed = ySpeed * SwerveConstants.maxDriveMotorSpeed;
-        zSpeed = zSpeed * SwerveConstants.maxAngularVelocity;
+        zSpeed = zSpeed * Math.toRadians(32);
         if(fieldOrient) {
             states = SwerveConstants.swervKinematics.toSwerveModuleStates(ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, zSpeed, gyro.getRotation2d()));
         }else {
@@ -176,7 +178,7 @@ public class SwerveSubsystem extends SubsystemBase {
         };
     }
     public void setModuleState(SwerveModuleState[] desiredState) {
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredState,1);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredState, SwerveConstants.maxDriveMotorSpeed);
         leftFront.setState(desiredState[0]);
         rightFront.setState(desiredState[1]);
         leftBack.setState(desiredState[2]);

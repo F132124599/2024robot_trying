@@ -221,8 +221,8 @@ public final class Constants {
     public static final double drivePidController_Ki = 0;
     public static final double drivePidController_Kd = 0;
 
-    public static final double driveFeedforward_Ks = 0;
-    public static final double driveFeedforward_Kv = 0;
+    public static final double driveFeedforward_Ks = 0.13;
+    public static final double driveFeedforward_Kv = 2.58;
 
     public static final int pidRangeMin = -180;
     public static final int pidRangeMax = 180;
@@ -277,7 +277,7 @@ public final class Constants {
     public static final double maxOutput = 0;
 
     public static final double maxDriveMotorSpeed = 4.6;
-    public static final double maxAngularVelocity = maxDriveMotorSpeed /  kModuleDistance;
+    public static final double maxAngularVelocity = maxDriveMotorSpeed /  Units.inchesToMeters(kModuleDistance);
     public static final double kDriveBaseRadius = 14.85 * 0.0254;
 
   }

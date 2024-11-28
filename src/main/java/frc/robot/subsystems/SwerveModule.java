@@ -31,7 +31,9 @@ public class SwerveModule extends SubsystemBase{
     private final PIDController turningPidController;
     private final PIDController drivePIDController;
 
-    private double driveOutPut;
+    private double driveFeedforwardOutPut;
+    private double drivePidOutput;
+    private double driveOutput;
 
     private final SimpleMotorFeedforward driveFeedforward;
     
@@ -51,9 +53,8 @@ public class SwerveModule extends SubsystemBase{
         turningPidController = new PIDController(SwerveConstants.turningPidController_Kp, SwerveConstants.turningPidController_Ki, SwerveConstants.turningPidController_Kd);
         turningPidController.enableContinuousInput(SwerveConstants.pidRangeMin, SwerveConstants.pidRangeMax);
 
-        drivePIDController = new PIDController(0.0, 0, 0);
-
-        driveFeedforward = new SimpleMotorFeedforward(0, 0.0000075);
+        drivePIDController = new PIDController(SwerveConstants.drivePidController_Kp, SwerveConstants.drivePidController_Ki, SwerveConstants.drivePidController_Kd);
+        driveFeedforward = new SimpleMotorFeedforward(SwerveConstants.driveFeedforward_Ks, SwerveConstants.driveFeedforward_Kv);
 
         driveMotor.restoreFactoryDefaults();
         turningMotor.restoreFactoryDefaults();
@@ -95,12 +96,17 @@ public class SwerveModule extends SubsystemBase{
     }
 
     public void setState(SwerveModuleState state) {
+        // Turn Motor
         SwerveModuleState optimizedState = SwerveModuleState.optimize(state,getstate().angle);
         double turningMotorOutput = turningPidController.calculate(getstate().angle.getDegrees(), optimizedState.angle.getDegrees());
-        double driveFeedforwardOutPut = driveFeedforward.calculate(optimizedState.speedMetersPerSecond / SwerveConstants.driveEncoderRPM2MeterPerSec);
-        double drivePidOutPut = drivePIDController.calculate(getDriveVelocity() / SwerveConstants.driveEncoderRPM2MeterPerSec, optimizedState.speedMetersPerSecond / SwerveConstants.driveEncoderRPM2MeterPerSec);
-        double driveMotorOutput = driveFeedforwardOutPut + drivePidOutPut;
         turningMotor.set(turningMotorOutput);
+        // Drive motor
+        double driveFeedforwardOutPut = driveFeedforward.calculate(optimizedState.speedMetersPerSecond)/12;
+        double drivePidOutput = drivePIDController.calculate(getDriveVelocity() / SwerveConstants.driveEncoderRPM2MeterPerSec, optimizedState.speedMetersPerSecond / SwerveConstants.driveEncoderRPM2MeterPerSec);
+        double driveMotorOutput = driveFeedforwardOutPut + drivePidOutput;
+        this.driveFeedforwardOutPut = driveFeedforwardOutPut;
+        this.drivePidOutput = drivePidOutput;
+        this.driveOutput = driveMotorOutput;
         driveMotor.set(driveMotorOutput);
     }
 
@@ -130,6 +136,10 @@ public class SwerveModule extends SubsystemBase{
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        SmartDashboard.putNumber("SwerveModule/DriveFeedforwordOutPut", driveFeedforwardOutPut);
+        SmartDashboard.putNumber("SwerveModule/drivePidOutput", drivePidOutput);
+        SmartDashboard.putNumber("SwerveModule/driveOutput", driveOutput);
+        // Read motor output
     }
     
 }
